@@ -1,0 +1,21 @@
+﻿Build started 8/30/2016 12:16:08 PM.
+     1>Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\Snake.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\diana.predoiu\Desktop\Snake\Snake\include /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"Snake.dir\Debug\\" /Fd"Snake.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Main.cpp
+         Main.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\Debug\Snake.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:/Users/diana.predoiu/Desktop/Snake/Snake/lib /LIBPATH:C:/Users/diana.predoiu/Desktop/Snake/Snake/lib/Debug kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/bin/Debug/Snake.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/lib/Debug/Snake.lib" /MACHINE:X86 /SAFESEH  /machine:X86 Snake.dir\Debug\Item.obj
+         Snake.dir\Debug\Food.obj
+         Snake.dir\Debug\Bonus.obj
+         Snake.dir\Debug\Surprise.obj
+         Snake.dir\Debug\GameMap.obj
+         Snake.dir\Debug\Player.obj
+         Snake.dir\Debug\Position.obj
+         Snake.dir\Debug\Snake.obj
+         Snake.dir\Debug\Main.obj
+         Snake.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\Debug\Snake.exe
+     1>Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\Snake.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.36

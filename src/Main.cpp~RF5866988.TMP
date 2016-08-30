@@ -1,0 +1,167 @@
+#include <conio.h>
+#include <iostream>
+#include <Windows.h>
+#include "GameMap.h"
+
+int main()
+{
+	GameMap game(10, 10);
+	game.initializeGrid();
+	std::cout << game;
+
+	while (true)
+	{
+		HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+		DWORD NumInputs = 0;
+		DWORD InputsRead = 0;
+
+		INPUT_RECORD irInput;
+
+		GetNumberOfConsoleInputEvents(hInput, &NumInputs);
+
+		if (NumInputs != 0)
+		{
+			ReadConsoleInput(hInput, &irInput, 1, &InputsRead);
+
+			switch (irInput.Event.KeyEvent.wVirtualKeyCode)
+			{
+			case VK_LEFT:
+				//std::cout << "Left" << std::endl;  // key left
+				//----mai trebuie adaugate conditii----
+				
+				if (game.getSnake().getSnakePosition().at(0)->getX() != 0)
+				{
+
+					for (int i = game.getSnake().getSnakePosition().size() - 1; i > 0; i--)
+					{
+						game.getSnake().getSnakePosition().at(i)->setX(game.getSnake().getSnakePosition().at(i - 1)->getX());
+						game.getSnake().getSnakePosition().at(i)->setY(game.getSnake().getSnakePosition().at(i - 1)->getY());
+					}
+					game.getSnake().getSnakePosition().at(0)->setX(game.getSnake().getSnakePosition().at(0)->getX() - 1);
+
+					system("cls");
+					game.initializeGrid();
+					std::cout << game;
+					std::cout << "LEFT" << std::endl;
+					if (game.getSnake().getSnakePosition().at(0)->getX() < 0)
+						std::cout << "GAME OVER!" << std::endl;
+				}
+				else
+					std::cout << "GAME OVER!" << std::endl;
+				break;
+
+			case VK_UP:
+				//std::cout << "Up" << std::endl;//key up
+				//----mai trebuie adaugate conditii----
+				if (game.getSnake().getSnakePosition().at(0)->getY() != 0 )
+				{
+					//tail
+					game.getSnake().getSnakePosition().at(game.getSnake().getSnakePosition().size() - 1)->setY(game.getSnake().getSnakePosition().at(game.getSnake().getSnakePosition().size() - 2)->getY());
+					game.getSnake().getSnakePosition().at(game.getSnake().getSnakePosition().size() - 1)->setX(game.getSnake().getSnakePosition().at(game.getSnake().getSnakePosition().size() - 2)->getX());
+
+					//body
+					for (int i = game.getSnake().getSnakePosition().size() - 1; i > 0; i--)
+					{
+						game.getSnake().getSnakePosition().at(i)->setX(game.getSnake().getSnakePosition().at(i - 1)->getX());
+						game.getSnake().getSnakePosition().at(i)->setY(game.getSnake().getSnakePosition().at(i - 1)->getY());
+					}
+
+					//head
+					game.getSnake().getSnakePosition().at(0)->setY(game.getSnake().getSnakePosition().at(0)->getY() - 1);
+
+
+
+					system("cls");
+					game.initializeGrid();
+					std::cout << game;
+					if (game.getSnake().getSnakePosition().at(0)->getY() < 0)
+						std::cout << "GAME OVER!" << std::endl;
+				}
+				else
+					std::cout << "GAME OVER!" << std::endl;
+				break;
+
+			case VK_RIGHT:
+				//std::cout << "Right" << std::endl;  // key right
+				//----mai trebuie adaugate conditii----
+				//gen daca head-ul e in stanga nu ar trebui sa faca dreapta dar face :))
+				if (game.getSnake().getSnakePosition().at(0)->getX() != game.getWidth() - 1)
+				{
+
+					for (int i = game.getSnake().getSnakePosition().size() - 1; i > 0; i--)
+					{
+						game.getSnake().getSnakePosition().at(i)->setX(game.getSnake().getSnakePosition().at(i - 1)->getX());
+						game.getSnake().getSnakePosition().at(i)->setY(game.getSnake().getSnakePosition().at(i - 1)->getY());
+					}
+					game.getSnake().getSnakePosition().at(0)->setX(game.getSnake().getSnakePosition().at(0)->getX() + 1);
+
+					system("cls");
+					game.initializeGrid();
+					std::cout << game;
+					if (game.getSnake().getSnakePosition().at(0)->getX() == game.getWidth())
+						std::cout << "GAME OVER!" << std::endl;
+				}
+				else
+					std::cout << "GAME OVER!" << std::endl;
+				break;
+
+			case VK_DOWN:
+				//std::cout << "Down" << std::endl;   // key down
+				//----mai trebuie adaugate conditii----
+				if (game.getSnake().getSnakePosition().at(0)->getY() != game.getHeight() - 1)
+				{
+
+					for (int i = game.getSnake().getSnakePosition().size() - 1; i > 0; i--)
+					{
+						game.getSnake().getSnakePosition().at(i)->setX(game.getSnake().getSnakePosition().at(i - 1)->getX());
+						game.getSnake().getSnakePosition().at(i)->setY(game.getSnake().getSnakePosition().at(i - 1)->getY());
+					}
+					game.getSnake().getSnakePosition().at(0)->setY(game.getSnake().getSnakePosition().at(0)->getY() + 1);
+
+					system("cls");
+					game.initializeGrid();
+					std::cout << game;
+					if (game.getSnake().getSnakePosition().at(0)->getY() == game.getHeight())
+						std::cout << "GAME OVER!" << std::endl;
+				}
+				else
+					std::cout << "GAME OVER!" << std::endl;
+				break;
+			}
+		}
+		else
+		{
+			//if (game.getSnake().getSnakePosition().at(0)->getY() != 0 )
+			//{
+			//	//tail
+			//	game.getSnake().getSnakePosition().at(game.getSnake().getSnakePosition().size() - 1)->setY(game.getSnake().getSnakePosition().at(game.getSnake().getSnakePosition().size() - 2)->getY());
+			//	game.getSnake().getSnakePosition().at(game.getSnake().getSnakePosition().size() - 1)->setX(game.getSnake().getSnakePosition().at(game.getSnake().getSnakePosition().size() - 2)->getX());
+
+			//	//body
+			//	for (int i = game.getSnake().getSnakePosition().size() - 1; i > 0; i--)
+			//	{
+			//		game.getSnake().getSnakePosition().at(i)->setX(game.getSnake().getSnakePosition().at(i - 1)->getX());
+			//		game.getSnake().getSnakePosition().at(i)->setY(game.getSnake().getSnakePosition().at(i - 1)->getY());
+			//	}
+
+			//	//head
+			//	game.getSnake().getSnakePosition().at(0)->setY(game.getSnake().getSnakePosition().at(0)->getY() + 1);
+
+
+
+			//	system("cls");
+			//	game.initializeGrid();
+			//	std::cout << game;
+			//	if (game.getSnake().getSnakePosition().at(0)->getY() < 0)
+			//		std::cout << "GAME OVER!" << std::endl;
+			//}
+			//else
+			//	std::cout << "GAME OVER!" << std::endl;
+		}
+
+
+
+	}
+
+	return 0;
+}
