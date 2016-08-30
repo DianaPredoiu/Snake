@@ -125,6 +125,7 @@ void down(GameMap &game)
 
 int main()
 {
+	std::cout << "test";
 	GameMap game(10, 10);
 	game.initializeGrid();
 	std::cout << game;
