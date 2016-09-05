@@ -4,6 +4,7 @@
 enum Effects
 {
 	NoEffect,
+	BonusEffect,
 	HalveBody,
 	SubstractPoints
 };
@@ -16,7 +17,7 @@ private:
 
 public:
 	Surprise();
-	Surprise(int points, char symbol, int time, Effects effect);
+	Surprise(int points, char symbol, int time, Effects effect, Position coordinates);
 
 	int getPoints();
 	void setPoints(int points);
@@ -29,6 +30,12 @@ public:
 
 	Effects getEffect();
 	void setEffect(Effects effect);
+
+	Position getCoordinates();
+	void setCoordinates(Position coordinates);
+
+	bool getState();
+	void setState(bool state);
 
 	~Surprise();
 };

@@ -2,133 +2,35 @@
 #include <iostream>
 #include <Windows.h>
 #include "GameMap.h"
+#include "Rules.h"
 #include "catch.hpp"
 
-//move these into rules class
-void left(GameMap &game)
+void displayDetails(GameMap &game, std::vector<Position*> pos)
 {
-	//std::cout << "Left" << std::endl;  // key left
-	//----mai trebuie adaugate conditii----
-
-	if (game.getSnake().getCoordinates().at(0)->getX() != 0)
+	Sleep(300);
+	system("cls");
+	game.initializeGrid(pos);
+	std::cout << game;
+	std::cout << std::endl << std::endl << "---Score: " << game.getScore() << "  ---" << std::endl << std::endl;
+	if (game.getBonus().getState() == true)
+		std::cout << "---Bonus Time: " << game.getBonus().getTime() << "  ---" << std::endl << std::endl;
+	if (game.getSurprise().getState() == true)
 	{
-		if ((game.getSnake().getCoordinates().at(0)->getX() - 1) != game.getSnake().getCoordinates().at(1)->getX())
-		{
-			for (int i = game.getSnake().getCoordinates().size() - 1; i > 0; i--)
-			{
-				game.getSnake().getCoordinates().at(i)->setX(game.getSnake().getCoordinates().at(i - 1)->getX());
-				game.getSnake().getCoordinates().at(i)->setY(game.getSnake().getCoordinates().at(i - 1)->getY());
-			}
-			game.getSnake().getCoordinates().at(0)->setX(game.getSnake().getCoordinates().at(0)->getX() - 1);
-
-			system("cls");
-			game.initializeGrid();
-			std::cout << game;
-			if (game.getSnake().getCoordinates().at(0)->getX() < 0)
-				std::cout << "GAME OVER!" << std::endl;
-		}
+		std::cout << "---Surprise Time: " << game.getSurprise().getTime() << "  ---" << std::endl << std::endl;
+		std::cout << std::endl << "-----Effect: " << game.getSurprise().getEffect() << " -----";
 	}
-	else
-		std::cout << "GAME OVER!" << std::endl;
 }
 
-void up(GameMap &game)
-{
-	//std::cout << "Up" << std::endl;//key up
-	//----mai trebuie adaugate conditii----
-	if (game.getSnake().getCoordinates().at(0)->getY() != 0 )
-	{
-		if ((game.getSnake().getCoordinates().at(0)->getY() - 1) != game.getSnake().getCoordinates().at(1)->getY())
-		{
-			//tail
-			game.getSnake().getCoordinates().at(game.getSnake().getCoordinates().size() - 1)->setY(game.getSnake().getCoordinates().at(game.getSnake().getCoordinates().size() - 2)->getY());
-			game.getSnake().getCoordinates().at(game.getSnake().getCoordinates().size() - 1)->setX(game.getSnake().getCoordinates().at(game.getSnake().getCoordinates().size() - 2)->getX());
-
-			//body
-			for (int i = game.getSnake().getCoordinates().size() - 1; i > 0; i--)
-			{
-				game.getSnake().getCoordinates().at(i)->setX(game.getSnake().getCoordinates().at(i - 1)->getX());
-				game.getSnake().getCoordinates().at(i)->setY(game.getSnake().getCoordinates().at(i - 1)->getY());
-			}
-
-			//head
-			game.getSnake().getCoordinates().at(0)->setY(game.getSnake().getCoordinates().at(0)->getY() - 1);
-
-			system("cls");
-			game.initializeGrid();
-			std::cout << game;
-			if (game.getSnake().getCoordinates().at(0)->getY() < 0)
-				std::cout << "GAME OVER!" << std::endl;
-		}
-		
-	}
-	else
-		std::cout << "GAME OVER!" << std::endl;
-}
-
-void right(GameMap &game)
-{
-	//std::cout << "Right" << std::endl;  // key right
-	//----mai trebuie adaugate conditii----
-	//gen daca head-ul e in stanga nu ar trebui sa faca dreapta dar face :))
-	if (game.getSnake().getCoordinates().at(0)->getX() != game.getWidth() - 1)
-	{
-		if ((game.getSnake().getCoordinates().at(0)->getX() + 1) != game.getSnake().getCoordinates().at(1)->getX())
-		{
-			for (int i = game.getSnake().getCoordinates().size() - 1; i > 0; i--)
-			{
-				game.getSnake().getCoordinates().at(i)->setX(game.getSnake().getCoordinates().at(i - 1)->getX());
-				game.getSnake().getCoordinates().at(i)->setY(game.getSnake().getCoordinates().at(i - 1)->getY());
-			}
-
-			game.getSnake().getCoordinates().at(0)->setX(game.getSnake().getCoordinates().at(0)->getX() + 1);
-
-			system("cls");
-			game.initializeGrid();
-			std::cout << game;
-			if (game.getSnake().getCoordinates().at(0)->getX() == game.getWidth())
-				std::cout << "GAME OVER!" << std::endl;
-		}
-		
-	}
-	else
-		std::cout << "GAME OVER!" << std::endl;
-}
-
-void down(GameMap &game)
-{
-	//std::cout << "Down" << std::endl;   // key down
-	//----mai trebuie adaugate conditii----
-	if (game.getSnake().getCoordinates().at(0)->getY() != game.getHeight() - 1)
-	{
-		if ( (game.getSnake().getCoordinates().at(0)->getY() + 1 ) != game.getSnake().getCoordinates().at(1)->getY() )
-		{
-			for (int i = game.getSnake().getCoordinates().size() - 1; i > 0; i--)
-			{
-				game.getSnake().getCoordinates().at(i)->setX(game.getSnake().getCoordinates().at(i - 1)->getX());
-				game.getSnake().getCoordinates().at(i)->setY(game.getSnake().getCoordinates().at(i - 1)->getY());
-			}
-
-			game.getSnake().getCoordinates().at(0)->setY(game.getSnake().getCoordinates().at(0)->getY() + 1);
-
-			system("cls");
-			game.initializeGrid();
-			std::cout << game;
-			if (game.getSnake().getCoordinates().at(0)->getY() == game.getHeight())
-				std::cout << "GAME OVER!" << std::endl;
-		}
-		
-	}
-	else
-		std::cout << "GAME OVER!" << std::endl;
-}
-
-int main()
+void main()
 {
 	std::cout << "test";
 	GameMap game(10, 10);
-	game.initializeGrid();
+	Rules rules(&game);
+	
 	std::cout << game;
+	std::vector<Position*> positions = game.initializeGrid(game.getSnake().getCoordinates());
+
+	game.setScore(0);
 
 	HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);// handle for the event
 	DWORD NumInputs = 0;//number of inputs
@@ -148,67 +50,102 @@ int main()
 				switch (irInput.Event.KeyEvent.wVirtualKeyCode)
 				{
 				case VK_LEFT:
-					left(game);
+					rules.leftMove();
+					displayDetails(game, positions);
+					if (game.getSnake().getCoordinates().at(0)->getX() < 0)
+						std::cout << "GAME OVER!" << std::endl;
 					break;
 
 				case VK_UP:
-					up(game);
+					rules.upMove();
+					displayDetails(game, positions);
+					if (game.getSnake().getCoordinates().at(0)->getY() < 0)
+						std::cout << "GAME OVER!" << std::endl;
 					break;
 
 				case VK_RIGHT:
-					right(game);
-
+					rules.rightMove();
+					displayDetails(game, positions);
+					if (game.getSnake().getCoordinates().at(0)->getX() > game.getWidth()-1)
+						std::cout << "GAME OVER!" << std::endl;
 					break;
 
 				case VK_DOWN:
-					down(game);
+					rules.downMove();
+					displayDetails(game, positions);
+					if (game.getSnake().getCoordinates().at(0)->getY() > game.getHeight()-1 )
+						std::cout << "GAME OVER!" << std::endl;
 					break;
 				}
 			}
-			
+
 		}
 		else
 		{
-			if (game.getSnake().getCoordinates().at(0)->getY() != 0 )
-			{
+			if (game.getSnake().getCoordinates().at(0)->getY() >= 0)
+			{//functions in rules!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				//if the body is left to the head => snake moves to right
 				if (game.getSnake().getCoordinates().at(1)->getX() == (game.getSnake().getCoordinates().at(0)->getX() - 1))
 				{
-					right(game);
+					//rules.rightMove();
+					if (rules.rightMove() == true)
+					{
+						std::cout << std::endl << "GAME OVER!" << std::endl;
+						break;
+					}
 				}
 
 				//if the body is right to the head => snake moves to the left
 				if (game.getSnake().getCoordinates().at(1)->getX() == (game.getSnake().getCoordinates().at(0)->getX() + 1))
 				{
-					left(game);
+					//rules.leftMove();
+					if (rules.leftMove() == true)
+					{
+						std::cout << std::endl << "GAME OVER!" << std::endl;
+						break;
+					}
 				}
 
 				//if the body is up to the head => snake moves down
 				if (game.getSnake().getCoordinates().at(1)->getY() == (game.getSnake().getCoordinates().at(0)->getY() - 1))
 				{
-					down(game);
+					//rules.downMove();
+					if (rules.downMove() == true)
+					{
+						std::cout << std::endl << "GAME OVER!" << std::endl;
+						break;
+					}
 				}
 
 				//if the body is down to the head => snake moves up
 				if (game.getSnake().getCoordinates().at(1)->getY() == (game.getSnake().getCoordinates().at(0)->getY() + 1))
 				{
-					up(game);
+					//rules.upMove();
+					if (rules.upMove() == true)
+					{
+						std::cout << std::endl << "GAME OVER!" << std::endl;
+						break;
+					}
 				}
 
-				system("cls");
-				Sleep(50);
-				game.initializeGrid();
-				std::cout << game;
+				
+				displayDetails(game, positions);
 				if (game.getSnake().getCoordinates().at(0)->getY() < 0)
-					std::cout << "GAME OVER!" << std::endl;
+				{
+					std::cout << std::endl << "GAME OVER!" << std::endl;
+					break;
+				}
 			}
 			else
-				std::cout << "GAME OVER!" << std::endl;
+			{
+				std::cout << std::endl << "GAME OVER!" << std::endl;
+				break;
+			}
 		}
 
 
-
+		
 	}
 
-	return 0;
+
 }

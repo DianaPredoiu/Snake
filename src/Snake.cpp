@@ -1,23 +1,23 @@
 #include "Snake.h"
 
-Snake::Snake() 
+Snake::Snake()
 {
 	this->coordinates.push_back(new Position(3, 1)); //head position
-	this->coordinates.push_back(new Position(2,1)); //body position
-	this->coordinates.push_back(new Position(1,1)); //tail position
-	this->headSymbol = 'H';
-	this->bodySymbol = 'B';
-	this->tailSymbol = 'T';
+	this->coordinates.push_back(new Position(2, 1)); //body position
+	this->coordinates.push_back(new Position(1, 1)); //tail position
+	this->headSymbol = '*';
+	this->bodySymbol = '*';
+	this->tailSymbol = '*';
 }
 
 Snake::Snake(int i, int j)
 {
 	this->coordinates.push_back(new Position(j, i)); //head position
-	this->coordinates.push_back(new Position(j-1, i)); //body position
-	this->coordinates.push_back(new Position(j-2, i)); //tail position
-	this->headSymbol = 'H';
-	this->bodySymbol = 'B';
-	this->tailSymbol = 'T';
+	this->coordinates.push_back(new Position(j - 1, i)); //body position
+	this->coordinates.push_back(new Position(j - 2, i)); //tail position
+	this->headSymbol = '*';
+	this->bodySymbol = '*';
+	this->tailSymbol = '*';
 }
 
 std::vector<Position*> Snake::getCoordinates() const
@@ -25,6 +25,10 @@ std::vector<Position*> Snake::getCoordinates() const
 	return this->coordinates;
 }
 
+void Snake::setCoordinates(std::vector<Position*>  coordinates)
+{
+	this->coordinates = coordinates;
+}
 
 char Snake::getHeadSymbol()
 {

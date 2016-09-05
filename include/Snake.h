@@ -5,7 +5,7 @@
 class Snake
 {
 private:
-	std::vector<Position*> coordinates; 
+	std::vector<Position*> coordinates;
 	//Position headPosition;
 	//Position tailPosition;
 	char headSymbol;
@@ -15,6 +15,7 @@ public:
 	Snake();
 	Snake(int i, int j);
 	std::vector<Position*> getCoordinates() const;
+	void setCoordinates(std::vector<Position*>  coordinates);
 	char getHeadSymbol();
 	char getBodySymbol();
 	char getTailSymbol();

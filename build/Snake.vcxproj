@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -56,33 +56,33 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-    <PropertyGroup>
-      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\Debug\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Snake.dir\Debug\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Snake</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\Release\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Snake.dir\Release\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Snake</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\MinSizeRel\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Snake.dir\MinSizeRel\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Snake</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\RelWithDebInfo\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Snake.dir\RelWithDebInfo\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Snake</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
-    </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Snake.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Snake</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Snake.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Snake</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Snake.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Snake</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\diana.predoiu\Desktop\Snake\Snake\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Snake.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Snake</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\diana.predoiu\Desktop\Snake\Snake\include;C:\Users\diana.predoiu\Desktop\Snake\Snake\utility\include\catch;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -121,7 +121,8 @@
       <ImportLibrary>C:/Users/diana.predoiu/Desktop/Snake/Snake/lib/Debug/Snake.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/diana.predoiu/Desktop/Snake/Snake/bin/Debug/Snake.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -141,7 +142,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -164,7 +166,8 @@
       <ImportLibrary>C:/Users/diana.predoiu/Desktop/Snake/Snake/lib/Release/Snake.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/diana.predoiu/Desktop/Snake/Snake/bin/Release/Snake.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -184,7 +187,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -207,7 +211,8 @@
       <ImportLibrary>C:/Users/diana.predoiu/Desktop/Snake/Snake/lib/MinSizeRel/Snake.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/diana.predoiu/Desktop/Snake/Snake/bin/MinSizeRel/Snake.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -250,7 +255,8 @@
       <ImportLibrary>C:/Users/diana.predoiu/Desktop/Snake/Snake/lib/RelWithDebInfo/Snake.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/diana.predoiu/Desktop/Snake/Snake/bin/RelWithDebInfo/Snake.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -313,6 +319,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Rules.h" />
     <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Item.h" />
     <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Food.h" />
     <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Bonus.h" />
@@ -321,15 +328,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Player.h" />
     <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Position.h" />
     <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Snake.h" />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Item.cpp"  />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Food.cpp"  />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Bonus.cpp"  />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Surprise.cpp"  />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\GameMap.cpp"  />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Player.cpp"  />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Position.cpp"  />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Snake.cpp"  />
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Main.cpp"  />
+    <ClCompile Include="..\src\Rules.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Item.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Food.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Bonus.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Surprise.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\GameMap.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Player.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Position.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Snake.cpp" />
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/diana.predoiu/Desktop/Snake/Snake/build/ZERO_CHECK.vcxproj">
