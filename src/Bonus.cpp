@@ -1,0 +1,76 @@
+#include "Bonus.h"
+#include <random>
+
+Bonus::Bonus()
+{
+	this->points = 15 + (std::rand() % 16);//make it random between 15-30 p
+	this->symbol = '$';
+	this->time = 10 + (std::rand() % 19);//seconds must be random too between 7-15
+	this->coordinates.setX(1);
+	this->coordinates.setY(1);
+	this->state = false;
+}
+
+Bonus::Bonus(int points, char symbol, int time, Position coordinates)
+{
+	this->points = points;
+	this->symbol = symbol;
+	this->time = time;
+	this->coordinates = coordinates;
+	this->state = false;
+}
+
+int Bonus::getPoints()
+{
+	return points;
+}
+
+void Bonus::setPoints(int points)
+{
+	this->points = points;
+}
+
+char Bonus::getSymbol()
+{
+	return symbol;
+}
+
+void Bonus::setSymbol(char symbol)
+{
+	this->symbol = symbol;
+}
+
+int Bonus::getTime()
+{
+	return time;
+}
+
+void Bonus::setTime(int time)
+{
+	this->time = time;
+}
+
+Position Bonus::getCoordinates()
+{
+	return coordinates;
+}
+
+void Bonus::setCoordinates(Position coordinates)
+{
+	this->coordinates = coordinates;
+}
+
+bool Bonus::getState()
+{
+	return state;
+}
+
+void Bonus::setState(bool state)
+{
+	this->state = state;
+}
+
+Bonus::~Bonus()
+{
+
+}
