@@ -16,6 +16,7 @@ set(HEADERS
 	include/Player.h	
 	include/Position.h
 	include/Snake.h
+	include/Rules.h
   )
   
 set(SOURCES
@@ -28,6 +29,7 @@ set(SOURCES
 	src/Position.cpp
 	src/Snake.cpp
 	src/Main.cpp
+	src/Rules.cpp
 	)
 include_directories(
 	include
