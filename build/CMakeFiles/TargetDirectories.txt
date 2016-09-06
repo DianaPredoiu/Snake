@@ -1,3 +1,3 @@
-C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/Snake.dir
-C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/Snake.dir
+C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/ZERO_CHECK.dir

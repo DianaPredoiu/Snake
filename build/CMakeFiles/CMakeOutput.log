@@ -10,8 +10,8 @@ Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.42000]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 8/30/2016 9:16:32 AM.
-Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\3.5.2\CompilerIdC\CompilerIdC.vcxproj" on node 1 (default targets).
+Build started 9/6/2016 1:32:59 PM.
+Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\3.5.2\CompilerIdC\CompilerIdC.vcxproj" on node 1 (default targets).
 PrepareForBuild:
   Creating directory "Debug\".
   Creating directory "Debug\CompilerIdC.tlog\".
@@ -22,7 +22,7 @@ ClCompile:
   CMakeCCompilerId.c
 Link:
   C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X86 /SAFESEH Debug\CMakeCCompilerId.obj
-  CompilerIdC.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\3.5.2\CompilerIdC\.\CompilerIdC.exe
+  CompilerIdC.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\3.5.2\CompilerIdC\.\CompilerIdC.exe
 PostBuildEvent:
   for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
   :VCEnd
@@ -30,20 +30,20 @@ PostBuildEvent:
 FinalizeBuildStatus:
   Deleting file "Debug\CompilerIdC.tlog\unsuccessfulbuild".
   Touching "Debug\CompilerIdC.tlog\CompilerIdC.lastbuildstate".
-Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\3.5.2\CompilerIdC\CompilerIdC.vcxproj" (default targets).
+Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\3.5.2\CompilerIdC\CompilerIdC.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.48
+Time Elapsed 00:00:02.38
 
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
 
-The C compiler identification is MSVC, found in "C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/3.5.2/CompilerIdC/CompilerIdC.exe"
+The C compiler identification is MSVC, found in "C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/3.5.2/CompilerIdC/CompilerIdC.exe"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler:  
@@ -56,8 +56,8 @@ Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.42000]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 8/30/2016 9:16:33 AM.
-Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\3.5.2\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
+Build started 9/6/2016 1:33:02 PM.
+Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\3.5.2\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
 PrepareForBuild:
   Creating directory "Debug\".
   Creating directory "Debug\CompilerIdCXX.tlog\".
@@ -68,7 +68,7 @@ ClCompile:
   CMakeCXXCompilerId.cpp
 Link:
   C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCXX.lib" /MACHINE:X86 /SAFESEH Debug\CMakeCXXCompilerId.obj
-  CompilerIdCXX.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\3.5.2\CompilerIdCXX\.\CompilerIdCXX.exe
+  CompilerIdCXX.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\3.5.2\CompilerIdCXX\.\CompilerIdCXX.exe
 PostBuildEvent:
   for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
   :VCEnd
@@ -76,210 +76,210 @@ PostBuildEvent:
 FinalizeBuildStatus:
   Deleting file "Debug\CompilerIdCXX.tlog\unsuccessfulbuild".
   Touching "Debug\CompilerIdCXX.tlog\CompilerIdCXX.lastbuildstate".
-Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\3.5.2\CompilerIdCXX\CompilerIdCXX.vcxproj" (default targets).
+Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\3.5.2\CompilerIdCXX\CompilerIdCXX.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.68
+Time Elapsed 00:00:01.11
 
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
 
-The CXX compiler identification is MSVC, found in "C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/3.5.2/CompilerIdCXX/CompilerIdCXX.exe"
+The CXX compiler identification is MSVC, found in "C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/3.5.2/CompilerIdCXX/CompilerIdCXX.exe"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_5a5df.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_f8726.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.42000]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 8/30/2016 9:16:34 AM.
-Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_5a5df.vcxproj" on node 1 (default targets).
+Build started 9/6/2016 1:33:04 PM.
+Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_f8726.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTC_5a5df.dir\Debug\".
-  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTC_5a5df.dir\Debug\cmTC_5a5df.tlog\".
+  Creating directory "cmTC_f8726.dir\Debug\".
+  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTC_f8726.dir\Debug\cmTC_f8726.tlog\".
 InitializeBuildStatus:
-  Creating "cmTC_5a5df.dir\Debug\cmTC_5a5df.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTC_f8726.dir\Debug\cmTC_f8726.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_5a5df.dir\Debug\\" /Fd"cmTC_5a5df.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\testCCompiler.c
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_f8726.dir\Debug\\" /Fd"cmTC_f8726.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\testCCompiler.c
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_5a5df.dir\Debug\\" /Fd"cmTC_5a5df.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\testCCompiler.c
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_f8726.dir\Debug\\" /Fd"cmTC_f8726.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\testCCompiler.c
   
   testCCompiler.c
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_5a5df.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_5a5df.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_5a5df.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_5a5df.dir\Debug\testCCompiler.obj
-  cmTC_5a5df.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_5a5df.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_f8726.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_f8726.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_f8726.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_f8726.dir\Debug\testCCompiler.obj
+  cmTC_f8726.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_f8726.exe
 FinalizeBuildStatus:
-  Deleting file "cmTC_5a5df.dir\Debug\cmTC_5a5df.tlog\unsuccessfulbuild".
-  Touching "cmTC_5a5df.dir\Debug\cmTC_5a5df.tlog\cmTC_5a5df.lastbuildstate".
-Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_5a5df.vcxproj" (default targets).
+  Deleting file "cmTC_f8726.dir\Debug\cmTC_f8726.tlog\unsuccessfulbuild".
+  Touching "cmTC_f8726.dir\Debug\cmTC_f8726.tlog\cmTC_f8726.lastbuildstate".
+Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_f8726.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.92
+Time Elapsed 00:00:01.43
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_95076.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_90923.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.42000]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 8/30/2016 9:16:36 AM.
-Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_95076.vcxproj" on node 1 (default targets).
+Build started 9/6/2016 1:33:05 PM.
+Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_90923.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTC_95076.dir\Debug\".
-  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTC_95076.dir\Debug\cmTC_95076.tlog\".
+  Creating directory "cmTC_90923.dir\Debug\".
+  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTC_90923.dir\Debug\cmTC_90923.tlog\".
 InitializeBuildStatus:
-  Creating "cmTC_95076.dir\Debug\cmTC_95076.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTC_90923.dir\Debug\cmTC_90923.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_95076.dir\Debug\\" /Fd"cmTC_95076.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.5\Modules\CMakeCCompilerABI.c"
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_90923.dir\Debug\\" /Fd"cmTC_90923.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.5\Modules\CMakeCCompilerABI.c"
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_95076.dir\Debug\\" /Fd"cmTC_95076.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.5\Modules\CMakeCCompilerABI.c"
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_90923.dir\Debug\\" /Fd"cmTC_90923.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.5\Modules\CMakeCCompilerABI.c"
   
   CMakeCCompilerABI.c
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_95076.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_95076.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_95076.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_95076.dir\Debug\CMakeCCompilerABI.obj
-  cmTC_95076.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_95076.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_90923.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_90923.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_90923.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_90923.dir\Debug\CMakeCCompilerABI.obj
+  cmTC_90923.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_90923.exe
 FinalizeBuildStatus:
-  Deleting file "cmTC_95076.dir\Debug\cmTC_95076.tlog\unsuccessfulbuild".
-  Touching "cmTC_95076.dir\Debug\cmTC_95076.tlog\cmTC_95076.lastbuildstate".
-Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_95076.vcxproj" (default targets).
+  Deleting file "cmTC_90923.dir\Debug\cmTC_90923.tlog\unsuccessfulbuild".
+  Touching "cmTC_90923.dir\Debug\cmTC_90923.tlog\cmTC_90923.lastbuildstate".
+Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_90923.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.96
+Time Elapsed 00:00:00.99
 
 
 Determining if the CXX compiler works passed with the following output:
-Change Dir: C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_1c383.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_21848.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.42000]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 8/30/2016 9:16:37 AM.
-Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_1c383.vcxproj" on node 1 (default targets).
+Build started 9/6/2016 1:33:07 PM.
+Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_21848.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTC_1c383.dir\Debug\".
-  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTC_1c383.dir\Debug\cmTC_1c383.tlog\".
+  Creating directory "cmTC_21848.dir\Debug\".
+  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTC_21848.dir\Debug\cmTC_21848.tlog\".
 InitializeBuildStatus:
-  Creating "cmTC_1c383.dir\Debug\cmTC_1c383.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTC_21848.dir\Debug\cmTC_21848.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_1c383.dir\Debug\\" /Fd"cmTC_1c383.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_21848.dir\Debug\\" /Fd"cmTC_21848.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_1c383.dir\Debug\\" /Fd"cmTC_1c383.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_21848.dir\Debug\\" /Fd"cmTC_21848.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx
   
   testCXXCompiler.cxx
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_1c383.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_1c383.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_1c383.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_1c383.dir\Debug\testCXXCompiler.obj
-  cmTC_1c383.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_1c383.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_21848.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_21848.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_21848.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_21848.dir\Debug\testCXXCompiler.obj
+  cmTC_21848.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_21848.exe
 FinalizeBuildStatus:
-  Deleting file "cmTC_1c383.dir\Debug\cmTC_1c383.tlog\unsuccessfulbuild".
-  Touching "cmTC_1c383.dir\Debug\cmTC_1c383.tlog\cmTC_1c383.lastbuildstate".
-Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_1c383.vcxproj" (default targets).
+  Deleting file "cmTC_21848.dir\Debug\cmTC_21848.tlog\unsuccessfulbuild".
+  Touching "cmTC_21848.dir\Debug\cmTC_21848.tlog\cmTC_21848.lastbuildstate".
+Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_21848.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.96
+Time Elapsed 00:00:00.98
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_9abf8.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_14b8f.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.42000]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 8/30/2016 9:16:38 AM.
-Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_9abf8.vcxproj" on node 1 (default targets).
+Build started 9/6/2016 1:33:08 PM.
+Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_14b8f.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTC_9abf8.dir\Debug\".
-  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTC_9abf8.dir\Debug\cmTC_9abf8.tlog\".
+  Creating directory "cmTC_14b8f.dir\Debug\".
+  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTC_14b8f.dir\Debug\cmTC_14b8f.tlog\".
 InitializeBuildStatus:
-  Creating "cmTC_9abf8.dir\Debug\cmTC_9abf8.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTC_14b8f.dir\Debug\cmTC_14b8f.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_9abf8.dir\Debug\\" /Fd"cmTC_9abf8.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.5\Modules\CMakeCXXCompilerABI.cpp"
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_14b8f.dir\Debug\\" /Fd"cmTC_14b8f.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.5\Modules\CMakeCXXCompilerABI.cpp"
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_9abf8.dir\Debug\\" /Fd"cmTC_9abf8.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.5\Modules\CMakeCXXCompilerABI.cpp"
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_14b8f.dir\Debug\\" /Fd"cmTC_14b8f.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.5\Modules\CMakeCXXCompilerABI.cpp"
   
   CMakeCXXCompilerABI.cpp
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_9abf8.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_9abf8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_9abf8.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_9abf8.dir\Debug\CMakeCXXCompilerABI.obj
-  cmTC_9abf8.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_9abf8.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_14b8f.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_14b8f.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_14b8f.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_14b8f.dir\Debug\CMakeCXXCompilerABI.obj
+  cmTC_14b8f.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_14b8f.exe
 FinalizeBuildStatus:
-  Deleting file "cmTC_9abf8.dir\Debug\cmTC_9abf8.tlog\unsuccessfulbuild".
-  Touching "cmTC_9abf8.dir\Debug\cmTC_9abf8.tlog\cmTC_9abf8.lastbuildstate".
-Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_9abf8.vcxproj" (default targets).
+  Deleting file "cmTC_14b8f.dir\Debug\cmTC_14b8f.tlog\unsuccessfulbuild".
+  Touching "cmTC_14b8f.dir\Debug\cmTC_14b8f.tlog\cmTC_14b8f.lastbuildstate".
+Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_14b8f.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.96
+Time Elapsed 00:00:00.93
 
 
 
 
 Detecting CXX [] compiler features compiled with the following output:
-Change Dir: C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_13340.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTC_1097c.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.42000]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 8/30/2016 9:16:40 AM.
-Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_13340.vcxproj" on node 1 (default targets).
+Build started 9/6/2016 1:33:10 PM.
+Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_1097c.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTC_13340.dir\Debug\".
-  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTC_13340.dir\Debug\cmTC_13340.tlog\".
+  Creating directory "cmTC_1097c.dir\Debug\".
+  Creating directory "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\".
+  Creating directory "cmTC_1097c.dir\Debug\cmTC_1097c.tlog\".
 InitializeBuildStatus:
-  Creating "cmTC_13340.dir\Debug\cmTC_13340.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTC_1097c.dir\Debug\cmTC_1097c.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_13340.dir\Debug\\" /Fd"cmTC_13340.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\feature_tests.cxx
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_1097c.dir\Debug\\" /Fd"cmTC_1097c.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\feature_tests.cxx
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_13340.dir\Debug\\" /Fd"cmTC_13340.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\feature_tests.cxx
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTC_1097c.dir\Debug\\" /Fd"cmTC_1097c.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\feature_tests.cxx
   
   feature_tests.cxx
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_13340.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_13340.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_13340.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_13340.dir\Debug\feature_tests.obj
-  cmTC_13340.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_13340.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_1097c.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_1097c.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/diana.predoiu/Desktop/Snake/build/CMakeFiles/CMakeTmp/Debug/cmTC_1097c.lib" /MACHINE:X86 /SAFESEH  /machine:X86 cmTC_1097c.dir\Debug\feature_tests.obj
+  cmTC_1097c.vcxproj -> C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\Debug\cmTC_1097c.exe
 FinalizeBuildStatus:
-  Deleting file "cmTC_13340.dir\Debug\cmTC_13340.tlog\unsuccessfulbuild".
-  Touching "cmTC_13340.dir\Debug\cmTC_13340.tlog\cmTC_13340.lastbuildstate".
-Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\Snake\build\CMakeFiles\CMakeTmp\cmTC_13340.vcxproj" (default targets).
+  Deleting file "cmTC_1097c.dir\Debug\cmTC_1097c.tlog\unsuccessfulbuild".
+  Touching "cmTC_1097c.dir\Debug\cmTC_1097c.tlog\cmTC_1097c.lastbuildstate".
+Done Building Project "C:\Users\diana.predoiu\Desktop\Snake\build\CMakeFiles\CMakeTmp\cmTC_1097c.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)

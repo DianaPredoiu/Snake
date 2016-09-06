@@ -1,75 +1,75 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Item.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Food.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Food.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Bonus.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Bonus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Surprise.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Surprise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\GameMap.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\GameMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Player.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Position.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Snake.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Snake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\src\Main.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Rules.cpp">
+    <ClCompile Include="C:\Users\diana.predoiu\Desktop\Snake\src\Rules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Item.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Food.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\Food.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Bonus.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\Bonus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Surprise.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\Surprise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\GameMap.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\GameMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Player.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Position.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\include\Snake.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\Snake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Rules.h">
+    <ClInclude Include="C:\Users\diana.predoiu\Desktop\Snake\include\Rules.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\diana.predoiu\Desktop\Snake\Snake\CMakelists.txt" />
+    <CustomBuild Include="C:\Users\diana.predoiu\Desktop\Snake\CMakelists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{8C57DE16-2D22-3C30-9647-EA75CBB00846}</UniqueIdentifier>
+      <UniqueIdentifier>{E61B6F74-5BE2-3805-B4B9-4605C1A742D6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{D90E2CDE-08E5-3EAF-9A6B-D23AB8ABE812}</UniqueIdentifier>
+      <UniqueIdentifier>{8FBC1047-752B-32A6-A0EF-B17A363827BC}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
