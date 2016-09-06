@@ -34,3 +34,6 @@
 # Visual Studio
 *.sln
 *.sdf
+
+build/
+bin/
