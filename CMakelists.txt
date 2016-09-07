@@ -18,6 +18,7 @@ set(HEADERS
 	include/Snake.h
 	include/Rules.h
 	include/DLLExportOptions.h
+	include/Main.h
   )
   
 set(SOURCES

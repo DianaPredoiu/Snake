@@ -1,6 +1,6 @@
 #include <iostream>
 #include <theWindow.h>
-#include "Main.cpp"
+#include "Main.h"
 
 int main(int argc, char* argv[])
 {

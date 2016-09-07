@@ -21,8 +21,6 @@ void displayDetails(GameMap &game, std::vector<Position*> pos)
 	}
 }
 
-void DLL_SNAKE Game();
-
 void Game()
 {
 	std::cout << "test";
