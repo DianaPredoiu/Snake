@@ -127,3 +127,17 @@ bool Rules::rightMove()
 	}
 	return false;
 }
+
+bool Rules::eatItself()
+{
+	/*for (std::vector<Position*>::iterator it = game->getSnake().getCoordinates().begin() + 1; it != game->getSnake().getCoordinates().end(); ++it)*/
+	for (int i = 1; i < game->getSnake().getCoordinates().size(); i++)
+	{
+		/*if (game->getSnake().getCoordinates().at(0)->getX() == (*it)->getX() && game->getSnake().getCoordinates().at(0)->getY() == (*it)->getY())*/
+		if (game->getSnake().getCoordinates().at(0)->getX() == game->getSnake().getCoordinates().at(i)->getX()
+			&& game->getSnake().getCoordinates().at(0)->getY() == game->getSnake().getCoordinates().at(i)->getY())
+			return true;
+	}
+
+	return false;
+}

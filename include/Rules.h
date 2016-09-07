@@ -12,4 +12,5 @@ public:
 	bool upMove();
 	bool rightMove();
 	bool downMove();
+	bool eatItself();
 };
