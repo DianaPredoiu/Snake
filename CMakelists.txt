@@ -17,6 +17,7 @@ set(HEADERS
 	include/Position.h
 	include/Snake.h
 	include/Rules.h
+	include/DLLExportOptions.h
   )
   
 set(SOURCES
@@ -46,8 +47,9 @@ add_subdirectory(
 	SnakeGraphics
 )
 
-add_executable(
-	${PROJECT_NAME}
+
+add_library(
+	${PROJECT_NAME} SHARED
 	${HEADERS} ${SOURCES}
 )
 

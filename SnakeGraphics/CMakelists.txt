@@ -42,4 +42,5 @@ ${PROJECT_NAME}
 	SDL2
 	SDL2main
 	SDL2test
+	Snake
 )
