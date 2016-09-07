@@ -1,6 +1,7 @@
 #include <iostream>
 #include <theWindow.h>
 #include "Main.h"
+#include "Image Loaders.h"
 
 int main(int argc, char* argv[])
 {
