@@ -4,7 +4,7 @@
 #include "GameMap.h"
 #include "Rules.h"
 #include "catch.hpp"
-
+#include "DLLExportOptions.h"
 void displayDetails(GameMap &game, std::vector<Position*> pos)
 {
 	Sleep(300);
@@ -21,7 +21,9 @@ void displayDetails(GameMap &game, std::vector<Position*> pos)
 	}
 }
 
-void main()
+void DLL_SNAKE Game();
+
+void Game()
 {
 	std::cout << "test";
 	GameMap game(10, 10);
