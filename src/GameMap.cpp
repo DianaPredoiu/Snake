@@ -2,27 +2,42 @@
 #include <iostream>
 #include <random>
 
-GameMap::GameMap() {}
 
-void GameMap::gridAloc()
+#pragma region Constructors/Destructor
+GameMap::GameMap() 
 {
+
+}
+
+GameMap::GameMap(int width, int height)
+{
+	// set the instance variables
+	this->snake = Snake();
+	this->food = Food();
+	this->bonus = Bonus();
+	this->surprise = Surprise();
+	this->width = width;
+	this->height = height;
+
+	// allocate the memory for the grid
 	grid = new char*[height];
 	for (int i = 0; i < height; ++i)
 		grid[i] = new char[width];
 
 	countFood = 0;
+
 }
 
-int GameMap::getCountFood()
+GameMap::~GameMap()
 {
-	return countFood;
+	for (int i = 0; i < width; ++i)
+		delete grid[i];
+	delete[] grid;
 }
 
-void GameMap::setCountFood(int count)
-{
-	countFood = count;
-}
+#pragma endregion
 
+#pragma region Add Items
 void GameMap::addFood()
 {
 	if (food.getState() == false)
@@ -69,34 +84,16 @@ void GameMap::addSurprise()
 
 	}
 }
+#pragma endregion
 
-std::vector<Position*>  GameMap::initializeGrid(std::vector<Position*> oldPositions)
+#pragma region Manage Items
+void GameMap::manageFood(std::vector<Position*> oldPositions)
 {
-	for (int i = 0; i < height; ++i)
-		for (int j = 0; j < width; ++j)
-			grid[i][j] = ' ';
-
-	//write the head into the grid
-	grid[snake.getCoordinates().at(0)->getY()][snake.getCoordinates().at(0)->getX()] = snake.getHeadSymbol();
-
-	//body
-	for (int i = 1; i < snake.getCoordinates().capacity() - 1; i++)
-		grid[snake.getCoordinates().at(i)->getY()][snake.getCoordinates().at(i)->getX()] = snake.getBodySymbol();
-
-	//tail
-	grid[snake.getCoordinates().at(snake.getCoordinates().size() - 1)->getY()]
-		[snake.getCoordinates().at(snake.getCoordinates().size() - 1)->getX()] = snake.getTailSymbol();
-
-	//addFood 
-	addFood();
 	if (food.getState() == true)
 	{
 
 		grid[food.getCoordinates().getY()][food.getCoordinates().getX()] = food.getSymbol();
-		if ((snake.getCoordinates().at(0)->getY() == food.getCoordinates().getY() && snake.getCoordinates().at(0)->getX() == food.getCoordinates().getX()))/*
-			|| (snake.getCoordinates().at(0)->getY() == food.getCoordinates().getY() && snake.getCoordinates().at(0)->getX() == food.getCoordinates().getX() - 1)
-			|| (snake.getCoordinates().at(0)->getX() == food.getCoordinates().getX() && snake.getCoordinates().at(0)->getY() == food.getCoordinates().getY() + 1)
-			|| (snake.getCoordinates().at(0)->getX() == food.getCoordinates().getX() && snake.getCoordinates().at(0)->getY() == food.getCoordinates().getY() - 1))*/
+		if ((snake.getCoordinates().at(0)->getY() == food.getCoordinates().getY() && snake.getCoordinates().at(0)->getX() == food.getCoordinates().getX()))
 		{
 			food.setState(false);
 			grid[food.getCoordinates().getY()][food.getCoordinates().getX()] = snake.getHeadSymbol();
@@ -108,12 +105,13 @@ std::vector<Position*>  GameMap::initializeGrid(std::vector<Position*> oldPositi
 			snake.setCoordinates(positions);
 			score += food.getPoints();
 			countFood++;
-			//std::cout << countFood << std::endl;
+
 		}
 	}
+}
 
-
-	//addBonus
+void GameMap::manageBonus(std::vector<Position*> oldPositions)
+{
 	if (countFood % 4 == 0 && countFood > 0)
 	{
 		addBonus();
@@ -141,57 +139,56 @@ std::vector<Position*>  GameMap::initializeGrid(std::vector<Position*> oldPositi
 
 		}
 	}
+}
 
-
-
-	//addSurprise
-	addSurprise();
-	if (surprise.getState() == true )
+void GameMap::manageSurprise(std::vector<Position*> oldPositions)
+{
+	if (surprise.getState() == true)
 	{
 		if (surprise.getTime() > 0 && countBonus % 2 == 0 && countBonus > 0)
 		{
 			grid[surprise.getCoordinates().getY()][surprise.getCoordinates().getX()] = surprise.getSymbol();
 			surprise.setTime(surprise.getTime() - 1);
-			if ((snake.getCoordinates().at(0)->getY() == surprise.getCoordinates().getY() && snake.getCoordinates().at(0)->getX() == surprise.getCoordinates().getX() ))
+			if ((snake.getCoordinates().at(0)->getY() == surprise.getCoordinates().getY() && snake.getCoordinates().at(0)->getX() == surprise.getCoordinates().getX()))
 			{
 				surprise.setState(false);
 				countBonus = 0;
-				
+
 
 				switch (surprise.getEffect())
 				{
-					case SubstractPoints:
-					{
-						score -= surprise.getPoints();
-						surprise.setTime(0);
-						break;
-					}
+				case SubstractPoints:
+				{
+					score -= surprise.getPoints();
+					surprise.setTime(0);
+					break;
+				}
 
-					case BonusEffect:
-					{
-						score += surprise.getPoints();
-						surprise.setTime(0);
-						break;
-					}
+				case BonusEffect:
+				{
+					score += surprise.getPoints();
+					surprise.setTime(0);
+					break;
+				}
 
-					case HalveBody:
+				case HalveBody:
+				{
+					if (snake.getCoordinates().size() >= 6)
 					{
-						if (snake.getCoordinates().size() >= 6)
-						{
-							int length = snake.getCoordinates().size() / 2;
-							std::vector<Position*> positions = snake.getCoordinates();
-							positions.erase(positions.begin() + length, positions.end());
-							snake.setCoordinates(positions);
-							surprise.setTime(0);
-						}
-						break;
-					}
-
-					case NoEffect:
-					{
+						int length = snake.getCoordinates().size() / 2;
+						std::vector<Position*> positions = snake.getCoordinates();
+						positions.erase(positions.begin() + length, positions.end());
+						snake.setCoordinates(positions);
 						surprise.setTime(0);
-						break;
 					}
+					break;
+				}
+
+				case NoEffect:
+				{
+					surprise.setTime(0);
+					break;
+				}
 				}
 
 			}
@@ -204,30 +201,52 @@ std::vector<Position*>  GameMap::initializeGrid(std::vector<Position*> oldPositi
 		}
 
 	}
+}
+#pragma endregion
+
+std::vector<Position*>  GameMap::initializeGrid(std::vector<Position*> oldPositions)
+{
+	for (int i = 0; i < height; ++i)
+		for (int j = 0; j < width; ++j)
+			grid[i][j] = ' ';
+
+	//write the head into the grid
+	grid[snake.getCoordinates().at(0)->getY()][snake.getCoordinates().at(0)->getX()] = snake.getHeadSymbol();
+
+	//body
+	for (int i = 1; i < snake.getCoordinates().capacity() - 1; i++)
+		grid[snake.getCoordinates().at(i)->getY()][snake.getCoordinates().at(i)->getX()] = snake.getBodySymbol();
+
+	//tail
+	grid[snake.getCoordinates().at(snake.getCoordinates().size() - 1)->getY()]
+		[snake.getCoordinates().at(snake.getCoordinates().size() - 1)->getX()] = snake.getTailSymbol();
+
+	//addFood 
+	addFood();
+	manageFood(oldPositions);
+
+
+	//addBonus
+	manageBonus(oldPositions);
+
+	//addSurprise
+	addSurprise();
+	manageSurprise(oldPositions);
 
 	return snake.getCoordinates();
 
 }
 
-GameMap::GameMap(int width, int height)
-{
-	// set the instance variables
-	this->snake = Snake();
-	this->food = Food();
-	this->bonus = Bonus();
-	this->surprise = Surprise();
-	this->width = width;
-	this->height = height;
-	// allocate the memory for the grid
-	gridAloc();
+#pragma region Get/Set
 
+int GameMap::getCountFood()
+{
+	return countFood;
 }
 
-GameMap::~GameMap()
+void GameMap::setCountFood(int count)
 {
-	for (int i = 0; i < width; ++i)
-		delete grid[i];
-	delete[] grid;
+	countFood = count;
 }
 
 Snake GameMap::getSnake()
@@ -255,16 +274,6 @@ char GameMap::getGameGrid()
 	return **grid;
 }
 
-//Player& GameMap:: getPlayer()
-//{
-//	return this->player;
-//}
-
-//void GameMap:: setPlayer(Player player)
-//{
-//	this->player = player;
-//}
-
 void GameMap::setSnake(Snake snake)
 {
 	this->snake = snake;
@@ -290,6 +299,10 @@ Surprise GameMap::getSurprise()
 	return surprise;
 }
 
+#pragma endregion
+
+#pragma region Operators
+
 std::ostream & operator<<(std::ostream& out, const GameMap& map)
 {
 
@@ -310,3 +323,5 @@ std::ostream & operator<<(std::ostream& out, const GameMap& map)
 	return out;
 
 }
+
+#pragma endregion

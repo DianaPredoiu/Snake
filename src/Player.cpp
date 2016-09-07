@@ -1,6 +1,6 @@
 #include "Player.h"
 
-//Constructors
+#pragma region Constructors
 Player::Player()
 {
 	playerName = ""; playerScore = 0; moveLength = 0;
@@ -11,7 +11,9 @@ Player::Player(std::string name, int score, int moveLength)
 {
 
 }
+#pragma endregion
 
+#pragma region Get/Set
 // Accessor for the name
 std::string Player::getPlayerName()
 {
@@ -41,7 +43,9 @@ int Player::getMoveLength()
 {
 	return moveLength;
 }
+#pragma endregion
 
+#pragma region Updates
 void Player::updateMoveLength(int length)
 {
 	moveLength += length;
@@ -53,3 +57,11 @@ void Player::updateScore()
 	// Don't ask why this formula but it is original
 	playerScore += moveLength * 36 / 5 + 1;
 }
+#pragma endregion
+
+#pragma region Destructor
+Player::~Player()
+{
+
+}
+#pragma endregion

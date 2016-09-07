@@ -1,6 +1,7 @@
 #include "Surprise.h"
 #include <random>
 
+#pragma region Constructors
 Surprise::Surprise()
 {
 	this->points = 20 + (std::rand() % 31);//make it random between 20-50 p
@@ -22,7 +23,9 @@ Surprise::Surprise(int points, char symbol, int time, Effects effect, Position c
 	this->state = false;
 
 }
+#pragma endregion 
 
+#pragma region Get/Set
 int Surprise::getPoints()
 {
 	return points;
@@ -82,9 +85,11 @@ void Surprise::setState(bool state)
 {
 	this->state = state;
 }
+#pragma endregion 
 
-
+#pragma region Destructor
 Surprise::~Surprise()
 {
 
 }
+#pragma endregion 

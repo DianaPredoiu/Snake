@@ -1,11 +1,12 @@
 #include "Bonus.h"
 #include <random>
 
+#pragma region Constructors
 Bonus::Bonus()
 {
 	this->points = 15 + (std::rand() % 16);//make it random between 15-30 p
-	this->symbol = '$';
-	this->time = 10 + (std::rand() % 19);//seconds must be random too between 7-15
+	this->symbol = 'B';
+	this->time = 10 + (std::rand() % 11);//seconds must be random too between 10-20
 	this->coordinates.setX(1);
 	this->coordinates.setY(1);
 	this->state = false;
@@ -19,7 +20,9 @@ Bonus::Bonus(int points, char symbol, int time, Position coordinates)
 	this->coordinates = coordinates;
 	this->state = false;
 }
+#pragma endregion
 
+#pragma region Get/Set
 int Bonus::getPoints()
 {
 	return points;
@@ -69,8 +72,11 @@ void Bonus::setState(bool state)
 {
 	this->state = state;
 }
+#pragma endregion
 
+#pragma region Destructor
 Bonus::~Bonus()
 {
 
 }
+#pragma endregion

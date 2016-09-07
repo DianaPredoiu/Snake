@@ -6,26 +6,29 @@
 #include "catch.hpp"
 #include "DLLExportOptions.h"
 #include "Main.h"
-void displayDetails(GameMap &game, std::vector<Position*> pos)
+
+void displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
 	Sleep(300);
 	system("cls");
+
 	game.initializeGrid(pos);
 	std::cout << game;
 	std::cout << std::endl << std::endl << "---Score: " << game.getScore() << "  ---" << std::endl << std::endl;
+
 	if (game.getBonus().getState() == true)
 		std::cout << "---Bonus Time: " << game.getBonus().getTime() << "  ---" << std::endl << std::endl;
+
 	if (game.getSurprise().getState() == true)
 	{
 		std::cout << "---Surprise Time: " << game.getSurprise().getTime() << "  ---" << std::endl << std::endl;
-		std::cout << std::endl << "-----Effect: " << game.getSurprise().getEffect() << " -----";
+		std::cout << std::endl << "---Effect: " << game.getSurprise().getEffect() << "  ---";
 	}
 }
 
 void Game()
 {
-	std::cout << "test";
-	GameMap game(10, 10);
+	GameMap game(15, 15);
 	Rules rules(&game);
 
 	std::cout << game;
@@ -52,30 +55,42 @@ void Game()
 				{
 				case VK_LEFT:
 					rules.leftMove();
-					displayDetails(game, positions);
+					displayGameDetails(game, positions);
 					if (game.getSnake().getCoordinates().at(0)->getX() < 0 || rules.eatItself() == true)
+					{
 						std::cout << "GAME OVER!" << std::endl;
+						break;
+					}
 					break;
 
 				case VK_UP:
 					rules.upMove();
-					displayDetails(game, positions);
+					displayGameDetails(game, positions);
 					if (game.getSnake().getCoordinates().at(0)->getY() < 0 || rules.eatItself() == true)
+					{
 						std::cout << "GAME OVER!" << std::endl;
+						break;
+					}
 					break;
 
 				case VK_RIGHT:
 					rules.rightMove();
-					displayDetails(game, positions);
+					displayGameDetails(game, positions);
 					if (game.getSnake().getCoordinates().at(0)->getX() > game.getWidth() - 1 || rules.eatItself() == true)
+					{
 						std::cout << "GAME OVER!" << std::endl;
+						break;
+					}
 					break;
 
 				case VK_DOWN:
 					rules.downMove();
-					displayDetails(game, positions);
+					displayGameDetails(game, positions);
 					if (game.getSnake().getCoordinates().at(0)->getY() > game.getHeight() - 1 || rules.eatItself() == true)
+					{
 						std::cout << "GAME OVER!" << std::endl;
+						break;
+					}
 					break;
 				}
 			}
@@ -84,11 +99,10 @@ void Game()
 		else
 		{
 			if (game.getSnake().getCoordinates().at(0)->getY() >= 0)
-			{//functions in rules!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			{
 				//if the body is left to the head => snake moves to right
 				if (game.getSnake().getCoordinates().at(1)->getX() == (game.getSnake().getCoordinates().at(0)->getX() - 1))
 				{
-					//rules.rightMove();
 					if (rules.rightMove() == true || rules.eatItself() == true)
 					{
 						std::cout << std::endl << "GAME OVER!" << std::endl;
@@ -99,7 +113,6 @@ void Game()
 				//if the body is right to the head => snake moves to the left
 				if (game.getSnake().getCoordinates().at(1)->getX() == (game.getSnake().getCoordinates().at(0)->getX() + 1))
 				{
-					//rules.leftMove();
 					if (rules.leftMove() == true || rules.eatItself() == true)
 					{
 						std::cout << std::endl << "GAME OVER!" << std::endl;
@@ -110,7 +123,6 @@ void Game()
 				//if the body is up to the head => snake moves down
 				if (game.getSnake().getCoordinates().at(1)->getY() == (game.getSnake().getCoordinates().at(0)->getY() - 1))
 				{
-					//rules.downMove();
 					if (rules.downMove() == true || rules.eatItself() == true)
 					{
 						std::cout << std::endl << "GAME OVER!" << std::endl;
@@ -121,7 +133,6 @@ void Game()
 				//if the body is down to the head => snake moves up
 				if (game.getSnake().getCoordinates().at(1)->getY() == (game.getSnake().getCoordinates().at(0)->getY() + 1))
 				{
-					//rules.upMove();
 					if (rules.upMove() == true || rules.eatItself() == true)
 					{
 						std::cout << std::endl << "GAME OVER!" << std::endl;
@@ -130,7 +141,7 @@ void Game()
 				}
 
 
-				displayDetails(game, positions);
+				displayGameDetails(game, positions);
 				if (game.getSnake().getCoordinates().at(0)->getY() < 0 || rules.eatItself() == true)
 				{
 					std::cout << std::endl << "GAME OVER!" << std::endl;
@@ -143,10 +154,6 @@ void Game()
 				break;
 			}
 		}
-
-
-
 	}
-
 
 }

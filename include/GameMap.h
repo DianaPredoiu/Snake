@@ -11,6 +11,8 @@
 class GameMap
 {
 private:
+
+#pragma region Fields
 	Snake snake;
 
 	int width, height;
@@ -25,32 +27,32 @@ private:
 	Food food;
 	Bonus bonus;
 	Surprise surprise;
-
+#pragma endregion
 
 public:
-	//Constructor
+	//Constructors, destructors
 	GameMap();
 	GameMap(int width, int height);
-	// If there are better ways for the following two, please improve
-	void gridAloc();
 	~GameMap();
+
 	// Accessor for the snake
 	Snake getSnake();
+
 	// Accessor for the width
 	int getWidth() const;
+
 	// Accessor for the height
 	int getHeight() const;
+
 	// Accessor for the score
 	int getScore();
+
 	// Accessor for the grid
 	char getGameGrid();
-	// Accessor for the player
-	//Player& getPlayer();
-	// we don't required setters for the grid size as we pass it through the constructor
-	// Setter for the player
-	//void setPlayer(Player player);
+
 	// Setter for the snake
 	void setSnake(Snake snake);
+
 	// Setter for the score
 	void setScore(int requiredScore);
 
@@ -65,7 +67,12 @@ public:
 	void addFood();
 	void addBonus();
 	void addSurprise();
-	std::vector<Position*> initializeGrid(std::vector<Position*> oldPositions);
-	friend std::ostream& operator<<(std::ostream& os, const GameMap& obj);
 
+	void manageFood(std::vector<Position*> oldPositions);
+	void manageBonus(std::vector<Position*> oldPositions);
+	void manageSurprise(std::vector<Position*> oldPositions);
+
+	std::vector<Position*> initializeGrid(std::vector<Position*> oldPositions);
+
+	friend std::ostream& operator<<(std::ostream& os, const GameMap& obj);
 };

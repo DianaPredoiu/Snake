@@ -17,11 +17,13 @@ public:
 	
 	// Accessor for the name
 	std::string getPlayerName();
+
 	// Accessor for the score
 	int getScore();
 
 	// Setter for the name
 	void setPlayerName(std::string name);
+
 	// Setter for the score
 	void setPlayerScore(int score);
 
@@ -31,5 +33,7 @@ public:
 
 	// A method to update the score
 	void updateScore();
+
+	~Player();
 };
 

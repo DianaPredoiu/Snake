@@ -1,5 +1,6 @@
 #include "Snake.h"
 
+#pragma region Constructors
 Snake::Snake()
 {
 	this->coordinates.push_back(new Position(3, 1)); //head position
@@ -19,7 +20,9 @@ Snake::Snake(int i, int j)
 	this->bodySymbol = '*';
 	this->tailSymbol = '*';
 }
+#pragma endregion 
 
+#pragma region Get/Set
 std::vector<Position*> Snake::getCoordinates() const
 {
 	return this->coordinates;
@@ -44,44 +47,11 @@ char Snake::getTailSymbol()
 {
 	return this->tailSymbol;
 }
+#pragma endregion 
 
-//Position Snake::getHeadPosition()
-//{
-//	return this->headPosition;
-//}
-//
-//void Snake::setHeadPOsition(Position pos)
-//{
-//	this->headPosition = pos;
-//}
-//
-//Position Snake::getTailPosition()
-//{
-//	return this->tailPosition;
-//}
-//
-//void Snake::setTailPosition(Position pos)
-//{
-//	this->tailPosition = pos;
-//}
+#pragma region Destructor
+Snake::~Snake()
+{
 
-
-
-//void Snake::setHeadSymbol(char head)
-//{
-//	this->headSymbol = head;
-//}
-
-
-
-
-
-//void Snake::setTailSymbol(char tail)
-//{
-//	this->tailSymbol = tail;
-//}
-//
-//void Snake::setBodySymbol(char body)
-//{
-//	this->bodySymbol = body;
-//}
+}
+#pragma endregion 

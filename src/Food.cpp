@@ -1,5 +1,6 @@
 #include "Food.h"
 
+#pragma region Constructors
 Food::Food()
 {
 	this->points = 10;
@@ -16,7 +17,9 @@ Food::Food(int points, char symbol, Position coordinates)
 	this->coordinates = coordinates;
 	this->state = false;
 }
+#pragma endregion
 
+#pragma region Get/Set
 int Food::getPoints()
 {
 	return points;
@@ -56,8 +59,11 @@ void Food::setState(bool state)
 {
 	this->state = state;
 }
+#pragma endregion
 
+#pragma region Destructor
 Food::~Food()
 {
 
 }
+#pragma endregion

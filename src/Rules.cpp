@@ -1,15 +1,16 @@
 #include "Rules.h"
 #include <iostream>
 
+#pragma region Constructor
 Rules::Rules(GameMap *game)
 {
 	this->game = game;
 }
+#pragma endregion 
 
+#pragma region Moves 
 bool Rules::upMove()
 {
-	//std::cout << "Up" << std::endl;//key up
-	//----mai trebuie adaugate conditii----
 	if (game->getSnake().getCoordinates().at(0)->getY() > 0)
 	{
 		if ((game->getSnake().getCoordinates().at(0)->getY() - 1) != game->getSnake().getCoordinates().at(1)->getY())
@@ -26,12 +27,8 @@ bool Rules::upMove()
 			}
 
 			//head
-			game->getSnake().getCoordinates().at(0)->setY(game->getSnake().getCoordinates().at(0)->getY() - 1);
-
-			//system("cls");
-			
+			game->getSnake().getCoordinates().at(0)->setY(game->getSnake().getCoordinates().at(0)->getY() - 1);			
 		}
-
 	}
 	else
 	{
@@ -43,8 +40,6 @@ bool Rules::upMove()
 
 bool Rules::downMove()
 {
-	//std::cout << "Down" << std::endl;   // key down
-	//----mai trebuie adaugate conditii----
 	if (game->getSnake().getCoordinates().at(0)->getY() != game->getHeight() - 1)
 	{
 		if ((game->getSnake().getCoordinates().at(0)->getY() + 1) != game->getSnake().getCoordinates().at(1)->getY())
@@ -55,12 +50,8 @@ bool Rules::downMove()
 				game->getSnake().getCoordinates().at(i)->setY(game->getSnake().getCoordinates().at(i - 1)->getY());
 			}
 
-			game->getSnake().getCoordinates().at(0)->setY(game->getSnake().getCoordinates().at(0)->getY() + 1);
-
-			//system("cls");
-			
+			game->getSnake().getCoordinates().at(0)->setY(game->getSnake().getCoordinates().at(0)->getY() + 1);	
 		}
-
 	}
 	else
 	{
@@ -72,9 +63,6 @@ bool Rules::downMove()
 
 bool Rules::leftMove()
 {
-	//std::cout << "Left" << std::endl;  // key left
-	//----mai trebuie adaugate conditii----
-
 	if (game->getSnake().getCoordinates().at(0)->getX() != 0)
 	{
 		if ((game->getSnake().getCoordinates().at(0)->getX() - 1) != game->getSnake().getCoordinates().at(1)->getX())
@@ -85,9 +73,6 @@ bool Rules::leftMove()
 				game->getSnake().getCoordinates().at(i)->setY(game->getSnake().getCoordinates().at(i - 1)->getY());
 			}
 			game->getSnake().getCoordinates().at(0)->setX(game->getSnake().getCoordinates().at(0)->getX() - 1);
-
-			//system("cls");
-			
 		}
 	}
 	else
@@ -100,9 +85,6 @@ bool Rules::leftMove()
 
 bool Rules::rightMove()
 {
-	//std::cout << "Right" << std::endl;  // key right
-	//----mai trebuie adaugate conditii----
-	//gen daca head-ul e in stanga nu ar trebui sa faca dreapta dar face :))
 	if (game->getSnake().getCoordinates().at(0)->getX() != game->getWidth() - 1)
 	{
 		if ((game->getSnake().getCoordinates().at(0)->getX() + 1) != game->getSnake().getCoordinates().at(1)->getX())
@@ -113,12 +95,8 @@ bool Rules::rightMove()
 				game->getSnake().getCoordinates().at(i)->setY(game->getSnake().getCoordinates().at(i - 1)->getY());
 			}
 
-			game->getSnake().getCoordinates().at(0)->setX(game->getSnake().getCoordinates().at(0)->getX() + 1);
-
-			//system("cls");
-			
+			game->getSnake().getCoordinates().at(0)->setX(game->getSnake().getCoordinates().at(0)->getX() + 1);	
 		}
-
 	}
 	else
 	{
@@ -127,7 +105,9 @@ bool Rules::rightMove()
 	}
 	return false;
 }
+#pragma endregion 
 
+#pragma region Other rules
 bool Rules::eatItself()
 {
 	/*for (std::vector<Position*>::iterator it = game->getSnake().getCoordinates().begin() + 1; it != game->getSnake().getCoordinates().end(); ++it)*/
@@ -141,3 +121,4 @@ bool Rules::eatItself()
 
 	return false;
 }
+#pragma endregion 

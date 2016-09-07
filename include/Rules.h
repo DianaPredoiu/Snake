@@ -8,9 +8,11 @@ class Rules
 
 public:
 	Rules(GameMap *game);
+
 	bool leftMove();
 	bool upMove();
 	bool rightMove();
 	bool downMove();
+
 	bool eatItself();
 };
