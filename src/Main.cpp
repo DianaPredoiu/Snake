@@ -23,7 +23,7 @@ void displayDetails(GameMap &game, std::vector<Position*> pos)
 
 void main()
 {
-	std::cout << "test";
+	//std::cout << "test";
 	GameMap game(10, 10);
 	Rules rules(&game);
 	

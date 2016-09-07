@@ -1,0 +1,45 @@
+cmake_minimum_required(VERSION 2.7)
+SET(PROJECT_NAME SnakeGraphics)
+
+PROJECT(${PROJECT_NAME})
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin)
+
+set(HEADERS
+	include/theWindow.h
+	
+  )
+  
+set(SOURCES
+	src/MainG.cpp
+	src/TheWindowSDL.cpp
+	
+	)
+include_directories(
+	include
+	utility/include/catch
+	../utility/SDL2/include
+	../include
+)
+
+link_directories(
+	${CMAKE_HOME_DIRECTORY}/utility/SDL2/lib/x86
+)
+
+link_directories(
+   ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+
+)
+
+add_executable(
+	${PROJECT_NAME} 
+	${HEADERS} ${SOURCES}
+)
+target_link_libraries(
+${PROJECT_NAME}
+	SDL2
+	SDL2main
+	SDL2test
+)

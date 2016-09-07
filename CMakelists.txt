@@ -34,6 +34,7 @@ set(SOURCES
 include_directories(
 	include
 	utility/include/catch
+	SnakeGraphics/include
 )
 
 link_directories(
@@ -41,7 +42,12 @@ link_directories(
 
 )
 
+add_subdirectory(
+	SnakeGraphics
+)
+
 add_executable(
 	${PROJECT_NAME}
 	${HEADERS} ${SOURCES}
 )
+
