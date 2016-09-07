@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef _MSC_VER
-#ifdef DLL_EXP
+#ifdef Snake_EXPORTS
 #define DLL_SNAKE __declspec(dllexport)
 #else
 #define DLL_SNAKE __declspec(dllimport)

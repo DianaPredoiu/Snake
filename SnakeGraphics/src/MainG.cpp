@@ -11,6 +11,7 @@ int main(int argc, char* argv[])
 		ceva->Begin();
 		// fara obiecte create in acest while
 		// game code
+		Game();
 		ceva->End();
 	}
 

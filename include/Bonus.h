@@ -1,6 +1,5 @@
 #pragma once
 #include "Item.h"
-
 class Bonus : Item
 {
 private:

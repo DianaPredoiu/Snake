@@ -5,6 +5,7 @@
 #include "Rules.h"
 #include "catch.hpp"
 #include "DLLExportOptions.h"
+#include "Main.h"
 void displayDetails(GameMap &game, std::vector<Position*> pos)
 {
 	Sleep(300);
