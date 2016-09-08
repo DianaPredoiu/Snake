@@ -12,15 +12,14 @@ int main(int argc, char* argv[])
 	{
 		ferestruica->Begin();
 		//Game();
+		SDL_RenderCopy(ferestruica->GetRenderer(), ferestruica->GetTexture(), NULL, NULL);
+		SDL_RenderPresent(ferestruica->GetRenderer());
 	
 		
 		ferestruica->End();
 	}
 
-	//delete ceva;
-	//SDL_Quit();
-	//Game();
-
-
+	delete ferestruica;
+	SDL_Quit();
 	return 0;
 }

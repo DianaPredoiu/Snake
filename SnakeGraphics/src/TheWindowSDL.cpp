@@ -16,10 +16,22 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	}
 	renderer = NULL;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	SDL_Texture *tex = IMG_LoadTexture(renderer, "./sarpe/grass.png");
-	loadSurface("./sarpe/grass.png");
-	texture = tex;
-	SDL_UpdateWindowSurface(window);
+
+	screenSurface = SDL_LoadBMP("./sarpe/grass.bmp");
+	if (!screenSurface)
+	{
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
+	}
+
+	texture = SDL_CreateTextureFromSurface(renderer, screenSurface);
+	if (!texture)
+	{
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError());
+	}
+	
+	SDL_FreeSurface(screenSurface);
+
+	//SDL_UpdateWindowSurface(window);
 
 	mainEvent = new SDL_Event;
 }
@@ -80,7 +92,10 @@ void WindowSDL::loadSurface(std::string path)
 		
 		//Get rid of old loaded surface
 		SDL_FreeSurface(loadedSurface);
-	}
+	}	
+}
 
-	
+SDL_Texture* WindowSDL::GetTexture()
+{
+	return this->texture;
 }
