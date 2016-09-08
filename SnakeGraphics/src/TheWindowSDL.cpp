@@ -4,7 +4,7 @@
 
 WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 {
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
+	SDL_Init(SDL_INIT_VIDEO);
 
 	window = NULL;
 	window = SDL_CreateWindow("Just Another Snake Game", 100, 100, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN);
@@ -17,7 +17,7 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	renderer = NULL;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-	screenSurface = SDL_LoadBMP("./sarpe/grass.bmp");
+	screenSurface = SDL_LoadBMP("grass.bmp");
 	if (!screenSurface)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
