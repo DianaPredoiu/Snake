@@ -14,6 +14,8 @@ public:
 	SDL_Texture *GetTexture();
 	SDL_Surface *GetDisplaySurface();
 
+	std::string resPath(std::string file);
+
 	void SetTexture(SDL_Texture *tex);
 	void SetSurface(SDL_Surface *surface);
 

@@ -1,6 +1,8 @@
 #include "theWindow.h"
 #include <iostream>
 #include <Image_Loaders.h>
+#include <windows.h>
+#include <string>
 
 WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 {
@@ -35,6 +37,9 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 
 	mainEvent = new SDL_Event;
 }
+
+
+
 
 WindowSDL::~WindowSDL(){
 	SDL_DestroyWindow(window);
