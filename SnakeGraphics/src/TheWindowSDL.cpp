@@ -23,6 +23,26 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 
+	//DWORD  retval = 0;
+	//BOOL   success;
+	//TCHAR  buffer[BUFSIZE] = TEXT("");
+	//TCHAR  buf[BUFSIZE] = TEXT("");
+	//TCHAR** lppPart = { NULL };
+
+	//retval = GetFullPathName((TCHAR*)"sarpe",BUFSIZE,buffer,lppPart);
+	////std::string path = buffer + TCHAR("../../Snake/sarpe/grass.bmp");
+	////if (path==NULL)
+	////{
+	////	// Handle an error condition.
+	////	printf("GetFullPathName failed (%d)\n", GetLastError());
+	////	return;
+	////}
+	////else
+	//{
+	//	_tprintf(TEXT("The full path name is:  %s\n"), buffer);
+	//}
+
+
 	screenSurface = SDL_LoadBMP("../../Snake/sarpe/grass.bmp");
 	if (!screenSurface)
 	{
