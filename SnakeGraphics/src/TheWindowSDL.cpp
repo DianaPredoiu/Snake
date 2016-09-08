@@ -7,6 +7,8 @@
 #include <stdio.h>
 
 
+
+
 WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 {
 	SDL_Init(SDL_INIT_VIDEO);
@@ -23,9 +25,11 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 
-<<<<<<< HEAD
-	screenSurface = SDL_LoadBMP("sarpe/grass.bmp");
-=======
+//<<<<<<< HEAD
+	std::string p = FOO;
+	p.append("/sarpe/grass.bmp");
+	screenSurface = SDL_LoadBMP(p.c_str());
+//=======
 	//DWORD  retval = 0;
 	//BOOL   success;
 	//TCHAR  buffer[BUFSIZE] = TEXT("");
@@ -46,8 +50,8 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	//}
 
 
-	screenSurface = SDL_LoadBMP("../../Snake/sarpe/grass.bmp");
->>>>>>> 494b73624ee859cbaf40f1e36ff1b2dcff7ae536
+	/*screenSurface = SDL_LoadBMP("../../Snake/sarpe/grass.bmp");
+>>>>>>> 494b73624ee859cbaf40f1e36ff1b2dcff7ae536*/
 	if (!screenSurface)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());

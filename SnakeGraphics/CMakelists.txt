@@ -48,3 +48,5 @@ ${PROJECT_NAME}
 	SDL2_image
 	Snake
 )
+
+add_definitions(-D"FOO=\\"${CMAKE_SOURCE_DIR}\\"")
