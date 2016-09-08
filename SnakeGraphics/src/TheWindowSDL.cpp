@@ -1,6 +1,11 @@
 #include "theWindow.h"
 #include <iostream>
 #include <Image_Loaders.h>
+#include <windows.h>
+#include <tchar.h>
+#include <stdio.h>
+
+#define BUFSIZE 4096
 
 WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 {
@@ -17,7 +22,8 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	renderer = NULL;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-	screenSurface = SDL_LoadBMP("grass.bmp");
+
+	screenSurface = SDL_LoadBMP("../../Snake/sarpe/grass.bmp");
 	if (!screenSurface)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
@@ -76,7 +82,7 @@ void WindowSDL::loadSurface(std::string path)
 	SDL_Texture* newTexture = NULL;
 
 	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load("../sarpe/grass.png");
+	SDL_Surface* loadedSurface = IMG_Load("../sarpe/grass.bmp");
 	if (loadedSurface == NULL)
 	{
 		std::cout << "Unable to load image! SDL_image Error:\n" << path.c_str() << " " << IMG_GetError();
