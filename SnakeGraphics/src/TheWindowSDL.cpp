@@ -2,14 +2,10 @@
 #include <iostream>
 #include <Image_Loaders.h>
 #include <windows.h>
-<<<<<<< HEAD
 #include <string>
-=======
 #include <tchar.h>
 #include <stdio.h>
 
-#define BUFSIZE 4096
->>>>>>> origin/master
 
 WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 {
