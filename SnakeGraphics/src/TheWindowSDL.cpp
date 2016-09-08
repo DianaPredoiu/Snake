@@ -23,7 +23,7 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 
-	screenSurface = SDL_LoadBMP("../../Snake/sarpe/grass.bmp");
+	screenSurface = SDL_LoadBMP("sarpe/grass.bmp");
 	if (!screenSurface)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
