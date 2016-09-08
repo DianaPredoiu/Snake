@@ -1,5 +1,6 @@
 #include "theWindow.h"
 #include <iostream>
+#include <Image_Loaders.h>
 
 WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 {
@@ -15,9 +16,14 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	}
 	renderer = NULL;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_Texture *tex = IMG_LoadTexture(renderer, "./sarpe/grass.png");
+	loadSurface("./sarpe/grass.png");
+	texture = tex;
+	SDL_UpdateWindowSurface(window);
 
 	mainEvent = new SDL_Event;
 }
+
 WindowSDL::~WindowSDL(){
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
@@ -41,4 +47,40 @@ void WindowSDL::Begin()
 }
 void WindowSDL::End(){
 	SDL_RenderPresent(renderer);
+}
+
+void WindowSDL::SetTexture(SDL_Texture *tex)
+{
+	texture = tex;
+}
+
+void WindowSDL::SetSurface(SDL_Surface *surface)
+{
+	screenSurface = surface;
+}
+
+void WindowSDL::loadSurface(std::string path)
+{
+	SDL_Texture* newTexture = NULL;
+
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load("../sarpe/grass.png");
+	if (loadedSurface == NULL)
+	{
+		std::cout << "Unable to load image! SDL_image Error:\n" << path.c_str() << " " << IMG_GetError();
+	}
+	else
+	{
+		//Create texture from surface pixels
+		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		if (newTexture == NULL)
+		{
+			std::cout << "Unable to create texture from! SDL Error:\n" << path.c_str() << " " << SDL_GetError();
+		}
+		
+		//Get rid of old loaded surface
+		SDL_FreeSurface(loadedSurface);
+	}
+
+	
 }

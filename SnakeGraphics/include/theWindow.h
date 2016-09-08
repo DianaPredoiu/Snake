@@ -14,6 +14,9 @@ public:
 	SDL_Texture *GetTexture();
 	SDL_Surface *GetDisplaySurface();
 
+	void SetTexture(SDL_Texture *tex);
+	void SetSurface(SDL_Surface *surface);
+
 	void Begin();
 	void End();
 
@@ -24,7 +27,7 @@ public:
 	void close();
 
 	//Loads individual image
-	SDL_Surface* loadSurface(std::string path);
+	void loadSurface(std::string path);
 
 	//Loads individual image as texture
 	SDL_Texture* loadTexture(std::string path);

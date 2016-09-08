@@ -6,27 +6,13 @@
 #include <Image_Loaders.h>
 
 
-// The window to render to
-SDL_Window *window = NULL;
-
-// The screen surface contained by the window
-SDL_Surface *screenSurface = NULL;
-
-// The current image in display
-SDL_Surface *displaySurface = NULL;
-
-// Current displayed texture
-SDL_Texture *texture = NULL;
-
-SDL_Renderer *renderer = NULL;
-
 // LTexture
-IMTexture::IMTexture()
+IMTexture::IMTexture(SDL_Renderer *requiredRenderer, std::string fileName, int width, int height)
 {
 	//Initialize
-	imTexture = NULL;
-	imWidth = 0;
-	imHeight = 0;
+	imTexture = IMG_LoadTexture(requiredRenderer, fileName.c_str());
+	imWidth = width;
+	imHeight = height;
 }
 
 IMTexture::~IMTexture()
@@ -44,7 +30,7 @@ bool IMTexture::loadFromFile(std::string path)
 	SDL_Texture* newTexture = NULL;
 
 	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	SDL_Surface* loadedSurface = IMG_Load("../sarpe/grass.png");
 	if (loadedSurface == NULL)
 	{
 		std::cout << "Unable to load image! SDL_image Error:\n" << path.c_str() << " " << IMG_GetError();
@@ -52,7 +38,7 @@ bool IMTexture::loadFromFile(std::string path)
 	else
 	{
 		//Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+//		newTexture = SDL_CreateTextureFromSurface(window->GetRenderer(), loadedSurface);
 		if (newTexture == NULL)
 		{
 			std::cout << "Unable to create texture from! SDL Error:\n" << path.c_str() << " " << SDL_GetError();
@@ -72,6 +58,7 @@ bool IMTexture::loadFromFile(std::string path)
 	imTexture = newTexture;
 	return imTexture != NULL;
 }
+
 
 void IMTexture::free()
 {

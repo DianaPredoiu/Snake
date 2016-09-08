@@ -6,16 +6,15 @@
 int main(int argc, char* argv[])
 {
 	bool quit = false;
-	WindowSDL *ceva = new WindowSDL(&quit, 800, 600);
-	while (quit == false && ceva->GetMainEvent()->type != SDL_QUIT)
+	WindowSDL *ferestruica = new WindowSDL(&quit, 800, 600);
+	
+	while (quit == false && ferestruica->GetMainEvent()->type != SDL_QUIT)
 	{
-		ceva->Begin();
-		// fara obiecte create in acest while
-		// game code
+		ferestruica->Begin();
 		//Game();
-		IMTexture *texture = new IMTexture;
-		texture->loadFromFile("..\sarpe\grass.png");
-		ceva->End();
+	
+		
+		ferestruica->End();
 	}
 
 	//delete ceva;
