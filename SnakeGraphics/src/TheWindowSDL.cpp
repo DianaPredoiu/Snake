@@ -6,7 +6,7 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
 
 	window = NULL;
-	window = SDL_CreateWindow("o fereastra QFort", 100, 100, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Just Another Snake Game", 100, 100, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN);
 
 	if (window == NULL)
 	{
