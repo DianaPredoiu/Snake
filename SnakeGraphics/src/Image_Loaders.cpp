@@ -30,7 +30,7 @@ bool IMTexture::loadFromFile(std::string path)
 	SDL_Texture* newTexture = NULL;
 
 	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load("../sarpe/grass.png");
+	SDL_Surface* loadedSurface = IMG_Load("../sarpe/grass.bmp");
 	if (loadedSurface == NULL)
 	{
 		std::cout << "Unable to load image! SDL_image Error:\n" << path.c_str() << " " << IMG_GetError();
