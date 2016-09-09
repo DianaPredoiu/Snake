@@ -5,6 +5,7 @@
 #include <string>
 #include <tchar.h>
 #include <stdio.h>
+#include "GameMap.h"
 
 WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 {

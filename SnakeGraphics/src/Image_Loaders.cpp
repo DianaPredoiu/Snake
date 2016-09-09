@@ -13,6 +13,7 @@ IMTexture::IMTexture(SDL_Renderer *requiredRenderer, std::string fileName, int w
 	imTexture = loadFromFile(fileName);
 	imWidth = width;
 	imHeight = height;
+	renderer = requiredRenderer;
 }
 
 IMTexture::~IMTexture()
@@ -24,7 +25,7 @@ IMTexture::~IMTexture()
 SDL_Texture* IMTexture::loadFromFile(std::string fileName)
 {
 	//Get rid of preexisting texture
-	//free();
+	free();
 
 	//The final texture
 	SDL_Texture* newTexture = NULL;
@@ -45,7 +46,7 @@ SDL_Texture* IMTexture::loadFromFile(std::string fileName)
 	else
 	{
 		//Create texture from surface pixels
-//		newTexture = SDL_CreateTextureFromSurface(window->GetRenderer(), loadedSurface);
+		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if (newTexture == NULL)
 		{
 			std::cout << "Unable to create texture from! SDL Error:\n" << p.c_str() << " " << SDL_GetError();

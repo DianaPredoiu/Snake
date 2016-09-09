@@ -34,9 +34,10 @@ public:
 	SDL_Texture* GetTexture();
 
 private:
+
+	SDL_Renderer* renderer;
 	//The actual hardware texture
 	SDL_Texture* imTexture;
-//	WindowSDL *window = new WindowSDL(false, 800, 600);
 
 	//Image dimensions
 	int imWidth;

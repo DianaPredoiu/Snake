@@ -10,13 +10,17 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin)
 set(HEADERS
 	include/theWindow.h
 	include/Image_Loaders.h
-	
+	include/Presets.h
+	include/Texture.h
+	include/Game.h
   )
   
 set(SOURCES
 	src/MainG.cpp
 	src/TheWindowSDL.cpp
 	src/Image_Loaders.cpp
+	src/Texture.cpp
+	src/Game.cpp
 	
 	)
 include_directories(
