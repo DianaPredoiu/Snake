@@ -19,6 +19,7 @@ set(HEADERS
 	include/Rules.h
 	include/DLLExportOptions.h
 	include/Main.h
+	include/Directions.h
   )
   
 set(SOURCES

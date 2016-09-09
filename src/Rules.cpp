@@ -31,16 +31,14 @@ bool Rules::upMove()
 		}
 	}
 	else
-	{
-		std::cout << "GAME OVER!" << std::endl;
 		return true;
-	}
+
 	return false;
 }
 
 bool Rules::downMove()
 {
-	if (game->getSnake().getCoordinates().at(0)->getY() != game->getHeight() - 1)
+	if (game->getSnake().getCoordinates().at(0)->getY() < game->getHeight() - 1)
 	{
 		if ((game->getSnake().getCoordinates().at(0)->getY() + 1) != game->getSnake().getCoordinates().at(1)->getY())
 		{
@@ -54,16 +52,14 @@ bool Rules::downMove()
 		}
 	}
 	else
-	{
-		std::cout << "GAME OVER!" << std::endl;
 		return true;
-	}
+
 	return false;
 }
 
 bool Rules::leftMove()
 {
-	if (game->getSnake().getCoordinates().at(0)->getX() != 0)
+	if (game->getSnake().getCoordinates().at(0)->getX() > 0)
 	{
 		if ((game->getSnake().getCoordinates().at(0)->getX() - 1) != game->getSnake().getCoordinates().at(1)->getX())
 		{
@@ -76,16 +72,14 @@ bool Rules::leftMove()
 		}
 	}
 	else
-	{
-		std::cout << "GAME OVER!" << std::endl;
 		return true;
-	}
+
 	return false;
 }
 
 bool Rules::rightMove()
 {
-	if (game->getSnake().getCoordinates().at(0)->getX() != game->getWidth() - 1)
+	if (game->getSnake().getCoordinates().at(0)->getX() < game->getWidth() - 1)
 	{
 		if ((game->getSnake().getCoordinates().at(0)->getX() + 1) != game->getSnake().getCoordinates().at(1)->getX())
 		{
@@ -99,15 +93,14 @@ bool Rules::rightMove()
 		}
 	}
 	else
-	{
-		std::cout << "GAME OVER!" << std::endl;
 		return true;
-	}
+
 	return false;
 }
 #pragma endregion 
 
 #pragma region Other rules
+
 bool Rules::eatItself()
 {
 	/*for (std::vector<Position*>::iterator it = game->getSnake().getCoordinates().begin() + 1; it != game->getSnake().getCoordinates().end(); ++it)*/
@@ -121,4 +114,70 @@ bool Rules::eatItself()
 
 	return false;
 }
+
+bool Rules::isOutOfBounds()
+{
+	if (eatItself())
+		return true;
+
+	//left
+	if (game->getSnake().getCoordinates().at(0)->getX() < 0)
+		return true;
+
+	//up
+	if (game->getSnake().getCoordinates().at(0)->getY() < 0)
+		return true;
+
+	//right
+	if (game->getSnake().getCoordinates().at(0)->getX() > game->getWidth() - 1)
+		return true;
+
+	//down
+	if (game->getSnake().getCoordinates().at(0)->getY() > game->getHeight() - 1)
+		return true;
+
+	return false;
+}
+
+bool Rules::continuousMovement()
+{
+	if (game->getSnake().getCoordinates().at(0)->getY() >= 0)
+	{
+		//body left->head => snake moves to right
+		if (game->getSnake().getCoordinates().at(1)->getX() == (game->getSnake().getCoordinates().at(0)->getX() - 1))
+		{
+			if (rightMove() == true)
+				return true;
+		}
+
+		//body right->head => snake moves to the left
+		if (game->getSnake().getCoordinates().at(1)->getX() == (game->getSnake().getCoordinates().at(0)->getX() + 1))
+		{
+			if (leftMove() == true)
+				return true;
+		}
+
+		//body up->head => snake moves down
+		if (game->getSnake().getCoordinates().at(1)->getY() == (game->getSnake().getCoordinates().at(0)->getY() - 1))
+		{
+			if (downMove() == true)
+				return true;
+		}
+
+		//body down->head => snake moves up
+		if (game->getSnake().getCoordinates().at(1)->getY() == (game->getSnake().getCoordinates().at(0)->getY() + 1))
+		{
+			if (upMove() == true)
+				return true;
+		}
+
+		if (eatItself())
+			return true;
+
+	}
+	else
+		return true;
+	return false;
+}
+
 #pragma endregion 

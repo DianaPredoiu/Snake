@@ -15,4 +15,8 @@ public:
 	bool downMove();
 
 	bool eatItself();
+
+	bool isOutOfBounds();
+
+	bool continuousMovement();
 };
