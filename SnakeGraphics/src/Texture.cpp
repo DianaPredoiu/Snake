@@ -1,5 +1,6 @@
 #include "Texture.h"
 #include <iostream>
+#include "Presets.h"
 
 Texture::Texture()
 {
@@ -75,6 +76,14 @@ bool Texture::loadFromRenderedText(std::string textTexture, SDL_Color textColor,
 	}
 
 	return imTexture != NULL;
+}
+
+bool Texture::imgRect(SDL_Texture* texture, SDL_Renderer* renderer)
+{
+	SDL_Rect imgRectangle = { SCREEN_WIDTH / 4,	SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
+	SDL_RenderFillRect(renderer, &imgRectangle);
+	
+	return imgRectangle != NULL;
 }
 
 void Texture::free()
