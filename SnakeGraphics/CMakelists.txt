@@ -46,6 +46,7 @@ ${PROJECT_NAME}
 	SDL2main
 	SDL2test
 	SDL2_image
+	SDL2_ttf
 	Snake
 )
 

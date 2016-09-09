@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -21,7 +19,10 @@ public:
 	~IMTexture();
 
 	//Loads image at specified path
-	bool loadFromFile(std::string path);
+	SDL_Texture* loadFromFile(std::string fileName);
+
+	// draws an image at a given position
+	void DrawImage(SDL_Surface *surface, char *image_path, int x_pos, int y_pos);
 
 	//Deallocates texture
 	void free();
@@ -30,7 +31,7 @@ public:
 	int getWidth();
 	int getHeight();
 
-	SDL_Texture GetTexture();
+	SDL_Texture* GetTexture();
 
 private:
 	//The actual hardware texture
