@@ -11,12 +11,13 @@ class Texture
 public:
 	Texture();
 	~Texture();
-	bool loadFromFile(std::string fileName, SDL_Renderer* renderer, std::ofstream& mFile);
-	bool loadFromRenderedText(std::string textTexture, SDL_Color textColor, TTF_Font* mFont, std::ofstream& mfile, SDL_Renderer* renderer);
+	bool loadFromFile(std::string fileName, SDL_Renderer* renderer);
+	bool loadFromRenderedText(std::string textTexture, SDL_Color textColor, TTF_Font* mFont, SDL_Renderer* renderer);
 	void free();
 	void render(int x, int y, SDL_Renderer* renderer);
 	int getWidth() const;
 	int getHeight() const;
+	SDL_Texture* GetTexture();
 
 private:
 	SDL_Texture *imTexture;

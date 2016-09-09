@@ -2,6 +2,7 @@
 #include <theWindow.h>
 #include "Main.h"
 #include "Image_Loaders.h"
+#include "Texture.h"
 
 int main(int argc, char* argv[])
 {
@@ -15,9 +16,17 @@ int main(int argc, char* argv[])
 		SDL_RenderCopy(ferestruica->GetRenderer(), ferestruica->GetTexture(), NULL, NULL);
 		SDL_RenderPresent(ferestruica->GetRenderer());
 	
-		IMTexture* tex = new IMTexture(ferestruica->GetRenderer(), "cap.bmp", 50, 50);
+		/*IMTexture* tex = new IMTexture(ferestruica->GetRenderer(), "cap.bmp", 50, 50);
 
 		SDL_RenderCopy(ferestruica->GetRenderer(), tex->GetTexture(), NULL, NULL);
+		SDL_RenderPresent(ferestruica->GetRenderer());
+*/
+
+		Texture tex;
+
+		tex.loadFromFile("cap.bmp", ferestruica->GetRenderer());
+
+		SDL_RenderCopy(ferestruica->GetRenderer(), tex.GetTexture(), NULL, NULL);
 		SDL_RenderPresent(ferestruica->GetRenderer());
 
 		

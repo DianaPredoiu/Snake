@@ -13,7 +13,7 @@ Texture::~Texture()
 	free();
 }
 
-bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer, std::ofstream& mFile)
+bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
 {
 	// empty the surface to make sure it doesn't collide in textures
 	free();
@@ -49,7 +49,7 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer, std::of
 	return imTexture != NULL;
 }
 
-bool Texture::loadFromRenderedText(std::string textTexture, SDL_Color textColor, TTF_Font* mFont, std::ofstream& mFile, SDL_Renderer* renderer)
+bool Texture::loadFromRenderedText(std::string textTexture, SDL_Color textColor, TTF_Font* mFont, SDL_Renderer* renderer)
 {
 	free();
 
@@ -103,4 +103,10 @@ int Texture::getWidth() const
 int Texture::getHeight() const
 {
 	return imHeight;
+}
+
+
+SDL_Texture* Texture::GetTexture()
+{
+	return imTexture;
 }
