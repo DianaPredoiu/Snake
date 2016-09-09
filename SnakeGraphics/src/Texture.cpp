@@ -13,24 +13,28 @@ Texture::~Texture()
 	free();
 }
 
-bool Texture::loadFromFile(std::string path, SDL_Renderer* renderer, std::ofstream& mFile)
+bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer, std::ofstream& mFile)
 {
 	// empty the surface to make sure it doesn't collide in textures
 	free();
 
 	SDL_Texture* newTexture = NULL;
-
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	std::string p = FOO;
+	// and attach the img folder to the project source path
+	p.append("/sarpe/");
+	p.append(fileName);
+	// load img and print on window
+	SDL_Surface* loadedSurface = IMG_Load(p.c_str());
 	if (loadedSurface == NULL)
 	{
-		std::cout << "Unable to load the image " << path.c_str() << ", SDL_image Error: " << IMG_GetError() << std::endl;
+		std::cout << "Unable to load the image " << p.c_str() << ", SDL_image Error: " << IMG_GetError() << std::endl;
 	}
 	else
 	{
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if (newTexture == NULL)
 		{
-			std::cout << "Unable to create texture" << path.c_str() << ", SDL Error: " << SDL_GetError() << std::endl;
+			std::cout << "Unable to create texture" << p.c_str() << ", SDL Error: " << SDL_GetError() << std::endl;
 		}
 		else
 		{
