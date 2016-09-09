@@ -24,34 +24,13 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	renderer = NULL;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-
-//<<<<<<< HEAD
+	// get the path to the img source folder
 	std::string p = FOO;
+	// and attach the img folder to the project source path
 	p.append("/sarpe/grass.bmp");
+	// load img and print on window
 	screenSurface = SDL_LoadBMP(p.c_str());
-//=======
-	//DWORD  retval = 0;
-	//BOOL   success;
-	//TCHAR  buffer[BUFSIZE] = TEXT("");
-	//TCHAR  buf[BUFSIZE] = TEXT("");
-	//TCHAR** lppPart = { NULL };
 
-	//retval = GetFullPathName((TCHAR*)"sarpe",BUFSIZE,buffer,lppPart);
-	////std::string path = buffer + TCHAR("../../Snake/sarpe/grass.bmp");
-	////if (path==NULL)
-	////{
-	////	// Handle an error condition.
-	////	printf("GetFullPathName failed (%d)\n", GetLastError());
-	////	return;
-	////}
-	////else
-	//{
-	//	_tprintf(TEXT("The full path name is:  %s\n"), buffer);
-	//}
-
-
-	/*screenSurface = SDL_LoadBMP("../../Snake/sarpe/grass.bmp");
->>>>>>> 494b73624ee859cbaf40f1e36ff1b2dcff7ae536*/
 	if (!screenSurface)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
