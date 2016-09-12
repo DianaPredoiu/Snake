@@ -5,9 +5,7 @@
 #include <string>
 #include <tchar.h>
 #include <stdio.h>
-
-
-
+#include "GameMap.h"
 
 WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 {
@@ -29,8 +27,8 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	// and attach the img folder to the project source path
 	p.append("/sarpe/grass.bmp");
 	// load img and print on window
-	screenSurface = SDL_LoadBMP(p.c_str());
-
+	//screenSurface = SDL_LoadBMP(p.c_str());
+	screenSurface = IMG_Load(p.c_str());
 	if (!screenSurface)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
@@ -44,13 +42,8 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	
 	SDL_FreeSurface(screenSurface);
 
-	//SDL_UpdateWindowSurface(window);
-
 	mainEvent = new SDL_Event;
 }
-
-
-
 
 WindowSDL::~WindowSDL(){
 	SDL_DestroyWindow(window);
@@ -62,6 +55,7 @@ SDL_Renderer *WindowSDL::GetRenderer()
 {
 	return renderer;
 }
+
 SDL_Event *WindowSDL::GetMainEvent()
 {
 	return mainEvent;
@@ -87,31 +81,12 @@ void WindowSDL::SetSurface(SDL_Surface *surface)
 	screenSurface = surface;
 }
 
-void WindowSDL::loadSurface(std::string path)
-{
-	SDL_Texture* newTexture = NULL;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load("../sarpe/grass.bmp");
-	if (loadedSurface == NULL)
-	{
-		std::cout << "Unable to load image! SDL_image Error:\n" << path.c_str() << " " << IMG_GetError();
-	}
-	else
-	{
-		//Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL)
-		{
-			std::cout << "Unable to create texture from! SDL Error:\n" << path.c_str() << " " << SDL_GetError();
-		}
-		
-		//Get rid of old loaded surface
-		SDL_FreeSurface(loadedSurface);
-	}	
-}
-
 SDL_Texture* WindowSDL::GetTexture()
 {
 	return this->texture;
+}
+
+SDL_Window* WindowSDL::GetWindow()
+{
+	return window;
 }

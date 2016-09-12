@@ -13,8 +13,8 @@ public:
 	SDL_Surface *GetSurface();
 	SDL_Texture *GetTexture();
 	SDL_Surface *GetDisplaySurface();
+	SDL_Window *GetWindow();
 
-	std::string resPath(std::string file);
 
 	void SetTexture(SDL_Texture *tex);
 	void SetSurface(SDL_Surface *surface);

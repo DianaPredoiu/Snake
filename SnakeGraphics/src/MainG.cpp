@@ -2,6 +2,7 @@
 #include <theWindow.h>
 #include "Main.h"
 #include "Image_Loaders.h"
+<<<<<<< HEAD
 #include "Rules.h"
 #include "GameMap.h"
 #include "InputHandler.h"
@@ -59,6 +60,9 @@ bool init()
 
 	return success;
 }
+=======
+#include "Texture.h"
+>>>>>>> origin/master
 
 int main(int argc, char* argv[])
 {
@@ -76,6 +80,7 @@ int main(int argc, char* argv[])
 
 	if (!init())
 	{
+<<<<<<< HEAD
 		std::cout<<"Failed to initialize!\n"<<std::endl;
 	}
 	else
@@ -121,6 +126,28 @@ int main(int argc, char* argv[])
 
 			//ferestruica->End();
 		}
+=======
+		ferestruica->Begin();
+		//Game();
+		SDL_RenderCopy(ferestruica->GetRenderer(), ferestruica->GetTexture(), NULL, NULL);
+		SDL_RenderPresent(ferestruica->GetRenderer());
+	
+		/*IMTexture* tex = new IMTexture(ferestruica->GetRenderer(), "cap.bmp", 50, 50);
+
+		SDL_RenderCopy(ferestruica->GetRenderer(), tex->GetTexture(), NULL, NULL);
+		SDL_RenderPresent(ferestruica->GetRenderer());
+*/
+
+		Texture tex;
+
+		tex.loadFromFile("cap.bmp", ferestruica->GetRenderer());
+
+		SDL_RenderCopy(ferestruica->GetRenderer(), tex.GetTexture(), NULL, NULL);
+		SDL_RenderPresent(ferestruica->GetRenderer());
+
+		
+		ferestruica->End();
+>>>>>>> origin/master
 	}
 	
 
