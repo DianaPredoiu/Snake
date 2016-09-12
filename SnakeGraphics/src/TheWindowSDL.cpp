@@ -25,7 +25,7 @@ WindowSDL::WindowSDL(bool *quit, int ScreenWidth, int ScreenHeight)
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/grass.bmp");
+	p.append("/sarpe/grass.png");
 	// load img and print on window
 	//screenSurface = SDL_LoadBMP(p.c_str());
 	screenSurface = IMG_Load(p.c_str());

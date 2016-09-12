@@ -1,5 +1,6 @@
 #pragma once
 #include "Position.h"
+#include "Texture.h"
 /**
 "Item" class is the base class for Food,Bonus and Surprise classes.
 They all have in common a specific number of victory points and different symbols
@@ -27,4 +28,5 @@ public:
 	virtual bool getState() = 0;
 	virtual void setState(bool state) = 0;
 
+	//Texture texture;
 };

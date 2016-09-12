@@ -14,7 +14,7 @@ Texture::~Texture()
 	free();
 }
 
-bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
+bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer, int width, int height)
 {
 	// empty the surface to make sure it doesn't collide in textures
 	free();
@@ -39,8 +39,8 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
 		}
 		else
 		{
-			imWidth = loadedSurface->w;
-			imHeight = loadedSurface->h;
+			imWidth = width;
+			imHeight = height;
 		}
 
 		SDL_FreeSurface(loadedSurface);
@@ -78,12 +78,13 @@ bool Texture::loadFromRenderedText(std::string textTexture, SDL_Color textColor,
 	return imTexture != NULL;
 }
 
-bool Texture::imgRect(SDL_Texture* texture, SDL_Renderer* renderer)
+SDL_Rect Texture::imgRect(SDL_Texture* texture, SDL_Renderer* renderer)
 {
-	SDL_Rect imgRectangle = { SCREEN_WIDTH / 4,	SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
+	SDL_Rect imgRectangle = { 50,	50, 50, 50};
+	SDL_RenderCopyEx(renderer, texture, &imgRectangle, NULL, NULL, NULL, SDL_FLIP_NONE);
 	SDL_RenderFillRect(renderer, &imgRectangle);
 	
-	return imgRectangle != NULL;
+	return imgRectangle;
 }
 
 void Texture::free()

@@ -3,6 +3,7 @@
 #include "Main.h"
 #include "Image_Loaders.h"
 #include "Texture.h"
+#include "SymbolTranslation.h"
 
 int main(int argc, char* argv[])
 {
@@ -24,12 +25,15 @@ int main(int argc, char* argv[])
 
 		Texture tex;
 
-		tex.loadFromFile("cap.bmp", ferestruica->GetRenderer());
+		tex.loadFromFile("cap.bmp", ferestruica->GetRenderer(), 100, 100);
+		SDL_Rect texRect = tex.imgRect(tex.GetTexture(), ferestruica->GetRenderer());
+		
+		SymbolTranslation* capSym = new SymbolTranslation('T', ferestruica->GetRenderer());
+		capSym->ConvertToTextureFromSymbol();
 
-		SDL_RenderCopy(ferestruica->GetRenderer(), tex.GetTexture(), NULL, NULL);
+		SDL_RenderCopy(ferestruica->GetRenderer(), capSym->GetTexture().GetTexture(), &texRect, NULL);
 		SDL_RenderPresent(ferestruica->GetRenderer());
 
-		
 		ferestruica->End();
 	}
 

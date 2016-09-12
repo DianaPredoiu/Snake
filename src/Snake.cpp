@@ -6,9 +6,9 @@ Snake::Snake()
 	this->coordinates.push_back(new Position(3, 1)); //head position
 	this->coordinates.push_back(new Position(2, 1)); //body position
 	this->coordinates.push_back(new Position(1, 1)); //tail position
-	this->headSymbol = '*';
-	this->bodySymbol = '*';
-	this->tailSymbol = '*';
+	this->headSymbol = 'H';
+	this->bodySymbol = 'b';
+	this->tailSymbol = 'T';
 }
 
 Snake::Snake(int i, int j)
@@ -16,9 +16,9 @@ Snake::Snake(int i, int j)
 	this->coordinates.push_back(new Position(j, i)); //head position
 	this->coordinates.push_back(new Position(j - 1, i)); //body position
 	this->coordinates.push_back(new Position(j - 2, i)); //tail position
-	this->headSymbol = '*';
-	this->bodySymbol = '*';
-	this->tailSymbol = '*';
+	this->headSymbol = 'H';
+	this->bodySymbol = 'b';
+	this->tailSymbol = 'T';
 }
 #pragma endregion 
 

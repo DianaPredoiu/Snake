@@ -37,6 +37,7 @@ set(SOURCES
 include_directories(
 	include
 	utility/include/catch
+	utility/SDL2/include
 	SnakeGraphics/include
 )
 
@@ -44,6 +45,11 @@ link_directories(
    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 
 )
+
+link_directories(
+	${CMAKE_HOME_DIRECTORY}/utility/SDL2/lib/x86
+)
+
 
 add_subdirectory(
 	SnakeGraphics
