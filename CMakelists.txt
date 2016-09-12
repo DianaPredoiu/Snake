@@ -71,3 +71,11 @@ add_library(
 	${HEADERS} ${SOURCES}
 )
 
+target_link_libraries(
+${PROJECT_NAME}
+	SDL2
+	SDL2main
+	SDL2test
+
+)
+
