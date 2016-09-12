@@ -2,11 +2,12 @@
 #include <theWindow.h>
 #include "Main.h"
 #include "Image_Loaders.h"
-<<<<<<< HEAD
 #include "Rules.h"
 #include "GameMap.h"
 #include "InputHandler.h"
 #include "SDL.h"
+#include "Texture.h"
+#include "SymbolTranslation.h"
 
 void displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
@@ -60,13 +61,6 @@ bool init()
 
 	return success;
 }
-=======
-#include "Texture.h"
-<<<<<<< HEAD
-#include "SymbolTranslation.h"
-=======
->>>>>>> origin/master
->>>>>>> origin/master
 
 int main(int argc, char* argv[])
 {
@@ -84,7 +78,6 @@ int main(int argc, char* argv[])
 
 	if (!init())
 	{
-<<<<<<< HEAD
 		std::cout<<"Failed to initialize!\n"<<std::endl;
 	}
 	else
@@ -130,31 +123,29 @@ int main(int argc, char* argv[])
 
 			//ferestruica->End();
 		}
-=======
-		ferestruica->Begin();
-		//Game();
-		SDL_RenderCopy(ferestruica->GetRenderer(), ferestruica->GetTexture(), NULL, NULL);
-		SDL_RenderPresent(ferestruica->GetRenderer());
-	
-		/*IMTexture* tex = new IMTexture(ferestruica->GetRenderer(), "cap.bmp", 50, 50);
-
-		SDL_RenderCopy(ferestruica->GetRenderer(), tex->GetTexture(), NULL, NULL);
-		SDL_RenderPresent(ferestruica->GetRenderer());
-*/
-
-		Texture tex;
-
-		tex.loadFromFile("cap.bmp", ferestruica->GetRenderer(), 100, 100);
-		SDL_Rect texRect = tex.imgRect(tex.GetTexture(), ferestruica->GetRenderer());
-		
-		SymbolTranslation* capSym = new SymbolTranslation('T', ferestruica->GetRenderer());
-		capSym->ConvertToTextureFromSymbol();
-
-		SDL_RenderCopy(ferestruica->GetRenderer(), capSym->GetTexture().GetTexture(), &texRect, NULL);
-		SDL_RenderPresent(ferestruica->GetRenderer());
-
-		ferestruica->End();
->>>>>>> origin/master
+//		ferestruica->Begin();
+//		//Game();
+//		SDL_RenderCopy(ferestruica->GetRenderer(), ferestruica->GetTexture(), NULL, NULL);
+//		SDL_RenderPresent(ferestruica->GetRenderer());
+//	
+//		/*IMTexture* tex = new IMTexture(ferestruica->GetRenderer(), "cap.bmp", 50, 50);
+//
+//		SDL_RenderCopy(ferestruica->GetRenderer(), tex->GetTexture(), NULL, NULL);
+//		SDL_RenderPresent(ferestruica->GetRenderer());
+//*/
+//
+//		Texture tex;
+//
+//		tex.loadFromFile("cap.bmp", ferestruica->GetRenderer(), 100, 100);
+//		SDL_Rect texRect = tex.imgRect(tex.GetTexture(), ferestruica->GetRenderer());
+//		
+//		SymbolTranslation* capSym = new SymbolTranslation('T', ferestruica->GetRenderer());
+//		capSym->ConvertToTextureFromSymbol();
+//
+//		SDL_RenderCopy(ferestruica->GetRenderer(), capSym->GetTexture().GetTexture(), &texRect, NULL);
+//		SDL_RenderPresent(ferestruica->GetRenderer());
+//
+//		ferestruica->End();
 	}
 	
 

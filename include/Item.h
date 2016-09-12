@@ -1,10 +1,7 @@
 #pragma once
 #include "Position.h"
-<<<<<<< HEAD
 #include "Texture.h"
-=======
 #include "DLLExportOptions.h"
->>>>>>> origin/master
 /**
 "Item" class is the base class for Food,Bonus and Surprise classes.
 They all have in common a specific number of victory points and different symbols
