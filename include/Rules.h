@@ -1,8 +1,8 @@
 #pragma once
 #include "GameMap.h"
+#include "DLLExportOptions.h"
 
-
-class Rules
+class DLL_SNAKE Rules
 {
 	GameMap *game;
 

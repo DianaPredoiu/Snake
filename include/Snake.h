@@ -1,8 +1,9 @@
 #pragma once
 #include <vector>
 #include "Position.h"
+#include "DLLExportOptions.h"
 
-class Snake
+class DLL_SNAKE Snake
 {
 private:
 	std::vector<Position*> coordinates;

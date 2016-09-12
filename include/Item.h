@@ -1,10 +1,11 @@
 #pragma once
 #include "Position.h"
+#include "DLLExportOptions.h"
 /**
 "Item" class is the base class for Food,Bonus and Surprise classes.
 They all have in common a specific number of victory points and different symbols
 */
-class Item
+class DLL_SNAKE Item
 {
 
 protected:

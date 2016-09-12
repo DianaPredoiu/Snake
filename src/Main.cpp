@@ -7,6 +7,8 @@
 #include "DLLExportOptions.h"
 #include "Main.h"
 #include "Directions.h"
+#include "SDL.h"
+
 
 void displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
@@ -29,76 +31,80 @@ void displayGameDetails(GameMap &game, std::vector<Position*> pos)
 
 void Game()
 {
-	GameMap game(15, 15);
-	Rules rules(&game);
-	
-	std::cout << game;
-	std::vector<Position*> positions = game.initializeGrid(game.getSnake().getCoordinates());
+	//GameMap game(15, 15);
+	//Rules rules(&game);
+	//
+	//std::cout << game;
+	//std::vector<Position*> positions = game.initializeGrid(game.getSnake().getCoordinates());
 
-	game.setScore(0);
+	//game.setScore(0);
 
-	HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);// handle for the event
-	DWORD NumInputs = 0;//number of inputs
-	DWORD InputsRead = 0;//the input keyboard read
-	INPUT_RECORD irInput;
+	//
+	////Event handler
+	//SDL_Event e;
 
-	
+	//bool working = true;
+	////While application is running
+	//while (working)
+	//{
+	//	//Handle events on queue
+	//	while (SDL_PollEvent(&e) != 0)
+	//	{
+	//		//User requests quit
+	//		if (e.type == SDL_QUIT || e.type == SDLK_ESCAPE)
+	//		{
+	//			working = false;
+	//		}
+	//		//User presses a key
+	//		else if (e.type == SDL_KEYDOWN)
+	//		{
+	//			//Select movements based on key press
+	//			switch (e.key.keysym.sym)
+	//			{
+	//				std::cout << e.key.keysym.sym << std::endl;
+	//			case SDLK_UP:
+	//				working = (!rules.upMove());
+	//				break;
 
-	bool working = true;
-	while (working)
-	{
-		GetNumberOfConsoleInputEvents(hInput, &NumInputs);
+	//			case SDLK_DOWN:
+	//				working = (!rules.downMove());
+	//				break;
 
-		if (NumInputs != 0)
-		{
-			ReadConsoleInput(hInput, &irInput, 1, &InputsRead);
+	//			case SDLK_LEFT:
+	//				working = (!rules.leftMove());
+	//				break;
 
-			if (irInput.Event.KeyEvent.bKeyDown)
-			{
-				switch (irInput.Event.KeyEvent.wVirtualKeyCode)
-				{
-				case VK_LEFT:
-					working = (!rules.leftMove());
-					break;
+	//			case SDLK_RIGHT:
+	//				working = (!rules.rightMove());
+	//				break;
 
-				case VK_UP:
-					working = (!rules.upMove());
-					break;
+	//			default:
+	//				break;
+	//			}
+	//		}
+	//		displayGameDetails(game, positions);
+	//		if (rules.isOutOfBounds() || working == false)
+	//		{
+	//			std::cout << "GAME OVER" << std::endl;
+	//			working = false;
+	//		}
+	//	}
 
-				case VK_RIGHT:
-					working = (!rules.rightMove());
-					break;
-
-				case VK_DOWN:
-					working = (!rules.downMove());
-					break;
-				}
-				displayGameDetails(game, positions);
-				if (rules.isOutOfBounds() || working == false)
-				{
-					std::cout << "GAME OVER" << std::endl;
-					working = false;
-				}
-			}
-
-		}
-		else
-		{
-			if (!rules.continuousMovement())
-			{
-				displayGameDetails(game, positions);
-				if (rules.isOutOfBounds())
-				{
-					std::cout << std::endl << "GAME OVER!" << std::endl;
-					break;
-				}
-			}
-			else
-			{
-				std::cout << std::endl << "GAME OVER!" << std::endl;
-				break;
-			}			
-		}
-	}
+	//		if (!rules.continuousMovement())
+	//		{
+	//			displayGameDetails(game, positions);
+	//			if (rules.isOutOfBounds())
+	//			{
+	//				std::cout << std::endl << "GAME OVER!" << std::endl;
+	//				break;
+	//			}
+	//		}
+	//		else
+	//		{
+	//			std::cout << std::endl << "GAME OVER!" << std::endl;
+	//			break;
+	//		}
+	//	
+	//}
 
 }

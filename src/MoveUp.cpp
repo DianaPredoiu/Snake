@@ -1,0 +1,28 @@
+#include "MoveUp.h"
+
+bool MoveUp::execute(GameMap& game)
+{
+	if (game.getSnake().getCoordinates().at(0)->getY() > 0)
+	{
+		if ((game.getSnake().getCoordinates().at(0)->getY() - 1) != game.getSnake().getCoordinates().at(1)->getY())
+		{
+			//tail
+			game.getSnake().getCoordinates().at(game.getSnake().getCoordinates().size() - 1)->setY(game.getSnake().getCoordinates().at(game.getSnake().getCoordinates().size() - 2)->getY());
+			game.getSnake().getCoordinates().at(game.getSnake().getCoordinates().size() - 1)->setX(game.getSnake().getCoordinates().at(game.getSnake().getCoordinates().size() - 2)->getX());
+
+			//body
+			for (int i = game.getSnake().getCoordinates().size() - 1; i > 0; i--)
+			{
+				game.getSnake().getCoordinates().at(i)->setX(game.getSnake().getCoordinates().at(i - 1)->getX());
+				game.getSnake().getCoordinates().at(i)->setY(game.getSnake().getCoordinates().at(i - 1)->getY());
+			}
+
+			//head
+			game.getSnake().getCoordinates().at(0)->setY(game.getSnake().getCoordinates().at(0)->getY() - 1);
+		}
+	}
+	else
+		return true;
+
+	return false;
+}

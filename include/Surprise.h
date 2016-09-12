@@ -1,7 +1,8 @@
 #pragma once
+#include "DLLExportOptions.h"
 #include "Item.h"
 
-enum Effects
+enum  Effects
 {
 	NoEffect,
 	BonusEffect,
@@ -9,7 +10,7 @@ enum Effects
 	SubstractPoints
 };
 
-class Surprise : Item
+class DLL_SNAKE Surprise : Item
 {
 private:
 	int time;

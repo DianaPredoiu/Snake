@@ -7,8 +7,9 @@
 #include "Food.h"
 #include "Bonus.h"
 #include "Surprise.h"
+#include "DLLExportOptions.h"
 
-class GameMap
+class DLL_SNAKE GameMap
 {
 private:
 
@@ -32,6 +33,7 @@ private:
 public:
 	//Constructors, destructors
 	GameMap();
+	GameMap(const GameMap &map);
 	GameMap(int width, int height);
 	~GameMap();
 
@@ -74,5 +76,5 @@ public:
 
 	std::vector<Position*> initializeGrid(std::vector<Position*> oldPositions);
 
-	friend std::ostream& operator<<(std::ostream& os, const GameMap& obj);
+	friend DLL_SNAKE std::ostream& operator<<(std::ostream& os, const GameMap& obj);
 };
