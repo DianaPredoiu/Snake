@@ -32,18 +32,28 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer, int wid
 	}
 	else
 	{
-		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		newTexture = IMG_LoadTexture(renderer, p.c_str());
+		int a, b;
+		SDL_QueryTexture(newTexture, NULL, NULL, &a, &b);
+		//newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		SDL_Rect texr; texr.x = 150; texr.y = 150; texr.w = a / 2; texr.h = b / 2;
 		if (newTexture == NULL)
 		{
 			std::cout << "Unable to create texture" << p.c_str() << ", SDL Error: " << SDL_GetError() << std::endl;
 		}
 		else
 		{
-			imWidth = width;
-			imHeight = height;
+			//imWidth = width;
+			//imHeight = height;
 		}
 
 		SDL_FreeSurface(loadedSurface);
+		//SDL_RenderClear(renderer);
+		SDL_Point p;
+		p.x = texr.x / 2;
+		p.y = texr.y / 2;
+		SDL_RenderCopyEx(renderer, newTexture, NULL, &texr, -90, &p, SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
+		SDL_RenderPresent(renderer);
 	}
 
 	imTexture = newTexture;
@@ -80,10 +90,19 @@ bool Texture::loadFromRenderedText(std::string textTexture, SDL_Color textColor,
 
 SDL_Rect Texture::imgRect(SDL_Texture* texture, SDL_Renderer* renderer, int ulcposX, int ulcposY, int squareMeasure)
 {
-	SDL_Rect imgRectangle = { ulcposX, ulcposY, squareMeasure, squareMeasure};
-	SDL_RenderCopyEx(renderer, texture, &imgRectangle, &imgRectangle, NULL, NULL, SDL_FLIP_NONE);
-	SDL_RenderFillRect(renderer, &imgRectangle);
-	
+	SDL_Rect imgRectangle;
+
+
+	SDL_QueryTexture(texture, nullptr, nullptr, &imgRectangle.w, &imgRectangle.h);
+	imgRectangle.x = 50;
+	imgRectangle.y = 50;
+	imgRectangle.w = 1;
+	imgRectangle.h = 1;
+	SDL_Rect texr; texr.x = 600 / 2; texr.y = 600 / 2; texr.w = imgRectangle.w / 2; texr.h = imgRectangle.h / 2;
+
+	//SDL_BlitScaled(renderer, NULL, texture, &imgRectangle);
+	//SDL_RenderCopyEx(renderer, texture, NULL, &imgRectangle, NULL, NULL, SDL_FLIP_NONE);
+	//SDL_RenderFillRect(renderer, &imgRectangle);
 	return imgRectangle;
 }
 

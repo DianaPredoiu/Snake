@@ -33,8 +33,12 @@ bool InputHandler::keyDown(SDL_Event event, GameMap& game)
 	if (event.type == SDL_QUIT || event.type == SDLK_ESCAPE)
 		return false;
 	else if (event.type == SDL_KEYDOWN)
-		return (!commands[event.key.keysym.sym]->execute(game));
-
+	{
+		std::map<int, Command*>::iterator it = commands.find(event.key.keysym.sym);
+		if (it != commands.end())
+			return (!commands[event.key.keysym.sym]->execute(game));
+	}
+		
 	return true;
 }
 

@@ -60,6 +60,7 @@ SDL_Texture* IMTexture::loadFromFile(std::string fileName)
 
 		//Get rid of old loaded surface
 		SDL_FreeSurface(loadedSurface);
+
 	}
 
 	//Return success

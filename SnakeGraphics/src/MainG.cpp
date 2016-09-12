@@ -96,12 +96,14 @@ int main(int argc, char* argv[])
 
 	game.setScore(0);
 
+	
 	if (!init())
 	{
 		std::cout << "Failed to initialize!\n" << std::endl;
 	}
 	else
 	{
+		LoadWindowWithBackground();
 		bool working = true;
 		inputHandler = new InputHandler();
 		while (working)
@@ -112,16 +114,16 @@ int main(int argc, char* argv[])
 	//		SDL_RenderPresent(ferestruica->GetRenderer());
 
 			Texture tex;
-			tex.loadFromFile("surprise.png", renderer, 100, 100);
-			SDL_Rect texRect = tex.imgRect(tex.GetTexture(), renderer, 150, 150, 999999999);	
+			//tex.loadFromFile("surprise.png", renderer, 100, 100);
+			//SDL_Rect texRect = tex.imgRect(tex.GetTexture(), renderer, 150, 150, 1);	
 	
-			LoadWindowWithBackground();
+			
 
 			SymbolTranslation* capSym = new SymbolTranslation('H', renderer);
 			capSym->ConvertToTextureFromSymbol();
 
-			SDL_RenderCopy(renderer, capSym->GetTexture().GetTexture(), &texRect, NULL);
-			SDL_RenderPresent(renderer);
+			//SDL_RenderCopy(renderer, capSym->GetTexture().GetTexture(), NULL, NULL);
+			
 
 			SDL_Event e;
 			while (SDL_PollEvent(&e) != 0)
