@@ -1,6 +1,6 @@
 #pragma once
-
-class Position
+#include "DLLExportOptions.h"
+class DLL_SNAKE Position
 {
 private:
 	int x;

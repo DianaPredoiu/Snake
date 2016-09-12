@@ -28,6 +28,11 @@ GameMap::GameMap(int width, int height)
 
 }
 
+GameMap::GameMap(const GameMap &map)
+{
+	std::cout << "copy";
+}
+
 GameMap::~GameMap()
 {
 	for (int i = 0; i < width; ++i)

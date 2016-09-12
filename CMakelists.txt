@@ -20,10 +20,15 @@ set(HEADERS
 	include/DLLExportOptions.h
 	include/Main.h
 	include/Directions.h
+	include/Command.h
+	include/MoveUp.h
+	include/MoveLeft.h
+	include/MoveRight.h
+	include/MoveDown.h
+	include/InputHandler.h
   )
   
 set(SOURCES
-	src/Item.cpp
 	src/Food.cpp
 	src/Bonus.cpp
 	src/Surprise.cpp
@@ -33,6 +38,11 @@ set(SOURCES
 	src/Snake.cpp
 	src/Main.cpp
 	src/Rules.cpp
+	src/MoveUp.cpp
+	src/MoveLeft.cpp
+	src/MoveRight.cpp
+	src/MoveDown.cpp
+	src/InputHandler.cpp
 	)
 include_directories(
 	include

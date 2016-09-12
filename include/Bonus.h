@@ -1,6 +1,7 @@
 #pragma once
 #include "Item.h"
-class Bonus : Item
+#include "DLLExportOptions.h"
+class DLL_SNAKE Bonus : Item
 {
 private:
 	int time;

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-
-class Player
+#include "DLLExportOptions.h"
+class DLL_SNAKE Player
 {
 private:
 	// a player is represented by a name, a score and a move 

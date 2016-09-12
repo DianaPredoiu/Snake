@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Item.h"
+#include "DLLExportOptions.h"
 
-class Food : Item
+class DLL_SNAKE Food : Item
 {
 
 public:
