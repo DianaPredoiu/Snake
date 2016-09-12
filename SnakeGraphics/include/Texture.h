@@ -18,7 +18,7 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	SDL_Texture* GetTexture();
-	SDL_Rect imgRect(SDL_Texture* texture, SDL_Renderer* renderer);
+	SDL_Rect Texture::imgRect(SDL_Texture* texture, SDL_Renderer* renderer, int ulcposX, int ulcposY, int squareMeasure);
 
 private:
 	SDL_Texture *imTexture;

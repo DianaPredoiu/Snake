@@ -30,7 +30,10 @@ void displayGameDetails(GameMap &game, std::vector<Position*> pos)
 
 SDL_Window *ferestruica = NULL;
 //The surface contained by the window
-SDL_Surface* gScreenSurface = NULL;
+SDL_Surface* screenSurface = NULL;
+
+SDL_Renderer* renderer = NULL;
+SDL_Texture* texture = NULL;
 
 bool init()
 {
@@ -40,32 +43,49 @@ bool init()
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+		std::cout << "SDL could not initialize! SDL Error: \n" << SDL_GetError();
 		success = false;
 	}
 	else
 	{
-		//Create window
-		ferestruica = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 300, 300, SDL_WINDOW_SHOWN);
+		//Create window and renderer
+		ferestruica = SDL_CreateWindow("El Snake Roho", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
+		renderer = SDL_CreateRenderer(ferestruica, -1, SDL_RENDERER_ACCELERATED);
 		if (ferestruica == NULL)
 		{
-			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
+			std::cout << "Window could not be created! SDL Error: \n" << SDL_GetError();
 			success = false;
 		}
 		else
 		{
 			//Get window surface
-			gScreenSurface = SDL_GetWindowSurface(ferestruica);
+			screenSurface = SDL_GetWindowSurface(ferestruica);
+
 		}
+
 	}
 
 	return success;
 }
 
+void LoadWindowWithBackground()
+{
+	SDL_RenderClear(renderer);
+	// get the path to the img source folder
+	std::string p = FOO;
+	// and attach the img folder to the project source path
+	p.append("/sarpe/grass.png");
+	// load img and print on window
+	texture = IMG_LoadTexture(renderer, p.c_str());
+	
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
+	SDL_RenderPresent(renderer);
+}
+
 int main(int argc, char* argv[])
 {
 	bool quit = false;
-	
+
 
 	GameMap game(15, 15);
 	Rules rules(&game);
@@ -78,7 +98,7 @@ int main(int argc, char* argv[])
 
 	if (!init())
 	{
-		std::cout<<"Failed to initialize!\n"<<std::endl;
+		std::cout << "Failed to initialize!\n" << std::endl;
 	}
 	else
 	{
@@ -86,17 +106,28 @@ int main(int argc, char* argv[])
 		inputHandler = new InputHandler();
 		while (working)
 		{
-			/*ferestruica->Begin();
+	//		IMTexture* tex = new IMTexture(ferestruica->GetRenderer(), "cap.bmp", 50, 50);
+	//
+	//		SDL_RenderCopy(ferestruica->GetRenderer(), tex->GetTexture(), NULL, NULL);
+	//		SDL_RenderPresent(ferestruica->GetRenderer());
 
-			SDL_RenderCopy(ferestruica->GetRenderer(), ferestruica->GetTexture(), NULL, NULL);
-			SDL_RenderPresent(ferestruica->GetRenderer());*/
-			//Game();
+			Texture tex;
+			tex.loadFromFile("surprise.png", renderer, 100, 100);
+			SDL_Rect texRect = tex.imgRect(tex.GetTexture(), renderer, 150, 150, 999999999);	
+	
+			LoadWindowWithBackground();
 
-			SDL_Event e;		
+			SymbolTranslation* capSym = new SymbolTranslation('H', renderer);
+			capSym->ConvertToTextureFromSymbol();
+
+			SDL_RenderCopy(renderer, capSym->GetTexture().GetTexture(), &texRect, NULL);
+			SDL_RenderPresent(renderer);
+
+			SDL_Event e;
 			while (SDL_PollEvent(&e) != 0)
 			{
 				working = inputHandler->keyDown(e, game);
-				
+
 				displayGameDetails(game, positions);
 				if (rules.isOutOfBounds() || working == false)
 				{
@@ -121,33 +152,14 @@ int main(int argc, char* argv[])
 			}
 
 
+
+
+
 			//ferestruica->End();
 		}
-//		ferestruica->Begin();
-//		//Game();
-//		SDL_RenderCopy(ferestruica->GetRenderer(), ferestruica->GetTexture(), NULL, NULL);
-//		SDL_RenderPresent(ferestruica->GetRenderer());
-//	
-//		/*IMTexture* tex = new IMTexture(ferestruica->GetRenderer(), "cap.bmp", 50, 50);
-//
-//		SDL_RenderCopy(ferestruica->GetRenderer(), tex->GetTexture(), NULL, NULL);
-//		SDL_RenderPresent(ferestruica->GetRenderer());
-//*/
-//
-//		Texture tex;
-//
-//		tex.loadFromFile("cap.bmp", ferestruica->GetRenderer(), 100, 100);
-//		SDL_Rect texRect = tex.imgRect(tex.GetTexture(), ferestruica->GetRenderer());
-//		
-//		SymbolTranslation* capSym = new SymbolTranslation('T', ferestruica->GetRenderer());
-//		capSym->ConvertToTextureFromSymbol();
-//
-//		SDL_RenderCopy(ferestruica->GetRenderer(), capSym->GetTexture().GetTexture(), &texRect, NULL);
-//		SDL_RenderPresent(ferestruica->GetRenderer());
-//
-//		ferestruica->End();
+
 	}
-	
+
 
 	//delete ferestruica;
 	//delete inputHandler;

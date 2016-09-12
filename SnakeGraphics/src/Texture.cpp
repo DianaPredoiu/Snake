@@ -78,10 +78,10 @@ bool Texture::loadFromRenderedText(std::string textTexture, SDL_Color textColor,
 	return imTexture != NULL;
 }
 
-SDL_Rect Texture::imgRect(SDL_Texture* texture, SDL_Renderer* renderer)
+SDL_Rect Texture::imgRect(SDL_Texture* texture, SDL_Renderer* renderer, int ulcposX, int ulcposY, int squareMeasure)
 {
-	SDL_Rect imgRectangle = { 50,	50, 50, 50};
-	SDL_RenderCopyEx(renderer, texture, &imgRectangle, NULL, NULL, NULL, SDL_FLIP_NONE);
+	SDL_Rect imgRectangle = { ulcposX, ulcposY, squareMeasure, squareMeasure};
+	SDL_RenderCopyEx(renderer, texture, &imgRectangle, &imgRectangle, NULL, NULL, SDL_FLIP_NONE);
 	SDL_RenderFillRect(renderer, &imgRectangle);
 	
 	return imgRectangle;
