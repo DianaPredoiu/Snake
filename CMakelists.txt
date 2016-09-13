@@ -18,7 +18,6 @@ set(HEADERS
 	include/Snake.h
 	include/Rules.h
 	include/DLLExportOptions.h
-	include/Main.h
 	include/Directions.h
 	include/Command.h
 	include/MoveUp.h
@@ -36,7 +35,6 @@ set(SOURCES
 	src/Player.cpp
 	src/Position.cpp
 	src/Snake.cpp
-	src/Main.cpp
 	src/Rules.cpp
 	src/MoveUp.cpp
 	src/MoveLeft.cpp

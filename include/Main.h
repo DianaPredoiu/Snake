@@ -5,6 +5,5 @@
 #include "Rules.h"
 #include "catch.hpp"
 #include "DLLExportOptions.h"
-void displayGameDetails(GameMap &game, std::vector<Position*> pos);
 
-void DLL_SNAKE Game();
+void displayGameDetails(GameMap &game, std::vector<Position*> pos);

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Main.h"
 #include "SDL.h"
-#include "Game.h"
+#include <Game.h>
 
 void displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
@@ -24,7 +24,7 @@ void displayGameDetails(GameMap &game, std::vector<Position*> pos)
 
 int main(int argc, char* argv[])
 {
-	Game game;
+	
 
 	return 0;
 }
