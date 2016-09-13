@@ -2,6 +2,7 @@
 
 Game::Game()
 {
+	working = init();
 	loadTextures();
 }
 
@@ -27,30 +28,39 @@ void Game::loadTextures()
 	capSym->ConvertToTextureFromSymbol();
 	textures['H'] = capSym->GetTexture();
 
-	//SymbolTranslation* bodySym = new SymbolTranslation('b', renderer);
-	//textures['b'] = bodySym->ConvertToTextureFromSymbol();
+	SymbolTranslation* bodySym = new SymbolTranslation('b', renderer);
+	bodySym->ConvertToTextureFromSymbol();
+	textures['b'] = bodySym->GetTexture();
 
-	//SymbolTranslation* tailSym = new SymbolTranslation('T', renderer);
-	//textures['T'] = tailSym->ConvertToTextureFromSymbol();
+	SymbolTranslation* tailSym = new SymbolTranslation('T', renderer);
+	tailSym->ConvertToTextureFromSymbol();
+	textures['T'] = tailSym->GetTexture();
 
-	//SymbolTranslation* foodSym = new SymbolTranslation('F', renderer);
-	//textures['F'] = foodSym->ConvertToTextureFromSymbol();
+	SymbolTranslation* foodSym = new SymbolTranslation('F', renderer);
+	foodSym->ConvertToTextureFromSymbol();
+	textures['F'] = foodSym->GetTexture();
 
-	//SymbolTranslation* bonusSym = new SymbolTranslation('B', renderer);
-	//textures['B'] = bonusSym->ConvertToTextureFromSymbol();
+	SymbolTranslation* bonusSym = new SymbolTranslation('B', renderer);
+	bonusSym->ConvertToTextureFromSymbol();
+	textures['B'] = bonusSym->GetTexture();
 
-	//SymbolTranslation* surpriseSym = new SymbolTranslation('?', renderer);
-	//textures['?'] = surpriseSym->ConvertToTextureFromSymbol();
+	SymbolTranslation* surpriseSym = new SymbolTranslation('?', renderer);
+	surpriseSym->ConvertToTextureFromSymbol();
+	textures['?'] = surpriseSym->GetTexture();
+
 }
 
 void Game::displaySnake()
 {
-	loadImage('H', gMap.getSnake().getCoordinates().at(0)->getX(), gMap.getSnake().getCoordinates().at(0)->getY());
-	for (int i = 1; i < gMap.getSnake().getCoordinates().size() - 1; ++i)
-		loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX(), gMap.getSnake().getCoordinates().at(i)->getY());
-
+	int multiplier = 1;
+	loadImage('T', gMap.getSnake().getCoordinates().at(0)->getX(), gMap.getSnake().getCoordinates().at(0)->getY());
+	for (int i = gMap.getSnake().getCoordinates().size() - 1; i > 1 ; --i)
+	{
+		loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX() + 40, gMap.getSnake().getCoordinates().at(i)->getY());
+		multiplier++;
+	}
 	int size = gMap.getSnake().getCoordinates().size() - 1;
-	loadImage('T', gMap.getSnake().getCoordinates().at(size)->getX(), gMap.getSnake().getCoordinates().at(size)->getY());
+	loadImage('H', gMap.getSnake().getCoordinates().at(size)->getX() + 40 * multiplier, gMap.getSnake().getCoordinates().at(size)->getY());
 }
 
 void Game::loadImage(char textureName, int x, int y)
@@ -65,7 +75,7 @@ void Game::loadImage(char textureName, int x, int y)
 	rectangle.w = a / 10;
 	rectangle.h = b / 10;
 
-	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, 0, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, -90, NULL, SDL_FLIP_NONE);
 	SDL_RenderPresent(renderer);
 }
 
@@ -120,7 +130,7 @@ void Game::executeGame()
 
 	game.setScore(0);
 
-	if (!init())
+	if (!working)
 	{
 		std::cout << "Failed to initialize!\n" << std::endl;
 	}

@@ -1,5 +1,4 @@
 #include <iostream>
-#include "Main.h"
 #include "SDL.h"
 #include <Game.h>
 

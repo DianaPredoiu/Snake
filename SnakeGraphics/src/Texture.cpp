@@ -9,6 +9,7 @@ Texture::Texture()
 
 bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
 {
+	imTexture = NULL;
 	SDL_Texture* newTexture = NULL;
 
 	std::string p = FOO;
@@ -30,9 +31,7 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
 		imTexture = newTexture;
 
 	SDL_FreeSurface(loadedSurface);
-	//SDL_Point p;
-	//p.x = rectangle.x / 2;
-	//p.y = rectangle.y / 2;
+	
 	//SDL_RenderCopyEx(renderer, newTexture, NULL, &texr, -90, &p, SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
 	//SDL_RenderPresent(renderer);
 
