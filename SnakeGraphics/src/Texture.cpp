@@ -4,12 +4,12 @@
 
 Texture::Texture()
 {
-
+	
 }
 
 bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
 {
-	imTexture = NULL;
+	SDL_Texture* newTexture = NULL;
 
 	std::string p = FOO;
 
@@ -18,24 +18,18 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
 	p.append(fileName);
 
 
-	imTexture = IMG_LoadTexture(renderer, p.c_str());
+	//imTexture = IMG_LoadTexture(renderer, p.c_str());
+	SDL_Surface* loadedSurface = IMG_Load(p.c_str());
+	newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 
-	int a, b;
-	SDL_QueryTexture(imTexture, NULL, NULL, &a, &b);
-
-	SDL_Rect rectangle;
-
-	rectangle.x = 50;
-	rectangle.y = 50;
-	rectangle.w = a / 10;
-	rectangle.h = b / 10;
-
-	if (imTexture == NULL)
+	if (newTexture == NULL)
 	{
 		std::cout << "Unable to create texture" << p.c_str() << ", SDL Error: " << SDL_GetError() << std::endl;
 	}
+	else
+		imTexture = newTexture;
 
-
+	SDL_FreeSurface(loadedSurface);
 	//SDL_Point p;
 	//p.x = rectangle.x / 2;
 	//p.y = rectangle.y / 2;

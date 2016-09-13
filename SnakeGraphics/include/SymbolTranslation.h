@@ -15,9 +15,9 @@ public:
 	SymbolTranslation(char sym, SDL_Renderer* requiredRenderer);
 
 	// accessors
-	Texture GetTexture();
+	SDL_Texture* GetTexture();
 	char GetSymbol();
 
 	// Texture management depending on given symbol
-	Texture ConvertToTextureFromSymbol();
+	void ConvertToTextureFromSymbol();
 };

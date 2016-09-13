@@ -7,9 +7,9 @@ SymbolTranslation::SymbolTranslation(char sym, SDL_Renderer* requiredRenderer)
 }
 
 // accessors
-Texture SymbolTranslation::GetTexture()
+SDL_Texture* SymbolTranslation::GetTexture()
 {
-	return texture;
+	return texture.GetTexture();
 }
 
 char SymbolTranslation::GetSymbol()
@@ -18,7 +18,7 @@ char SymbolTranslation::GetSymbol()
 }
 
 // Texture management depending on given symbol
-Texture SymbolTranslation::ConvertToTextureFromSymbol()
+void SymbolTranslation::ConvertToTextureFromSymbol()
 {
 	// a switch case to choose the right image 
 	// for the item depending on the given symbol
@@ -56,5 +56,5 @@ Texture SymbolTranslation::ConvertToTextureFromSymbol()
 		}
 		default: break;
 	}
-	return texture;
+	//return texture;
 }

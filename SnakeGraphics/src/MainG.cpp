@@ -22,9 +22,11 @@ void displayGameDetails(GameMap &game, std::vector<Position*> pos)
 	}
 }
 
+
 int main(int argc, char* argv[])
 {
-	Game game;
-
+	Game *game = new Game();
+	game->executeGame();
+	
 	return 0;
 }

@@ -2,7 +2,6 @@
 
 Game::Game()
 {
-	init();
 	loadTextures();
 }
 
@@ -25,22 +24,49 @@ void Game::loadWindowWithBackground()
 void Game::loadTextures()
 {
 	SymbolTranslation* capSym = new SymbolTranslation('H', renderer);
-	textures["head"] = capSym->ConvertToTextureFromSymbol();
+	capSym->ConvertToTextureFromSymbol();
+	textures['H'] = capSym->GetTexture();
 
-	SymbolTranslation* bodySym = new SymbolTranslation('b', renderer);
-	textures["body"] = bodySym->ConvertToTextureFromSymbol();
+	//SymbolTranslation* bodySym = new SymbolTranslation('b', renderer);
+	//textures['b'] = bodySym->ConvertToTextureFromSymbol();
 
-	SymbolTranslation* tailSym = new SymbolTranslation('T', renderer);
-	textures["tail"] = tailSym->ConvertToTextureFromSymbol();
+	//SymbolTranslation* tailSym = new SymbolTranslation('T', renderer);
+	//textures['T'] = tailSym->ConvertToTextureFromSymbol();
 
-	SymbolTranslation* foodSym = new SymbolTranslation('F', renderer);
-	textures["food"] = foodSym->ConvertToTextureFromSymbol();
+	//SymbolTranslation* foodSym = new SymbolTranslation('F', renderer);
+	//textures['F'] = foodSym->ConvertToTextureFromSymbol();
 
-	SymbolTranslation* bonusSym = new SymbolTranslation('B', renderer);
-	textures["bonus"] = bonusSym->ConvertToTextureFromSymbol();
+	//SymbolTranslation* bonusSym = new SymbolTranslation('B', renderer);
+	//textures['B'] = bonusSym->ConvertToTextureFromSymbol();
 
-	SymbolTranslation* surpriseSym = new SymbolTranslation('?', renderer);
-	textures["surprise"] = surpriseSym->ConvertToTextureFromSymbol();
+	//SymbolTranslation* surpriseSym = new SymbolTranslation('?', renderer);
+	//textures['?'] = surpriseSym->ConvertToTextureFromSymbol();
+}
+
+void Game::displaySnake()
+{
+	loadImage('H', gMap.getSnake().getCoordinates().at(0)->getX(), gMap.getSnake().getCoordinates().at(0)->getY());
+	for (int i = 1; i < gMap.getSnake().getCoordinates().size() - 1; ++i)
+		loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX(), gMap.getSnake().getCoordinates().at(i)->getY());
+
+	int size = gMap.getSnake().getCoordinates().size() - 1;
+	loadImage('T', gMap.getSnake().getCoordinates().at(size)->getX(), gMap.getSnake().getCoordinates().at(size)->getY());
+}
+
+void Game::loadImage(char textureName, int x, int y)
+{
+	SDL_Rect rectangle;
+
+	int a, b;
+	SDL_QueryTexture(textures[textureName], NULL, NULL, &a, &b);
+
+	rectangle.x = x;
+	rectangle.y = y;
+	rectangle.w = a / 10;
+	rectangle.h = b / 10;
+
+	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, 0, NULL, SDL_FLIP_NONE);
+	SDL_RenderPresent(renderer);
 }
 
 bool Game::init()
@@ -100,23 +126,18 @@ void Game::executeGame()
 	}
 	else
 	{
+		loadWindowWithBackground();
+		displaySnake();
 		bool working = true;
 		inputHandler = new InputHandler();
 		while (working)
 		{
-
-			SymbolTranslation* capSym = new SymbolTranslation('T', renderer);
-			capSym->ConvertToTextureFromSymbol();
-
-			//SDL_RenderCopy(renderer, capSym->GetTexture().GetTexture(), NULL, NULL);
-
-
 			SDL_Event e;
 			while (SDL_PollEvent(&e) != 0)
 			{
 				working = inputHandler->keyDown(e, game);
 
-				displayGameDetails(game, positions);
+				//displayGameDetails(game, positions);
 				if (rules.isOutOfBounds() || working == false)
 				{
 					std::cout << "GAME OVER" << std::endl;
@@ -126,7 +147,7 @@ void Game::executeGame()
 
 			if (!rules.continuousMovement())
 			{
-				displayGameDetails(game, positions);
+				//displayGameDetails(game, positions);
 				if (rules.isOutOfBounds())
 				{
 					std::cout << "GAME OVER!" << std::endl;
@@ -157,24 +178,4 @@ void Game::executeGame()
 bool Game::hasTheGameStarted()
 {
 	return init();
-}
-
-void Game::render()
-{
-
-}
-
-void Game::gameLogic()
-{
-
-}
-
-void Game::updateMove()
-{
-
-}
-
-void Game::checkCollision()
-{
-
 }

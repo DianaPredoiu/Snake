@@ -35,7 +35,7 @@ private:
 	Texture body;
 	Texture tail;
 
-	std::map<std::string, Texture> textures;
+	std::map<char, SDL_Texture*> textures;
 
 	GameMap gMap;
 	/*const waitTime = 1;*/
@@ -45,11 +45,14 @@ public:
 
 	bool init();
 	void executeGame();
+
+	void displayGameDetails(GameMap &game, std::vector<Position*> pos);
+	void displaySnake();
+
+	void loadImage(char textureName, int x, int y);
+
 	bool hasTheGameStarted();
-	void render();
-	void gameLogic();
-	void updateMove();
-	void checkCollision();
+
 	void loadTextures();
 	void loadWindowWithBackground();
 
