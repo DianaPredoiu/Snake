@@ -26,32 +26,32 @@ Texture SymbolTranslation::ConvertToTextureFromSymbol()
 	{
 		case 'F':
 		{
-			texture.loadFromFile("food1.png", renderer, 50, 50);
+			texture.loadFromFile("food1.png", renderer);
 			break;
 		}
 		case 'B':
 		{
-			texture.loadFromFile("bonus.png", renderer, 50, 50);
+			texture.loadFromFile("bonus.png", renderer);
 			break;
 		}
 		case '?':
 		{
-			texture.loadFromFile("surprise.png", renderer, 50, 50);
+			texture.loadFromFile("surprise.png", renderer);
 			break;
 		}
 		case 'H':
 		{
-			texture.loadFromFile("cap.png", renderer, 50, 50);
+			texture.loadFromFile("cap.png", renderer);
 			break;
 		}
 		case 'b':
 		{
-			texture.loadFromFile("corp.png", renderer, 50, 50);
+			texture.loadFromFile("corp.png", renderer);
 			break;
 		}
 		case 'T':
 		{
-			texture.loadFromFile("coada.png", renderer, 50, 50);
+			texture.loadFromFile("coada.png", renderer);
 			break;
 		}
 		default: break;

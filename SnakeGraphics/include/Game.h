@@ -1,11 +1,8 @@
 #pragma once
 #include <iostream>
-#include <cstdlib>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
 #include <GameMap.h>
-#include <Snake.h>
 #include <Texture.h>
 #include <GameMap.h>
 #include <Rules.h>
@@ -45,9 +42,7 @@ private:
 
 public:
 	Game();
-	~Game();
 
-	bool init();
 	bool init();
 	void executeGame();
 	bool hasTheGameStarted();
@@ -56,7 +51,9 @@ public:
 	void updateMove();
 	void checkCollision();
 	void loadTextures();
-	void loadWindowWithBackground()
+	void loadWindowWithBackground();
+
+	~Game();
 	
 };
 
