@@ -36,7 +36,13 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer, int wid
 		int a, b;
 		SDL_QueryTexture(newTexture, NULL, NULL, &a, &b);
 		//newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		SDL_Rect texr; texr.x = 150; texr.y = 150; texr.w = a / 10; texr.h = b / 10;
+		SDL_Rect texr; 
+		
+			texr.x = 50; 
+			texr.y = 50; 
+			texr.w = a / 10; 
+			texr.h = b / 10;
+		
 		if (newTexture == NULL)
 		{
 			std::cout << "Unable to create texture" << p.c_str() << ", SDL Error: " << SDL_GetError() << std::endl;
@@ -52,8 +58,8 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer, int wid
 		SDL_Point p;
 		p.x = texr.x / 2;
 		p.y = texr.y / 2;
-		SDL_RenderCopyEx(renderer, newTexture, NULL, &texr, -90, &p, SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
-		SDL_RenderPresent(renderer);
+		//SDL_RenderCopyEx(renderer, newTexture, NULL, &texr, -90, &p, SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
+		//SDL_RenderPresent(renderer);
 	}
 
 	imTexture = newTexture;

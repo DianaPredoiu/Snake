@@ -18,7 +18,7 @@ char SymbolTranslation::GetSymbol()
 }
 
 // Texture management depending on given symbol
-void SymbolTranslation::ConvertToTextureFromSymbol()
+Texture SymbolTranslation::ConvertToTextureFromSymbol()
 {
 	// a switch case to choose the right image 
 	// for the item depending on the given symbol
@@ -56,4 +56,5 @@ void SymbolTranslation::ConvertToTextureFromSymbol()
 		}
 		default: break;
 	}
+	return texture;
 }

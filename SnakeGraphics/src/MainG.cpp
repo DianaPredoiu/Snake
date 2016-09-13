@@ -37,19 +37,7 @@ SDL_Texture* texture = NULL;
 
 
 
-void LoadWindowWithBackground()
-{
-	SDL_RenderClear(renderer);
-	// get the path to the img source folder
-	std::string p = FOO;
-	// and attach the img folder to the project source path
-	p.append("/sarpe/grass.png");
-	// load img and print on window
-	texture = IMG_LoadTexture(renderer, p.c_str());
 
-	SDL_RenderCopy(renderer, texture, NULL, NULL);
-	SDL_RenderPresent(renderer);
-}
 
 int main(int argc, char* argv[])
 {
@@ -77,17 +65,7 @@ int main(int argc, char* argv[])
 		inputHandler = new InputHandler();
 		while (working)
 		{
-			//		IMTexture* tex = new IMTexture(ferestruica->GetRenderer(), "cap.bmp", 50, 50);
-			//
-			//		SDL_RenderCopy(ferestruica->GetRenderer(), tex->GetTexture(), NULL, NULL);
-			//		SDL_RenderPresent(ferestruica->GetRenderer());
-
-			Texture tex;
-			//tex.loadFromFile("surprise.png", renderer, 100, 100);
-			//SDL_Rect texRect = tex.imgRect(tex.GetTexture(), renderer, 150, 150, 1);	
-
-
-
+			
 			SymbolTranslation* capSym = new SymbolTranslation('T', renderer);
 			capSym->ConvertToTextureFromSymbol();
 

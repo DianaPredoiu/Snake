@@ -2,42 +2,47 @@
 
 Game::Game()
 {
-	
+	init();
+	loadTextures();
 }
 
-bool loadTextures()
+void Game::loadWindowWithBackground()
 {
-	// empty the surface to make sure it doesn't collide in textures
-	free();
-
-	SDL_Texture* newTexture = NULL;
+	SDL_RenderClear(renderer);
+	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/");
-	p.append(fileName);
+	p.append("/sarpe/grass.png");
 	// load img and print on window
-	SDL_Surface* loadedSurface = IMG_Load(p.c_str());
-	if (loadedSurface == NULL)
-	{
-		std::cout << "Unable to load the image " << p.c_str() << ", SDL_image Error: " << IMG_GetError() << std::endl;
-	}
-	else
-	{
-		newTexture = IMG_LoadTexture(renderer, p.c_str());
-		int a, b;
-		SDL_QueryTexture(newTexture, NULL, NULL, &a, &b);
-		//newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		SDL_Rect texr; texr.x = 150; texr.y = 150; texr.w = a / 10; texr.h = b / 10;
-		if (newTexture == NULL)
-		{
-			std::cout << "Unable to create texture" << p.c_str() << ", SDL Error: " << SDL_GetError() << std::endl;
-		}
-		else
-		{
-			//imWidth = width;
-			//imHeight = height;
-		}
+	background = IMG_LoadTexture(renderer, p.c_str());
+
+	SDL_RenderCopy(renderer, background, NULL, NULL);
+	SDL_RenderPresent(renderer);
 }
+
+// using the class that converts from a given symbol to a specific 
+// texture we load a map of textures for the game
+void Game::loadTextures()
+{
+	SymbolTranslation* capSym = new SymbolTranslation('H', renderer);
+	textures["head"] = capSym->ConvertToTextureFromSymbol();
+
+	SymbolTranslation* bodySym = new SymbolTranslation('b', renderer);
+	textures["body"] = bodySym->ConvertToTextureFromSymbol();
+
+	SymbolTranslation* tailSym = new SymbolTranslation('T', renderer);
+	textures["tail"] = tailSym->ConvertToTextureFromSymbol();
+
+	SymbolTranslation* foodSym = new SymbolTranslation('F', renderer);
+	textures["food"] = foodSym->ConvertToTextureFromSymbol();
+
+	SymbolTranslation* bonusSym = new SymbolTranslation('B', renderer);
+	textures["bonus"] = bonusSym->ConvertToTextureFromSymbol();
+
+	SymbolTranslation* surpriseSym = new SymbolTranslation('?', renderer);
+	textures["surprise"] = surpriseSym->ConvertToTextureFromSymbol();
+}
+
 bool Game::init()
 {
 	screenSurface = NULL;
@@ -64,9 +69,7 @@ bool Game::init()
 		{
 			//Get window surface
 			screenSurface = SDL_GetWindowSurface(window);
-
 		}
-
 	}
 
 	return success;
@@ -74,29 +77,103 @@ bool Game::init()
 
 Game::~Game()
 {
-
+	SDL_RenderPresent(renderer);
 }
 
 void Game::executeGame()
 {
+	bool quit = false;
 
+
+	GameMap game(15, 15);
+	Rules rules(&game);
+	InputHandler *inputHandler;
+
+	std::cout << game;
+	std::vector<Position*> positions = game.initializeGrid(game.getSnake().getCoordinates());
+
+	game.setScore(0);
+
+	if (!init())
+	{
+		std::cout << "Failed to initialize!\n" << std::endl;
+	}
+	else
+	{
+		bool working = true;
+		inputHandler = new InputHandler();
+		while (working)
+		{
+
+			SymbolTranslation* capSym = new SymbolTranslation('T', renderer);
+			capSym->ConvertToTextureFromSymbol();
+
+			//SDL_RenderCopy(renderer, capSym->GetTexture().GetTexture(), NULL, NULL);
+
+
+			SDL_Event e;
+			while (SDL_PollEvent(&e) != 0)
+			{
+				working = inputHandler->keyDown(e, game);
+
+				displayGameDetails(game, positions);
+				if (rules.isOutOfBounds() || working == false)
+				{
+					std::cout << "GAME OVER" << std::endl;
+					working = false;
+				}
+			}
+
+			if (!rules.continuousMovement())
+			{
+				displayGameDetails(game, positions);
+				if (rules.isOutOfBounds())
+				{
+					std::cout << "GAME OVER!" << std::endl;
+					break;
+				}
+			}
+			else
+			{
+				std::cout << "GAME OVER!" << std::endl;
+				break;
+			}
+
+
+
+
+
+			//ferestruica->End();
+		}
+
+	}
+
+
+	//delete ferestruica;
+	//delete inputHandler;
+	SDL_Quit();
 }
+
 bool Game::hasTheGameStarted()
 {
-
+	return init();
 }
+
 void Game::render()
 {
 
 }
+
 void Game::gameLogic()
 {
 
 }
+
 void Game::updateMove()
 {
 
 }
+
 void Game::checkCollision()
 {
 

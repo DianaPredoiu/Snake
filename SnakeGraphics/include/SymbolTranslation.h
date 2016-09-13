@@ -19,5 +19,5 @@ public:
 	char GetSymbol();
 
 	// Texture management depending on given symbol
-	void ConvertToTextureFromSymbol();
+	Texture ConvertToTextureFromSymbol();
 };
