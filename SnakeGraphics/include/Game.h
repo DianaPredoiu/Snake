@@ -7,6 +7,7 @@
 #include <GameMap.h>
 #include <Snake.h>
 #include <Texture.h>
+#include <map>
 
 class Game{
 
@@ -15,30 +16,34 @@ private:
 	bool quit;
 	bool onKeyPress;
 	int score;
+	int waitTime;//levels
+	SDL_Surface* screenSurface;
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	SDL_Event event;
+	//SDL_Event event;
 	TTF_Font* font;
 
 	SDL_Color textColor;
 
 	Texture wall;
-	Texture textureBackground;
-	Texture textureHead;
-	Texture textureBody;
-	Texture textureTail;
+	Texture background;
+
+	std::map<std::string, Texture> textures;
 
 	GameMap gMap;
+	/*const waitTime = 1;*/
 
 public:
 	Game();
 	~Game();
-	int waitTime;
+
+	bool init();
+	
 	void executeGame();
 	bool hasTheGameStarted();
 	void render();
-	void GameLogic();
+	void gameLogic();
 	void updateMove();
 	void checkCollision();
 	

@@ -36,7 +36,7 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer, int wid
 		int a, b;
 		SDL_QueryTexture(newTexture, NULL, NULL, &a, &b);
 		//newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		SDL_Rect texr; texr.x = 150; texr.y = 150; texr.w = a / 2; texr.h = b / 2;
+		SDL_Rect texr; texr.x = 150; texr.y = 150; texr.w = a / 10; texr.h = b / 10;
 		if (newTexture == NULL)
 		{
 			std::cout << "Unable to create texture" << p.c_str() << ", SDL Error: " << SDL_GetError() << std::endl;
