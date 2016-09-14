@@ -37,7 +37,7 @@ private:
 
 	std::map<char, SDL_Texture*> textures;
 
-	GameMap gMap;
+
 	InputHandler *inputHandler;
 	/*const waitTime = 1;*/
 
@@ -47,21 +47,23 @@ public:
 	bool init();
 	void executeGame();
 
-	void displayGameDetails(GameMap &game, std::vector<Position*> pos);
+	//void displayGameDetails(GameMap &game, std::vector<Position*> pos);
 	void displaySnake(GameMap &game, int multiplier);
-	std::string direction(GameMap &game, std::string &xOrY);
 
-	void loadImage(char textureName, int x, int y, int angle);
+	void printImage(char textureName, int x, int y, int angle);
 
 	bool hasTheGameStarted();
 
 	void loadTextures();
 	void loadWindowWithBackground();
 
-	void moveUp(GameMap &game);
-	void moveDown(GameMap &game);
-	void moveLeft(GameMap &game);
-	void moveRight(GameMap &game);
+	int tailDirection(GameMap &game);
+
+	void displayFood(int x, int y);
+	void displayBonus(int x, int y);
+	void displaySurprise(int x, int y);
+
+	void displayGameDetails(GameMap &game, std::vector<Position*> pos);
 
 	~Game();
 	

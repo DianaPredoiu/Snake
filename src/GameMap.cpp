@@ -96,7 +96,6 @@ void GameMap::manageFood(std::vector<Position*> oldPositions)
 {
 	if (food.getState() == true)
 	{
-
 		grid[food.getCoordinates().getY()][food.getCoordinates().getX()] = food.getSymbol();
 		if ((snake.getCoordinates().at(0)->getY() == food.getCoordinates().getY() && snake.getCoordinates().at(0)->getX() == food.getCoordinates().getX()))
 		{
@@ -110,7 +109,6 @@ void GameMap::manageFood(std::vector<Position*> oldPositions)
 			snake.setCoordinates(positions);
 			score += food.getPoints();
 			countFood++;
-
 		}
 	}
 }

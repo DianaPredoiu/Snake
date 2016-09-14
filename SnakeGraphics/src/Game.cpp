@@ -1,7 +1,6 @@
 #include "Game.h"
 #include <Windows.h>
-#include <thread>
-#include <chrono>
+#include "Presets.h"
 
 Game::Game()
 {
@@ -54,39 +53,56 @@ void Game::loadTextures()
 
 }
 
+void Game::displayFood(int x, int y)
+{
+	printImage('F', x*40, y*40, 0);
+}
+
+void Game::displayBonus(int x, int y)
+{
+	printImage('B', x * 40, y * 40, 0);
+}
+
+void Game::displaySurprise(int x, int y)
+{
+	printImage('?', x * 40, y * 40, 0);
+}
+
 void Game::displaySnake(GameMap &game, int multiplier)
 {
 	int multi = 40;
 	int s = game.getSnake().getCoordinates().size() - 1;
-	loadImage('T', gMap.getSnake().getCoordinates().at(s)->getX() *multi, gMap.getSnake().getCoordinates().at(s)->getY() *multi, -90);
+	printImage('T', game.getSnake().getCoordinates().at(s)->getX() *multi, game.getSnake().getCoordinates().at(s)->getY() *multi, tailDirection(game));
 
-	for (int i = game.getSnake().getCoordinates().size() - 2; i >= 0; --i)
+	for (int i = game.getSnake().getCoordinates().size() - 2; i >= 0; i--)
 	{
+		//std::cout << game.getSnake().getCoordinates().at(i)->getX() << " " << game.getSnake().getCoordinates().at(i)->getY() << std::endl;
 		if (i != 0)
 		{
+
 			if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX() + 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY())
 			{
-				loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX() *multi, gMap.getSnake().getCoordinates().at(i)->getY() *multi, -90);
-				//multi += 40;
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *multi, game.getSnake().getCoordinates().at(i)->getY() *multi, -90);
+
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX() - 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY())
 			{
-				loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX() *multi, gMap.getSnake().getCoordinates().at(i)->getY() *multi, 90);
-				//multi += 40;
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *multi, game.getSnake().getCoordinates().at(i)->getY() *multi, 90);
+
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY() - 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX())
 			{
-				loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX() *multi, gMap.getSnake().getCoordinates().at(i)->getY() *multi, 90);
-				//multi += 40;
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *multi, game.getSnake().getCoordinates().at(i)->getY() *multi, 90);
+
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY() + 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX())
 			{
-				loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX() *multi, gMap.getSnake().getCoordinates().at(i)->getY() * multi, 90);
-				//multi += 40;
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *multi, game.getSnake().getCoordinates().at(i)->getY() * multi, 90);
+
 			}
 		}
 		else
@@ -94,35 +110,89 @@ void Game::displaySnake(GameMap &game, int multiplier)
 			if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX() - 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY())
 			{
-				loadImage('H', gMap.getSnake().getCoordinates().at(i)->getX() * multi, gMap.getSnake().getCoordinates().at(i)->getY() *multi, -90);
-				//multi += 40;
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * multi, game.getSnake().getCoordinates().at(i)->getY() *multi, 90);
+
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX() + 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY())
 			{
-				loadImage('H', gMap.getSnake().getCoordinates().at(i)->getX() * multi, gMap.getSnake().getCoordinates().at(i)->getY() *multi, 90);
-				//multi += 40;
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * multi, game.getSnake().getCoordinates().at(i)->getY() *multi, -90);
+
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY() - 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX())
 			{
-				loadImage('H', gMap.getSnake().getCoordinates().at(i)->getX() *multi, gMap.getSnake().getCoordinates().at(i)->getY() * multi, 90);
-				//multi += 40;
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *multi, game.getSnake().getCoordinates().at(i)->getY() * multi, 180);
+
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY() + 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX())
 			{
-				loadImage('H', gMap.getSnake().getCoordinates().at(i)->getX() *multi, gMap.getSnake().getCoordinates().at(i)->getY() *multi, 90);
-				//multi += 40;
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *multi, game.getSnake().getCoordinates().at(i)->getY() *multi, 0);
+
 			}
 		}
-		
+
 	}
-	
+
+	game.addFood();
+	displayFood(game.getFood().getCoordinates().getX(), game.getFood().getCoordinates().getY());
+	if (game.getBonus().getState())
+	{
+		displayBonus(game.getBonus().getCoordinates().getX(), game.getBonus().getCoordinates().getY());
+	}
+
+	if (game.getSurprise().getState())
+	{
+		displaySurprise(game.getSurprise().getCoordinates().getX(), game.getSurprise().getCoordinates().getY());
+	}
+
+}
+void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
+{
+	Sleep(300);
+	system("cls");
+
+	game.initializeGrid(pos);
+	std::cout << game;
+	std::cout << std::endl << std::endl << "---Score: " << game.getScore() << "  ---" << std::endl << std::endl;
+
+	if (game.getBonus().getState() == true)
+		std::cout << "---Bonus Time: " << game.getBonus().getTime() << "  ---" << std::endl << std::endl;
+
+	if (game.getSurprise().getState() == true)
+	{
+		std::cout << "---Surprise Time: " << game.getSurprise().getTime() << "  ---" << std::endl << std::endl;
+		std::cout << std::endl << "---Effect: " << game.getSurprise().getEffect() << "  ---";
+	}
 }
 
+int Game::tailDirection(GameMap &game)
+{
+	int size = game.getSnake().getCoordinates().size();
+	if (game.getSnake().getCoordinates().at(size - 1)->getX() == game.getSnake().getCoordinates().at(size - 2)->getX() - 1
+		&& game.getSnake().getCoordinates().at(size - 1)->getY() == game.getSnake().getCoordinates().at(size - 2)->getY())
+	{
+		return -90;
+	}
+	else if (game.getSnake().getCoordinates().at(size - 1)->getX() == game.getSnake().getCoordinates().at(size - 2)->getX() + 1
+		&& game.getSnake().getCoordinates().at(size - 1)->getY() == game.getSnake().getCoordinates().at(size - 2)->getY())
+	{
+		return 90;
+	}
+	else if (game.getSnake().getCoordinates().at(size - 1)->getY() == game.getSnake().getCoordinates().at(size - 2)->getY() - 1
+		&& game.getSnake().getCoordinates().at(size - 1)->getX() == game.getSnake().getCoordinates().at(size - 2)->getX())
+	{
+		return 0;
+	}
+	else if (game.getSnake().getCoordinates().at(size - 1)->getY() == game.getSnake().getCoordinates().at(size - 2)->getY() + 1
+		&& game.getSnake().getCoordinates().at(size - 1)->getX() == game.getSnake().getCoordinates().at(size - 2)->getX())
+	{
+		return 180;
+	}
+}
 
-void Game::loadImage(char textureName, int x, int y, int angle)
+void Game::printImage(char textureName, int x, int y, int angle)
 {
 	SDL_Rect rectangle;
 
@@ -153,7 +223,7 @@ bool Game::init()
 	else
 	{
 		//Create window and renderer
-		window = SDL_CreateWindow("El Snake Roho", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("El Snake Roho", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		if (window == NULL)
 		{
@@ -170,56 +240,12 @@ bool Game::init()
 	return success;
 }
 
-Game::~Game()
-{
-	SDL_RenderPresent(renderer);
-}
-
-std::string Game::direction(GameMap &game, std::string &xOrY)
-{
-	if (game.getSnake().getCoordinates().at(0)->getY() >= 0)
-	{
-		//body left->head => snake moves to right
-		if (game.getSnake().getCoordinates().at(1)->getX() == (game.getSnake().getCoordinates().at(0)->getX() - 1))
-		{
-			xOrY = "+x";
-			return "right";
-		}
-
-		//body right->head => snake moves to the left
-		if (game.getSnake().getCoordinates().at(1)->getX() == (game.getSnake().getCoordinates().at(0)->getX() + 1))
-		{
-			xOrY = "-x";
-			return "left";
-		}
-		//body up->head => snake moves down
-		if (game.getSnake().getCoordinates().at(1)->getY() == (game.getSnake().getCoordinates().at(0)->getY() - 1))
-		{
-			xOrY = "+y";
-			return "down";
-		}
-
-		//body down->head => snake moves up
-		if (game.getSnake().getCoordinates().at(1)->getY() == (game.getSnake().getCoordinates().at(0)->getY() + 1))
-		{
-			xOrY = "-y";
-			return "up";
-		}
-
-		//if (eatItself())
-		//	return true;
-
-	}
-}
-
-
 void Game::executeGame()
 {
 	GameMap game(15, 15);
 	Rules rules(&game);
 	InputHandler *inputHandler;
 
-	//std::cout << game;
 	std::vector<Position*> positions = game.initializeGrid(game.getSnake().getCoordinates());
 
 	game.setScore(0);
@@ -233,17 +259,8 @@ void Game::executeGame()
 		int multiplier = 0;
 		loadWindowWithBackground();
 		displaySnake(game, multiplier);
-		//working = true;
+		displayGameDetails(game, positions);
 		inputHandler = new InputHandler();
-		//std::thread t([&](){
-		//	while (true)
-		//	{
-		//		SDL_RenderClear(renderer);
-		//		loadWindowWithBackground();
-		//		displaySnake(game, multiplier);
-		//		Sleep(100);
-		//	}
-		//});
 
 		while (working)
 		{
@@ -252,30 +269,14 @@ void Game::executeGame()
 			e.key.keysym.sym = SDLK_UP;
 			while (SDL_PollEvent(&e) != 0)
 			{
-				//std::cout << e.key.keysym.sym << std::endl;
-
 				working = inputHandler->keyDown(e, game);
-				multiplier += 40;
+
+				//multiplier += 40;
+
 				SDL_RenderClear(renderer);
 				loadWindowWithBackground();
 				displaySnake(game, multiplier);
-				
-				
-
-				//dir = direction(game, xOrY);
-				//if (dir == "left" || dir == "up")
-				//	multiplier = -20;
-				//else if (dir == "right" || dir == "down")
-				//{
-				//	multiplier = 20;
-				//}
-				//else
-				//{
-				//	multiplier += 20;
-				//}
-				
-				//displaySnake(game, multiplier);
-				
+				displayGameDetails(game, positions);
 
 				//displayGameDetails(game, positions);
 				if (rules.isOutOfBounds() || working == false)
@@ -292,22 +293,7 @@ void Game::executeGame()
 				SDL_RenderClear(renderer);
 				loadWindowWithBackground();
 				displaySnake(game, multiplier);
-				//Sleep(100);
-	/*			SDL_RenderClear(renderer);
-				loadWindowWithBackground();*/
-				//dir = direction(game, xOrY);
-				//if (dir == "left" || dir == "up")
-				//	multiplier -= 20;
-				//else if (dir == "right" || dir == "down")
-				//{
-				//	multiplier += 20;
-				//}
-				//else
-				//{
-				//	multiplier += 20;
-				//}
-				
-				//displaySnake(game, multiplier);
+				displayGameDetails(game, positions);
 
 				if (rules.isOutOfBounds())
 				{
@@ -320,14 +306,11 @@ void Game::executeGame()
 				std::cout << "GAME OVER!" << std::endl;
 				break;
 			}
-			//ferestruica->End();
+
 		}
-		/*t.join();*/
+
 	}
 
-
-	//delete ferestruica;
-	//delete inputHandler;
 	SDL_Quit();
 }
 
@@ -335,3 +318,9 @@ bool Game::hasTheGameStarted()
 {
 	return init();
 }
+
+Game::~Game()
+{
+	SDL_RenderPresent(renderer);
+}
+

@@ -141,7 +141,7 @@ bool Rules::isOutOfBounds()
 
 bool Rules::continuousMovement()
 {
-	std::cout << game->getSnake().getCoordinates().at(0)->getX() << "   " << game->getSnake().getCoordinates().at(0)->getY() << std::endl;
+	//std::cout << game->getSnake().getCoordinates().at(0)->getX() << "   " << game->getSnake().getCoordinates().at(0)->getY() << std::endl;
 	
 	if (game->getSnake().getCoordinates().at(0)->getY() >= 0)
 	{
