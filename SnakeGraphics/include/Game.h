@@ -49,7 +49,7 @@ public:
 	void displayGameDetails(GameMap &game, std::vector<Position*> pos);
 	void displaySnake();
 
-	void loadImage(char textureName, int x, int y);
+	void loadImage(char textureName, int x, int y, int angle);
 
 	bool hasTheGameStarted();
 

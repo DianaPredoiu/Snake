@@ -53,17 +53,17 @@ void Game::loadTextures()
 void Game::displaySnake()
 {
 	int multiplier = 1;
-	loadImage('T', gMap.getSnake().getCoordinates().at(0)->getX(), gMap.getSnake().getCoordinates().at(0)->getY());
-	for (int i = gMap.getSnake().getCoordinates().size() - 1; i > 1 ; --i)
+	int s = gMap.getSnake().getCoordinates().size() - 1;
+	loadImage('T', gMap.getSnake().getCoordinates().at(s)->getX(), gMap.getSnake().getCoordinates().at(s)->getY(), -90);
+	for (int i = gMap.getSnake().getCoordinates().size() - 2; i >= 1 ; --i)
 	{
-		loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX() + 40, gMap.getSnake().getCoordinates().at(i)->getY());
+		loadImage('b', gMap.getSnake().getCoordinates().at(i)->getX() + 40 * multiplier, gMap.getSnake().getCoordinates().at(i)->getY(), 0);
 		multiplier++;
 	}
-	int size = gMap.getSnake().getCoordinates().size() - 1;
-	loadImage('H', gMap.getSnake().getCoordinates().at(size)->getX() + 40 * multiplier, gMap.getSnake().getCoordinates().at(size)->getY());
+	loadImage('H', gMap.getSnake().getCoordinates().at(0)->getX() + 40 * multiplier, gMap.getSnake().getCoordinates().at(0)->getY(), -90);
 }
 
-void Game::loadImage(char textureName, int x, int y)
+void Game::loadImage(char textureName, int x, int y, int angle)
 {
 	SDL_Rect rectangle;
 
@@ -75,7 +75,7 @@ void Game::loadImage(char textureName, int x, int y)
 	rectangle.w = a / 10;
 	rectangle.h = b / 10;
 
-	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, -90, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 	SDL_RenderPresent(renderer);
 }
 
@@ -118,14 +118,11 @@ Game::~Game()
 
 void Game::executeGame()
 {
-	bool quit = false;
-
-
 	GameMap game(15, 15);
 	Rules rules(&game);
 	InputHandler *inputHandler;
 
-	std::cout << game;
+	//std::cout << game;
 	std::vector<Position*> positions = game.initializeGrid(game.getSnake().getCoordinates());
 
 	game.setScore(0);
@@ -138,7 +135,7 @@ void Game::executeGame()
 	{
 		loadWindowWithBackground();
 		displaySnake();
-		bool working = true;
+		//working = true;
 		inputHandler = new InputHandler();
 		while (working)
 		{
@@ -146,7 +143,7 @@ void Game::executeGame()
 			while (SDL_PollEvent(&e) != 0)
 			{
 				working = inputHandler->keyDown(e, game);
-
+				displaySnake();
 				//displayGameDetails(game, positions);
 				if (rules.isOutOfBounds() || working == false)
 				{
@@ -158,6 +155,7 @@ void Game::executeGame()
 			if (!rules.continuousMovement())
 			{
 				//displayGameDetails(game, positions);
+				//displaySnake();
 				if (rules.isOutOfBounds())
 				{
 					std::cout << "GAME OVER!" << std::endl;
@@ -169,11 +167,6 @@ void Game::executeGame()
 				std::cout << "GAME OVER!" << std::endl;
 				break;
 			}
-
-
-
-
-
 			//ferestruica->End();
 		}
 
