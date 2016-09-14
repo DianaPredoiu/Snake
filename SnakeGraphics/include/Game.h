@@ -38,6 +38,7 @@ private:
 	std::map<char, SDL_Texture*> textures;
 
 	GameMap gMap;
+	InputHandler *inputHandler;
 	/*const waitTime = 1;*/
 
 public:
@@ -47,7 +48,8 @@ public:
 	void executeGame();
 
 	void displayGameDetails(GameMap &game, std::vector<Position*> pos);
-	void displaySnake();
+	void displaySnake(GameMap &game, int multiplier);
+	std::string direction(GameMap &game, std::string &xOrY);
 
 	void loadImage(char textureName, int x, int y, int angle);
 
@@ -55,6 +57,11 @@ public:
 
 	void loadTextures();
 	void loadWindowWithBackground();
+
+	void moveUp(GameMap &game);
+	void moveDown(GameMap &game);
+	void moveLeft(GameMap &game);
+	void moveRight(GameMap &game);
 
 	~Game();
 	
