@@ -288,14 +288,20 @@ void Game::executeGame()
 
 		bool capFrameRate = true;
 		// the frame rate handler
-		Timer fps;
+		Timer fpsTimer;
+
+		//The frames per second cap timer
+		Timer capTimer;
+
+		int countedFrames = 0;
+		fpsTimer.start();
 		
 		while (working)
 		{
-			fps.start();
 			//Sleep(100);
 			SDL_Event e;
 			e.key.keysym.sym = SDLK_UP;
+			capTimer.start();
 			while (SDL_PollEvent(&e) != 0)
 			{
 				working = inputHandler->keyDown(e, game);
@@ -313,6 +319,14 @@ void Game::executeGame()
 					working = false;
 				}
 			}
+
+
+			float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
+			if (avgFPS > 20000000000)
+			{
+				avgFPS = 0;
+			}
+
 
 			if (!rules.continuousMovement())
 			{

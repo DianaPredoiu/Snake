@@ -2,17 +2,6 @@
 
 class Timer
 {
-private:
-	//The clock time when the timer started
-	int startTicks;
-
-	//The ticks stored when the timer was paused
-	int pausedTicks;
-
-	//The timer status
-	bool paused;
-	bool started;
-
 public:
 	//Initializes variables
 	Timer();
@@ -27,6 +16,17 @@ public:
 	int getTicks();
 
 	//Checks the status of the timer
-	bool has_started();
-	bool is_paused();
+	bool hasStarted();
+	bool isPaused();
+
+private:
+	//The clock time when the timer started
+	int startTicks;
+
+	//The ticks stored when the timer was paused
+	int pausedTicks;
+
+	//The timer status
+	bool paused;
+	bool started;
 };

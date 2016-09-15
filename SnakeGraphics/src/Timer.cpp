@@ -1,17 +1,18 @@
-#include <Timer.h>
+#include "Timer.h"
 
 Timer::Timer()
 {
 	//Initialize the variables
 	startTicks = 0;
 	pausedTicks = 0;
+
 	paused = false;
 	started = false;
 }
 
 void Timer::start()
 {
-	//Start the timer
+	//started the timer
 	started = true;
 
 	//Unpause the timer
@@ -19,6 +20,7 @@ void Timer::start()
 
 	//Get the current clock time
 	startTicks = SDL_GetTicks();
+	pausedTicks = 0;
 }
 
 void Timer::stop()
@@ -28,30 +30,35 @@ void Timer::stop()
 
 	//Unpause the timer
 	paused = false;
+
+	//Clear tick variables
+	startTicks = 0;
+	pausedTicks = 0;
 }
 
 void Timer::pause()
 {
 	//If the timer is running and isn't already paused
-	if ((started == true) && (paused == false))
+	if (started && !paused)
 	{
 		//Pause the timer
 		paused = true;
 
 		//Calculate the paused ticks
 		pausedTicks = SDL_GetTicks() - startTicks;
+		startTicks = 0;
 	}
 }
 
 void Timer::unpause()
 {
-	//If the timer is paused
-	if (paused == true)
+	//If the timer is running and paused
+	if (started && paused)
 	{
 		//Unpause the timer
 		paused = false;
 
-		//Reset the starting ticks
+		//Reset the starteding ticks
 		startTicks = SDL_GetTicks() - pausedTicks;
 
 		//Reset the paused ticks
@@ -61,32 +68,36 @@ void Timer::unpause()
 
 int Timer::getTicks()
 {
+	//The actual timer time
+	int time = 0;
+
 	//If the timer is running
-	if (started == true)
+	if (started)
 	{
 		//If the timer is paused
-		if (paused == true)
+		if (paused)
 		{
 			//Return the number of ticks when the timer was paused
-			return pausedTicks;
+			time = pausedTicks;
 		}
 		else
 		{
-			//Return the current time minus the start time
-			return SDL_GetTicks() - startTicks;
+			//Return the current time minus the started time
+			time = SDL_GetTicks() - startTicks;
 		}
 	}
 
-	//If the timer isn't running
-	return 0;
+	return time;
 }
 
-bool Timer::has_started()
+bool Timer::hasStarted()
 {
+	//Timer is running and paused or unpaused
 	return started;
 }
 
-bool Timer::is_paused()
+bool Timer::isPaused()
 {
-	return paused;
+	//Timer is running and paused
+	return paused && started;
 }
