@@ -262,6 +262,19 @@ void Game::executeGame()
 		displayGameDetails(game, positions);
 		inputHandler = new InputHandler();
 
+		SDL_Color textColor = { 255, 255, 255 };
+		Texture tex;
+		tex.loadFromRenderedText("Ceau ba!", textColor, renderer);
+		SDL_Rect rectangle;
+		rectangle.h = 100;
+		rectangle.w = 200;
+		rectangle.x = 300;
+		rectangle.y = 300;
+
+		SDL_RenderCopy(renderer, tex.GetTexture(), NULL, &rectangle);
+		SDL_RenderPresent(renderer);
+
+
 		while (working)
 		{
 			Sleep(100);
