@@ -17,7 +17,7 @@ private:
 	bool working;
 	int score;
 	int step;
-
+	int delay;
 	SDL_Surface* screenSurface;
 
 	SDL_Window* window;

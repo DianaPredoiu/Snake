@@ -83,10 +83,9 @@ int Timer::getTicks()
 		else
 		{
 			//Return the current time minus the started time
-			time = SDL_GetTicks() - startTicks;
+			time = (SDL_GetTicks() / 100 - startTicks); 
 		}
 	}
-
 	return time;
 }
 

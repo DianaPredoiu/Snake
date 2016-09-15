@@ -7,4 +7,5 @@ const int IMAGE_HEIGHT = 30;
 const int ROW_SIZE = 20;
 const int COL_SIZE = 20;
 const int DELAY = 100;
-const int FRAMES_PER_SECOND = 60;
+const int SCREEN_FPS = 60;
+const int SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;

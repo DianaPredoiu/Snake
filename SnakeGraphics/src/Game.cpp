@@ -7,9 +7,11 @@ Game::Game()
 	working = init();
 	loadTextures();
 
+	delay = 100;
+
 	inputHandler = new InputHandler();
 
-	bgColor = { 238, 238, 0};
+	bgColor = { 238, 238, 0 };
 	textColor = { 0, 0, 0 };
 	textRectangle.h = 50;
 	textRectangle.w = 600;
@@ -107,6 +109,10 @@ void Game::displayFood(int x, int y)
 void Game::displayBonus(int x, int y)
 {
 	printImage('B', x * step, y * step, 0);
+	if (delay != 70)
+		delay = 70;
+	else
+		delay = 50;
 }
 
 void Game::displaySurprise(int x, int y)
@@ -214,7 +220,7 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 	/* Filling the surface with red color. */
 	SDL_FillRect(rectangleSurface, NULL, SDL_MapRGB(rectangleSurface->format, 255, 0, 0));
 
-	textTexture.loadFromRenderedText("Ceau ba!", textColor, renderer);
+	textTexture.loadFromRenderedText("TEXT! TEXT! TEXT! TEXT! TEXT! TEXT! TEXT! TEXT! TEXT! ", textColor, renderer);
 	SDL_RenderCopy(renderer, textTexture.GetTexture(), NULL, &textRectangle);
 	SDL_RenderPresent(renderer);
 }
@@ -290,12 +296,13 @@ void Game::executeGame()
 		// the frame rate handler
 		Timer fpsTimer;
 
-		//The frames per second cap timer
+		//The frames persecond cap timer
 		Timer capTimer;
-
+		int lastUpdateTime = 0;
 		int countedFrames = 0;
-		fpsTimer.start();
-		
+		int currentTime = SDL_GetTicks();
+		int delta_time = currentTime - lastUpdateTime * 10;
+
 		while (working)
 		{
 			//Sleep(100);
@@ -311,7 +318,6 @@ void Game::executeGame()
 				displaySnake(game);
 				displayGameDetails(game, positions);
 
-				capFrameRate = (!capFrameRate);
 
 				if (rules.isOutOfBounds() || working == false || rules.eatItself())
 				{
@@ -321,21 +327,12 @@ void Game::executeGame()
 			}
 
 
-			float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
-			if (avgFPS > 20000000000)
-			{
-				avgFPS = 0;
-			}
-
-
 			if (!rules.continuousMovement())
 			{
 				SDL_RenderClear(renderer);
 				loadWindowWithBackground();
 				displaySnake(game);
 				displayGameDetails(game, positions);
-
-				capFrameRate = (!capFrameRate);
 
 				if (rules.isOutOfBounds() || rules.eatItself())
 				{
@@ -348,11 +345,16 @@ void Game::executeGame()
 				std::cout << "GAME OVER!" << std::endl;
 				break;
 			}
-			frame++;
+
+
+			int frameTicks = capTimer.getTicks();
+			if (frameTicks < SCREEN_TICK_PER_FRAME)
+			{
+				//Wait remaining time
+				SDL_Delay(delay);
+			}
 		}
-
 	}
-
 	SDL_Quit();
 }
 #pragma endregion
