@@ -9,8 +9,8 @@ Game::Game()
 
 	inputHandler = new InputHandler();
 
-	textColor = { 255, 255, 255 };
-
+	bgColor = { 238, 238, 0};
+	textColor = { 0, 0, 0 };
 	textRectangle.h = 50;
 	textRectangle.w = 600;
 	textRectangle.x = 0;
@@ -208,8 +208,12 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 	//	std::cout << "---Surprise Time: " << game.getSurprise().getTime() << "  ---" << std::endl << std::endl;
 	//	std::cout << std::endl << "---Effect: " << game.getSurprise().getEffect() << "  ---";
 	//}
+	SDL_Surface *rectangleSurface;
+	rectangleSurface = SDL_CreateRGBSurface(0, 750, 50, 32, 0, 0, 0, 0);
 
-	
+	/* Filling the surface with red color. */
+	SDL_FillRect(rectangleSurface, NULL, SDL_MapRGB(rectangleSurface->format, 255, 0, 0));
+
 	textTexture.loadFromRenderedText("Ceau ba!", textColor, renderer);
 	SDL_RenderCopy(renderer, textTexture.GetTexture(), NULL, &textRectangle);
 	SDL_RenderPresent(renderer);

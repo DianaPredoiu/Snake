@@ -31,7 +31,7 @@ private:
 	SDL_Rect textRectangle;
 	Texture textTexture;
 	SDL_Color textColor;
-
+	SDL_Color bgColor;
 
 
 public:

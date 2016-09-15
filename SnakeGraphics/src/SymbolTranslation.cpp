@@ -26,7 +26,7 @@ void SymbolTranslation::ConvertToTextureFromSymbol()
 	{
 		case 'F':
 		{
-			texture.loadFromFile("food1.png", renderer);
+			texture.loadFromFile("food.png", renderer);
 			break;
 		}
 		case 'B':
