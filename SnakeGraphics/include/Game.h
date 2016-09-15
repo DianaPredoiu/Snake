@@ -9,6 +9,7 @@
 #include <InputHandler.h>
 #include <SymbolTranslation.h>
 #include <map>
+#include <Timer.h>
 
 class Game{
 

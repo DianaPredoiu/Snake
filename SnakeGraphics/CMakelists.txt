@@ -12,6 +12,7 @@ set(HEADERS
 	include/Texture.h
 	include/Game.h
 	include/SymbolTranslation.h
+	include/Timer.h
   )
   
 set(SOURCES
@@ -19,6 +20,7 @@ set(SOURCES
 	src/Texture.cpp
 	src/Game.cpp
 	src/SymbolTranslation.cpp
+	src/Timer.cpp
 	
 	)
 include_directories(

@@ -284,12 +284,16 @@ void Game::executeGame()
 		inputHandler = new InputHandler();
 
 
+		int frame = 0;
 
-
-
+		bool capFrameRate = true;
+		// the frame rate handler
+		Timer fps;
+		
 		while (working)
 		{
-			Sleep(100);
+			fps.start();
+			//Sleep(100);
 			SDL_Event e;
 			e.key.keysym.sym = SDLK_UP;
 			while (SDL_PollEvent(&e) != 0)
@@ -300,6 +304,8 @@ void Game::executeGame()
 				loadWindowWithBackground();
 				displaySnake(game);
 				displayGameDetails(game, positions);
+
+				capFrameRate = (!capFrameRate);
 
 				if (rules.isOutOfBounds() || working == false || rules.eatItself())
 				{
@@ -315,6 +321,8 @@ void Game::executeGame()
 				displaySnake(game);
 				displayGameDetails(game, positions);
 
+				capFrameRate = (!capFrameRate);
+
 				if (rules.isOutOfBounds() || rules.eatItself())
 				{
 					std::cout << "GAME OVER!" << std::endl;
@@ -326,7 +334,7 @@ void Game::executeGame()
 				std::cout << "GAME OVER!" << std::endl;
 				break;
 			}
-
+			frame++;
 		}
 
 	}
