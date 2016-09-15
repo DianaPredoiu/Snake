@@ -11,11 +11,14 @@ class Texture
 {
 	SDL_Texture *imTexture;
 	TTF_Font *font;
+	std::string path;
 
 public:
 	Texture();
 
-	bool loadFromFile(std::string fileName, SDL_Renderer* renderer);
+	void init();
+
+	bool loadFromFile(std::string fileName, SDL_Renderer* renderer);	
 
 	bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor, SDL_Renderer* renderer);
 
