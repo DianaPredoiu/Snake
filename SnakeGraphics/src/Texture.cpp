@@ -19,7 +19,7 @@ void Texture::init()
 	{
 		path = FOO;
 		path.append("/sarpe/font.ttf");
-		font = TTF_OpenFont(path.c_str(), 28);
+		font = TTF_OpenFont(path.c_str(), 30);
 	}
 }
 
@@ -58,24 +58,30 @@ bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor,
 {
 	
 	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
-
-	if (textSurface == NULL)
+	if (!font)
 	{
-		std::cout << "Unable to render text surface! SDL_ttf Error: \n" << TTF_GetError();
+		std::cout << "Unable to load font style! SDL_TTF Error: \n" << TTF_GetError();
 	}
 	else
 	{
-		//Create texture from surface pixels
-		imTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-		if (imTexture == NULL)
-		{
-			std::cout << "Unable to create texture from rendered text! SDL Error: \n" << SDL_GetError();
-		}
-		//Get rid of old surface
-		SDL_FreeSurface(textSurface);
-	}
+		SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
 
+		if (textSurface == NULL)
+		{
+			std::cout << "Unable to render text surface! SDL_ttf Error: \n" << TTF_GetError();
+		}
+		else
+		{
+			//Create texture from surface pixels
+			imTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+			if (imTexture == NULL)
+			{
+				std::cout << "Unable to create texture from rendered text! SDL Error: \n" << SDL_GetError();
+			}
+			//Get rid of old surface
+			SDL_FreeSurface(textSurface);
+		}
+	}
 	//Return success
 	return imTexture != NULL;
 }

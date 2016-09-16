@@ -7,16 +7,19 @@ Game::Game()
 	working = init();
 	loadTextures();
 
-	delay = 200;
+	delay = 150;
 
 	inputHandler = new InputHandler();
-
-	bgColor = { 238, 238, 0 };
-	textColor = { 0, 0, 0 };
+	textColor = { 0, 0, 0, 50 };
 	textRectangle.h = 50;
 	textRectangle.w = 600;
 	textRectangle.x = 0;
 	textRectangle.y = 750;
+
+
+	scoreTexture.init();
+	bonusTexture.init();
+	surpriseTexture.init();
 
 	//step = SCREEN_WIDTH / 15;
 	step = 50;
@@ -209,7 +212,7 @@ void Game::displaySnake(GameMap &game)
 void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
 	game.initializeGrid(pos);
-	std::cout << game;
+	// std::cout << game;
 	std::cout << std::endl << std::endl << "---Score: " << game.getScore() << "  ---" << std::endl << std::endl;
 
 	if (game.getBonus().getState() == true)
@@ -219,7 +222,17 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 	{
 		std::cout << "---Surprise Time: " << game.getSurprise().getTime() << "  ---" << std::endl << std::endl;
 		std::cout << std::endl << "---Effect: " << game.getSurprise().getEffect() << "  ---";
+
+		
 	}
+	scoreTexture.loadFromRenderedText(std::to_string(game.getScore()), textColor, renderer);
+	printScores(scoreTexture, 110, 795, 0);
+
+	bonusTexture.loadFromRenderedText(std::to_string(game.getBonus().getTime()), textColor, renderer);
+	printScores(scoreTexture, 400, 795, 0);
+
+	scoreTexture.loadFromRenderedText(std::to_string(game.getSurprise().getTime()), textColor, renderer);
+	printScores(scoreTexture, 680, 795, 0);
 	//SDL_Surface *rectangleSurface;
 	//rectangleSurface = SDL_CreateRGBSurface(0, 750, 50, 32, 0, 0, 0, 0);
 
@@ -272,6 +285,29 @@ void Game::printImage(char textureName, int x, int y, int angle)
 	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 	SDL_RenderPresent(renderer);
 }
+
+void Game::printScores(Texture textureName, int x, int y, int angle)
+{
+	SDL_Rect rectangle;
+
+	int a, b;
+	SDL_QueryTexture(textureName.GetTexture(), NULL, NULL, &a, &b);
+
+	rectangle.x = x;
+	rectangle.y = y;
+	rectangle.w = 60;
+	rectangle.h = 40;
+
+	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
+	SDL_RenderPresent(renderer);
+}
+
+
+void Game::printScore(std::string message, int x, int y, int angle)
+{
+	
+}
+
 
 #pragma region Execution
 void Game::executeGame()
