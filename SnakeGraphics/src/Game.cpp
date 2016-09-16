@@ -7,15 +7,10 @@ Game::Game()
 	working = init();
 	loadTextures();
 
-	delay = 150;
+	delay = 125;
 
 	inputHandler = new InputHandler();
 	textColor = { 0, 0, 0, 50 };
-	textRectangle.h = 50;
-	textRectangle.w = 600;
-	textRectangle.x = 0;
-	textRectangle.y = 750;
-
 
 	scoreTexture.init();
 	bonusTexture.init();
@@ -24,7 +19,6 @@ Game::Game()
 	//step = SCREEN_WIDTH / 15;
 	step = 50;
 
-	textTexture.init();
 }
 
 bool Game::init()
@@ -233,15 +227,6 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 
 	scoreTexture.loadFromRenderedText(std::to_string(game.getSurprise().getTime()), textColor, renderer);
 	printScores(scoreTexture, 680, 795, 0);
-	//SDL_Surface *rectangleSurface;
-	//rectangleSurface = SDL_CreateRGBSurface(0, 750, 50, 32, 0, 0, 0, 0);
-
-	///* Filling the surface with red color. */
-	//SDL_FillRect(rectangleSurface, NULL, SDL_MapRGB(rectangleSurface->format, 255, 0, 0));
-
-	////textTexture.loadFromRenderedText("TEXT! TEXT! TEXT! TEXT! TEXT! TEXT! TEXT! TEXT! TEXT! ", textColor, renderer);
-	//SDL_RenderCopy(renderer, textTexture.GetTexture(), NULL, &textRectangle);
-	//SDL_RenderPresent(renderer);
 }
 #pragma endregion
 
@@ -303,12 +288,6 @@ void Game::printScores(Texture textureName, int x, int y, int angle)
 }
 
 
-void Game::printScore(std::string message, int x, int y, int angle)
-{
-	
-}
-
-
 #pragma region Execution
 void Game::executeGame()
 {
@@ -326,11 +305,12 @@ void Game::executeGame()
 	}
 	else
 	{
+		SDL_RenderClear(renderer);
 		loadWindowWithBackground();
 		displaySnake(game);
 		displayGameDetails(game, positions);
 		inputHandler = new InputHandler();
-
+		//SDL_GL_SwapBuffers()
 
 		int frame = 0;
 

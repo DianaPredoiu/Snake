@@ -25,10 +25,6 @@ private:
 
 	SDL_Texture* background;
 
-	SDL_Rect scoreRectangle;
-	SDL_Rect bonusRectangle;
-	SDL_Rect surpriseRectangle;
-
 	Texture scoreTexture;
 	Texture bonusTexture;
 	Texture surpriseTexture;
@@ -37,8 +33,6 @@ private:
 
 	InputHandler *inputHandler;
 
-	SDL_Rect textRectangle;
-	Texture textTexture;
 	SDL_Color textColor;
 	SDL_Color bgColor;
 
@@ -61,8 +55,6 @@ public:
 	void printImage(char textureName, int x, int y, int angle);
 
 	void printScores(Texture textureName, int x, int y, int angle);
-
-	void printScore(std::string message, int x, int y, int angle);
 
 	bool hasTheGameStarted();
 
