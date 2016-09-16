@@ -18,7 +18,7 @@ Game::Game()
 	textRectangle.x = 0;
 	textRectangle.y = 750;
 
-	step = 750 / 15;
+	step = SCREEN_WIDTH / 15;
 
 	textTexture.init();
 }
@@ -123,7 +123,7 @@ void Game::displaySurprise(int x, int y)
 void Game::displaySnake(GameMap &game)
 {
 	int s = game.getSnake().getCoordinates().size() - 1;
-	printImage('T', game.getSnake().getCoordinates().at(s)->getX() * step-20, game.getSnake().getCoordinates().at(s)->getY() * step, tailDirection(game));
+	printImage('T', game.getSnake().getCoordinates().at(s)->getX() * step, game.getSnake().getCoordinates().at(s)->getY() * step, tailDirection(game));
 
 	for (int i = game.getSnake().getCoordinates().size() - 2; i >= 0; i--)
 	{
@@ -200,85 +200,6 @@ void Game::displaySnake(GameMap &game)
 
 }
 
-void Game::displayFirstSnake(GameMap &game)
-{
-	int s = game.getSnake().getCoordinates().size() - 1;
-	printImage('T', game.getSnake().getCoordinates().at(s)->getX() * step - 20, game.getSnake().getCoordinates().at(s)->getY() * step, tailDirection(game));
-
-	for (int i = game.getSnake().getCoordinates().size() - 2; i >= 0; i--)
-	{
-		//std::cout << game.getSnake().getCoordinates().at(i)->getX() << " " << game.getSnake().getCoordinates().at(i)->getY() << std::endl;
-		if (i != 0)
-		{
-
-			if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX() + 1
-				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY())
-			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() *step, -90);
-
-			}
-			else if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX() - 1
-				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY())
-			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() *step, 90);
-
-			}
-			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY() - 1
-				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX())
-			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() *step, 90);
-
-			}
-			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY() + 1
-				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX())
-			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() * step, 90);
-
-			}
-		}
-		else
-		{
-			if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX() - 1
-				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY())
-			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step, game.getSnake().getCoordinates().at(i)->getY() *step, 90);
-
-			}
-			else if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX() + 1
-				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY())
-			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step, game.getSnake().getCoordinates().at(i)->getY() *step, -90);
-
-			}
-			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY() - 1
-				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX())
-			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() * step, 180);
-
-			}
-			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY() + 1
-				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX())
-			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() *step, 0);
-
-			}
-		}
-
-	}
-
-	game.addFood();
-	displayFood(game.getFood().getCoordinates().getX(), game.getFood().getCoordinates().getY());
-	if (game.getBonus().getState())
-	{
-		displayBonus(game.getBonus().getCoordinates().getX(), game.getBonus().getCoordinates().getY());
-	}
-
-	if (game.getSurprise().getState())
-	{
-		displaySurprise(game.getSurprise().getCoordinates().getX(), game.getSurprise().getCoordinates().getY());
-	}
-
-}
 
 void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
@@ -340,8 +261,8 @@ void Game::printImage(char textureName, int x, int y, int angle)
 
 	rectangle.x = x;
 	rectangle.y = y;
-	rectangle.w = 50;
-	rectangle.h = 50;
+	rectangle.w = 40;
+	rectangle.h = 40;
 
 	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 	SDL_RenderPresent(renderer);

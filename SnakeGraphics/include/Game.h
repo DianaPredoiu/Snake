@@ -45,7 +45,6 @@ public:
 	void executeGame();
 
 	void displaySnake(GameMap &game);
-	void displayFirstSnake(GameMap &game);
 	void displayFood(int x, int y);
 	void displayBonus(int x, int y);
 	void displaySurprise(int x, int y);
