@@ -323,6 +323,7 @@ void Game::executeGame()
 				{
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
+					break;
 				}
 			}
 
