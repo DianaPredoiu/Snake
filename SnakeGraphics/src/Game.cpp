@@ -7,7 +7,7 @@ Game::Game()
 	working = init();
 	loadTextures();
 
-	delay = 100;
+	delay = 200;
 
 	inputHandler = new InputHandler();
 
@@ -18,7 +18,8 @@ Game::Game()
 	textRectangle.x = 0;
 	textRectangle.y = 750;
 
-	step = SCREEN_WIDTH / 15;
+	//step = SCREEN_WIDTH / 15;
+	step = 50;
 
 	textTexture.init();
 }
@@ -103,27 +104,30 @@ void Game::loadTextures()
 #pragma region display items + snake + details
 void Game::displayFood(int x, int y)
 {
-	printImage('F', x * step, y * step, 0);
+	printImage('F', x * step + 20, y * step + 20, 0);
 }
 
 void Game::displayBonus(int x, int y)
 {
-	printImage('B', x * step, y * step, 0);
-	if (delay != 70)
+	printImage('B', x * step + 20, y * step + 20, 0);
+	if (delay == 100)
 		delay = 70;
 	else
-		delay = 50;
+		delay = 100;
 }
 
 void Game::displaySurprise(int x, int y)
 {
-	printImage('?', x * step, y * step, 0);
+	printImage('?', x * step + 20, y * step + 20, 0);
+	if (delay == 100)
+		delay = 50;
+
 }
 
 void Game::displaySnake(GameMap &game)
 {
 	int s = game.getSnake().getCoordinates().size() - 1;
-	printImage('T', game.getSnake().getCoordinates().at(s)->getX() * step, game.getSnake().getCoordinates().at(s)->getY() * step, tailDirection(game));
+	printImage('T', game.getSnake().getCoordinates().at(s)->getX() * step + 20, game.getSnake().getCoordinates().at(s)->getY() * step + 20, tailDirection(game));
 
 	for (int i = game.getSnake().getCoordinates().size() - 2; i >= 0; i--)
 	{
@@ -134,25 +138,25 @@ void Game::displaySnake(GameMap &game)
 			if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX() + 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY())
 			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() *step, -90);
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, -90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX() - 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY())
 			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() *step, 90);
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, 90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY() - 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX())
 			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() *step, 90);
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, 90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY() + 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX())
 			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() * step, 90);
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() * step + 20, 90);
 
 			}
 		}
@@ -161,25 +165,25 @@ void Game::displaySnake(GameMap &game)
 			if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX() - 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY())
 			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step, game.getSnake().getCoordinates().at(i)->getY() *step, 90);
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, 90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX() + 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY())
 			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step, game.getSnake().getCoordinates().at(i)->getY() *step, -90);
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, -90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY() - 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX())
 			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() * step, 180);
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() * step + 20, 180);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY() + 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX())
 			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step, game.getSnake().getCoordinates().at(i)->getY() *step, 0);
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, 0);
 
 			}
 		}
@@ -188,6 +192,7 @@ void Game::displaySnake(GameMap &game)
 
 	game.addFood();
 	displayFood(game.getFood().getCoordinates().getX(), game.getFood().getCoordinates().getY());
+
 	if (game.getBonus().getState())
 	{
 		displayBonus(game.getBonus().getCoordinates().getX(), game.getBonus().getCoordinates().getY());
@@ -204,17 +209,17 @@ void Game::displaySnake(GameMap &game)
 void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
 	game.initializeGrid(pos);
-	//std::cout << game;
-	//std::cout << std::endl << std::endl << "---Score: " << game.getScore() << "  ---" << std::endl << std::endl;
+	std::cout << game;
+	std::cout << std::endl << std::endl << "---Score: " << game.getScore() << "  ---" << std::endl << std::endl;
 
-	//if (game.getBonus().getState() == true)
-	//	std::cout << "---Bonus Time: " << game.getBonus().getTime() << "  ---" << std::endl << std::endl;
+	if (game.getBonus().getState() == true)
+		std::cout << "---Bonus Time: " << game.getBonus().getTime() << "  ---" << std::endl << std::endl;
 
-	//if (game.getSurprise().getState() == true)
-	//{
-	//	std::cout << "---Surprise Time: " << game.getSurprise().getTime() << "  ---" << std::endl << std::endl;
-	//	std::cout << std::endl << "---Effect: " << game.getSurprise().getEffect() << "  ---";
-	//}
+	if (game.getSurprise().getState() == true)
+	{
+		std::cout << "---Surprise Time: " << game.getSurprise().getTime() << "  ---" << std::endl << std::endl;
+		std::cout << std::endl << "---Effect: " << game.getSurprise().getEffect() << "  ---";
+	}
 	//SDL_Surface *rectangleSurface;
 	//rectangleSurface = SDL_CreateRGBSurface(0, 750, 50, 32, 0, 0, 0, 0);
 
@@ -261,8 +266,8 @@ void Game::printImage(char textureName, int x, int y, int angle)
 
 	rectangle.x = x;
 	rectangle.y = y;
-	rectangle.w = 40;
-	rectangle.h = 40;
+	rectangle.w = 50;
+	rectangle.h = 50;
 
 	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 	SDL_RenderPresent(renderer);
@@ -302,7 +307,7 @@ void Game::executeGame()
 		int lastUpdateTime = 0;
 		int countedFrames = 0;
 		int currentTime = SDL_GetTicks();
-		int delta_time = currentTime - lastUpdateTime * 10;
+		//int delta_time = currentTime - lastUpdateTime * 10;
 
 		while (working)
 		{

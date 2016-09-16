@@ -6,7 +6,8 @@ Bonus::Bonus()
 {
 	this->points = 15 + (std::rand() % 16);//make it random between 15-30 p
 	this->symbol = 'B';
-	this->time = 10 + (std::rand() % 11);//seconds must be random too between 10-20
+	//this->time = 10 + (std::rand() % 11);//seconds must be random too between 10-20
+	this->time = 40 + (std::rand() % 11);
 	this->coordinates.setX(1);
 	this->coordinates.setY(1);
 	this->state = false;

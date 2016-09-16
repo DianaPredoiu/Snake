@@ -4,7 +4,7 @@
 
 
 #pragma region Constructors/Destructor
-GameMap::GameMap() 
+GameMap::GameMap()
 {
 
 }
@@ -25,7 +25,7 @@ GameMap::GameMap(int width, int height)
 		grid[i] = new char[width];
 
 	countFood = 0;
-
+	countBonus = 0;
 }
 
 GameMap::GameMap(const GameMap &map)
@@ -115,12 +115,12 @@ void GameMap::manageFood(std::vector<Position*> oldPositions)
 
 void GameMap::manageBonus(std::vector<Position*> oldPositions)
 {
-	if (countFood % 4 == 0 && countFood > 0)
+	if (countFood == 4)
 	{
 		addBonus();
-		if (bonus.getState() == true)
+		if (bonus.getState())
 		{
-			if (bonus.getTime() != 0)
+			if (bonus.getTime() > 0)
 			{
 				grid[bonus.getCoordinates().getY()][bonus.getCoordinates().getX()] = bonus.getSymbol();
 				bonus.setTime(bonus.getTime() - 1);
@@ -146,63 +146,63 @@ void GameMap::manageBonus(std::vector<Position*> oldPositions)
 
 void GameMap::manageSurprise(std::vector<Position*> oldPositions)
 {
-	if (surprise.getState() == true)
+	if (countBonus == 2)
 	{
-		if (surprise.getTime() > 0 && countBonus % 2 == 0 && countBonus > 0)
+		addSurprise();
+		if (surprise.getState())
 		{
-			grid[surprise.getCoordinates().getY()][surprise.getCoordinates().getX()] = surprise.getSymbol();
-			surprise.setTime(surprise.getTime() - 1);
-			if ((snake.getCoordinates().at(0)->getY() == surprise.getCoordinates().getY() && snake.getCoordinates().at(0)->getX() == surprise.getCoordinates().getX()))
+			if (surprise.getTime() > 0)
+			{
+				grid[surprise.getCoordinates().getY()][surprise.getCoordinates().getX()] = surprise.getSymbol();
+				surprise.setTime(surprise.getTime() - 1);
+				if ((snake.getCoordinates().at(0)->getY() == surprise.getCoordinates().getY() && snake.getCoordinates().at(0)->getX() == surprise.getCoordinates().getX()))
+				{
+					surprise.setState(false);
+					countBonus = 0;
+					switch (surprise.getEffect())
+					{
+					case SubstractPoints:
+					{
+						score -= surprise.getPoints();
+						surprise.setTime(0);
+						break;
+					}
+
+					case BonusEffect:
+					{
+						score += surprise.getPoints();
+						surprise.setTime(0);
+						break;
+					}
+
+					case HalveBody:
+					{
+						if (snake.getCoordinates().size() >= 6)
+						{
+							int length = snake.getCoordinates().size() / 2;
+							std::vector<Position*> positions = snake.getCoordinates();
+							positions.erase(positions.begin() + length, positions.end());
+							snake.setCoordinates(positions);
+							surprise.setTime(0);
+						}
+						break;
+					}
+
+					case NoEffect:
+					{
+						surprise.setTime(0);
+						break;
+					}
+					}
+				}
+			}
+			else
 			{
 				surprise.setState(false);
+				surprise.setTime(0);
 				countBonus = 0;
-
-
-				switch (surprise.getEffect())
-				{
-				case SubstractPoints:
-				{
-					score -= surprise.getPoints();
-					surprise.setTime(0);
-					break;
-				}
-
-				case BonusEffect:
-				{
-					score += surprise.getPoints();
-					surprise.setTime(0);
-					break;
-				}
-
-				case HalveBody:
-				{
-					if (snake.getCoordinates().size() >= 6)
-					{
-						int length = snake.getCoordinates().size() / 2;
-						std::vector<Position*> positions = snake.getCoordinates();
-						positions.erase(positions.begin() + length, positions.end());
-						snake.setCoordinates(positions);
-						surprise.setTime(0);
-					}
-					break;
-				}
-
-				case NoEffect:
-				{
-					surprise.setTime(0);
-					break;
-				}
-				}
-
 			}
 		}
-		else
-		{
-			surprise.setState(false);
-			surprise.setTime(0);
-			countBonus = 0;
-		}
-
 	}
 }
 #pragma endregion
@@ -233,7 +233,6 @@ std::vector<Position*>  GameMap::initializeGrid(std::vector<Position*> oldPositi
 	manageBonus(oldPositions);
 
 	//addSurprise
-	addSurprise();
 	manageSurprise(oldPositions);
 
 	return snake.getCoordinates();
