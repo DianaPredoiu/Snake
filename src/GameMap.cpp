@@ -225,15 +225,22 @@ std::vector<Position*>  GameMap::initializeGrid(std::vector<Position*> oldPositi
 		[snake.getCoordinates().at(snake.getCoordinates().size() - 1)->getX()] = snake.getTailSymbol();
 
 	//addFood 
-	addFood();
-	manageFood(oldPositions);
-
-
-	//addBonus
-	manageBonus(oldPositions);
-
-	//addSurprise
-	manageSurprise(oldPositions);
+	if (countFood == 4)
+	{
+		//addBonus
+		manageBonus(oldPositions);
+	}
+	else if (countBonus == 2)
+	{
+		//addSurprise
+		manageSurprise(oldPositions);
+	}
+	else
+	{
+		addFood();
+		manageFood(oldPositions);
+	}
+	
 
 	return snake.getCoordinates();
 

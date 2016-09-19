@@ -37,12 +37,16 @@ private:
 	SDL_Color bgColor;
 
 
+
 public:
 	Game();
 
 	bool init();
 	void loadTextures();
-	void loadWindowWithBackground();
+
+	void loadWindowGameBackground();
+	void loadWindowStartGameBackground();
+	void loadWindowEndGameBackground();
 
 	void executeGame();
 

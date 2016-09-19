@@ -6,7 +6,7 @@ Surprise::Surprise()
 {
 	this->points = 20 + (std::rand() % 31);//make it random between 20-50 p
 	this->symbol = '?';
-	this->time = 30 + (std::rand() % 9);//seconds must be random too between 7-15
+	this->time = 15 + (std::rand() % 11);//seconds must be random too between 15-25
 	this->effect = Effects(std::rand() % 3);
 	this->coordinates.setX(1);
 	this->coordinates.setY(1);
