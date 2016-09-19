@@ -333,10 +333,16 @@ void Game::startGamePage()
 			if (newGameButton->isPressed(e))
 				executeGame();
 			if (loadGameButton->isPressed(e))
-				std::cout << "load game" << std::endl;
+				loadWindowEndGameBackground();
 		}
 	}
 	
+}
+
+void Game::endGamePage()
+{
+	loadWindowEndGameBackground();
+	SDL_RenderPresent(renderer);
 }
 
 void Game::executeGame()
@@ -378,7 +384,7 @@ void Game::executeGame()
 		while (working)
 		{		
 			capTimer.start();
-			while (SDL_PollEvent(&e) != 0)
+			while (SDL_PollEvent(&e) != 0 && working)
 			{
 				working = inputHandler->keyDown(e, game);
 
@@ -391,7 +397,7 @@ void Game::executeGame()
 				{
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
-					break;
+					endGamePage();
 				}
 			}
 
@@ -406,13 +412,13 @@ void Game::executeGame()
 				if (rules.isOutOfBounds() || rules.eatItself())
 				{
 					std::cout << "GAME OVER!" << std::endl;
-					break;
+					endGamePage();
 				}
 			}
 			else
 			{
 				std::cout << "GAME OVER!" << std::endl;
-				break;
+				endGamePage();
 			}
 
 
@@ -423,6 +429,7 @@ void Game::executeGame()
 				SDL_Delay(delay);
 			}
 		}
+		
 	}
 	SDL_Quit();
 }

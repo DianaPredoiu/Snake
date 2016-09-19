@@ -13,6 +13,7 @@ set(HEADERS
 	include/Game.h
 	include/SymbolTranslation.h
 	include/Timer.h
+	include/Button.h
   )
   
 set(SOURCES
@@ -21,6 +22,7 @@ set(SOURCES
 	src/Game.cpp
 	src/SymbolTranslation.cpp
 	src/Timer.cpp
+	src/Button.cpp
 	
 	)
 include_directories(

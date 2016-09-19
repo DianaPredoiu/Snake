@@ -58,6 +58,7 @@ public:
 
 	void startGamePage();
 	void executeGame();
+	void endGamePage();
 
 	void displaySnake(GameMap &game);
 	void displayFood(int x, int y);
