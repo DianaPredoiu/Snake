@@ -10,14 +10,17 @@
 #include <SymbolTranslation.h>
 #include <map>
 #include <Timer.h>
+#include "Button.h"
 
 class Game{
 
 private:
+
 	bool working;
 	int score;
 	int step;
 	int delay;
+
 	SDL_Surface* screenSurface;
 
 	SDL_Window* window;
@@ -29,13 +32,18 @@ private:
 	Texture bonusTexture;
 	Texture surpriseTexture;
 
+	Texture newGameTexture;
+	Texture loadGameTexture;
+
 	std::map<char, SDL_Texture*> textures;
 
-	InputHandler *inputHandler;
+	InputHandler* inputHandler;
 
 	SDL_Color textColor;
 	SDL_Color bgColor;
 
+	Button* newGameButton;
+	Button* loadGameButton;
 
 
 public:
@@ -48,6 +56,7 @@ public:
 	void loadWindowStartGameBackground();
 	void loadWindowEndGameBackground();
 
+	void startGamePage();
 	void executeGame();
 
 	void displaySnake(GameMap &game);

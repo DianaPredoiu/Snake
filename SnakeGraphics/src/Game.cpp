@@ -16,6 +16,11 @@ Game::Game()
 	bonusTexture.init();
 	surpriseTexture.init();
 
+	newGameButton = new Button(newGame, 295, 360, 200, 50);
+	loadGameButton = new Button(loadGame, 295, 430, 200, 50);
+	//replayGameButton = new Button(replayGame, 295, 360, 200, 50);
+	//quitGameButton = new Button(quitGame, 380, 435, 200, 50);
+
 	step = 50;
 
 }
@@ -121,6 +126,8 @@ void Game::loadTextures()
 	surpriseSym->ConvertToTextureFromSymbol();
 	textures['?'] = surpriseSym->GetTexture();
 
+	newGameTexture.loadFromFile("newGame.png", renderer);
+	loadGameTexture.loadFromFile("loadGame.png", renderer);
 }
 
 
@@ -228,7 +235,7 @@ void Game::displaySnake(GameMap &game)
 void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
 	game.initializeGrid(pos);
-	std::cout << game << std::endl;
+
 	//rectangles for score and chrono for bonus and surprise
 	scoreTexture.loadFromRenderedText(std::to_string(game.getScore()), textColor, renderer);
 	printScores(scoreTexture, 110, 795, 0);
@@ -286,7 +293,7 @@ void Game::printImage(char textureName, int x, int y, int angle)
 	rectangle.h = 50;
 
 	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
-	SDL_RenderPresent(renderer);
+	//SDL_RenderPresent(renderer);
 }
 
 void Game::printScores(Texture textureName, int x, int y, int angle)
@@ -302,11 +309,36 @@ void Game::printScores(Texture textureName, int x, int y, int angle)
 	rectangle.h = 40;
 
 	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
-	SDL_RenderPresent(renderer);
+	//SDL_RenderPresent(renderer);
 }
 
 
 #pragma region Execution
+
+void Game::startGamePage()
+{
+	
+	SDL_Event e;
+	if (working)
+	{
+		//here i display all the buttons which must be in the start page
+
+		loadWindowStartGameBackground();
+		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderPresent(renderer);
+		while (SDL_WaitEvent(&e) != 0)
+		{
+			//when an event appears i check what button is pressed :  new game, load game or quit game
+			if (newGameButton->isPressed(e))
+				executeGame();
+			if (loadGameButton->isPressed(e))
+				std::cout << "load game" << std::endl;
+		}
+	}
+	
+}
+
 void Game::executeGame()
 {
 	GameMap game(15, 15);
@@ -323,12 +355,11 @@ void Game::executeGame()
 	}
 	else
 	{
-		SDL_RenderClear(renderer);
 		loadWindowGameBackground();
 		displaySnake(game);
 		displayGameDetails(game, positions);
+		SDL_RenderPresent(renderer);
 		inputHandler = new InputHandler();
-		//SDL_GL_SwapBuffers()
 
 		int frame = 0;
 
@@ -343,20 +374,18 @@ void Game::executeGame()
 		int currentTime = SDL_GetTicks();
 		//int delta_time = currentTime - lastUpdateTime * 10;
 
+		SDL_Event e;
 		while (working)
-		{
-			SDL_Event e;
-			e.key.keysym.sym = SDLK_UP;
+		{		
 			capTimer.start();
 			while (SDL_PollEvent(&e) != 0)
 			{
 				working = inputHandler->keyDown(e, game);
 
-				SDL_RenderClear(renderer);
 				loadWindowGameBackground();
 				displaySnake(game);
 				displayGameDetails(game, positions);
-
+				SDL_RenderPresent(renderer);
 
 				if (rules.isOutOfBounds() || working == false || rules.eatItself())
 				{
@@ -369,10 +398,10 @@ void Game::executeGame()
 
 			if (!rules.continuousMovement())
 			{
-				SDL_RenderClear(renderer);
 				loadWindowGameBackground();
 				displaySnake(game);
 				displayGameDetails(game, positions);
+				SDL_RenderPresent(renderer);
 
 				if (rules.isOutOfBounds() || rules.eatItself())
 				{
@@ -407,5 +436,14 @@ bool Game::hasTheGameStarted()
 Game::~Game()
 {
 	SDL_RenderPresent(renderer);
+	delete newGameButton;
+	delete loadGameButton;
+
+	delete inputHandler;
+
+	delete screenSurface;
+	delete window;
+	delete background;
+	delete renderer;
 }
 

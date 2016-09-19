@@ -1,12 +1,16 @@
 #include <iostream>
 #include "SDL.h"
 #include <Game.h>
+#include <Windows.h>
 
-
-int main(int argc, char* argv[])
+int WINAPI WinMain(
+	HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine,
+	int nCmdShow)
 {
 	Game *game = new Game();
-	game->executeGame();
+	game->startGamePage();
 
 	return 0;
 }
