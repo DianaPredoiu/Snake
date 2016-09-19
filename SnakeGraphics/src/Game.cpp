@@ -35,7 +35,7 @@ bool Game::init()
 	else
 	{
 		//Create window and renderer
-		window = SDL_CreateWindow("El Snake Roho", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("Snake", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		if (window == NULL)
 		{
@@ -72,7 +72,7 @@ void Game::loadWindowStartGameBackground()
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/grass.png");
+	p.append("/sarpe/grass-original.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
@@ -86,7 +86,7 @@ void Game::loadWindowEndGameBackground()
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/grass.png");
+	p.append("/sarpe/grass-original.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
@@ -216,7 +216,7 @@ void Game::displaySnake(GameMap &game)
 	{
 		displaySurprise(game.getSurprise().getCoordinates().getX(), game.getSurprise().getCoordinates().getY());
 	}
-	else
+	else if (game.getFood().getState())
 	{
 		game.addFood();
 		displayFood(game.getFood().getCoordinates().getX(), game.getFood().getCoordinates().getY());
@@ -228,7 +228,8 @@ void Game::displaySnake(GameMap &game)
 void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 {
 	game.initializeGrid(pos);
-
+	std::cout << game << std::endl;
+	//rectangles for score and chrono for bonus and surprise
 	scoreTexture.loadFromRenderedText(std::to_string(game.getScore()), textColor, renderer);
 	printScores(scoreTexture, 110, 795, 0);
 
