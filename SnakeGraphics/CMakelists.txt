@@ -56,10 +56,10 @@ ${PROJECT_NAME}
 	Snake
 )
 
-set_target_properties(PROJECT_NAME PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:windows")
+set_target_properties(SnakeGraphics PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:windows")
 
-set_target_properties(PROJECT_NAME PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:windows")
+set_target_properties(SnakeGraphics PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:windows")
 
-set_target_properties(PROJECT_NAME PROPERTIES LINK_FLAGS_MINSIZEREL "/SUBSYSTEM:windows")
+set_target_properties(SnakeGraphics PROPERTIES LINK_FLAGS_MINSIZEREL "/SUBSYSTEM:windows")
 
 add_definitions(-D"FOO=\\"${CMAKE_SOURCE_DIR}\\"")
