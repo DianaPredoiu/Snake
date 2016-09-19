@@ -46,6 +46,7 @@ include_directories(
 	include
 	utility/include/catch
 	utility/SDL2/include
+	utility/SQL
 	SnakeGraphics/include
 )
 

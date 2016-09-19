@@ -18,8 +18,8 @@ Game::Game()
 
 	newGameButton = new Button(newGame, 295, 360, 200, 50);
 	loadGameButton = new Button(loadGame, 295, 430, 200, 50);
-	//replayGameButton = new Button(replayGame, 295, 360, 200, 50);
-	//quitGameButton = new Button(quitGame, 380, 435, 200, 50);
+	replayGameButton = new Button(replayGame, 295, 360, 200, 50);
+	quitGameButton = new Button(quitGame, 295, 430, 200, 50);
 
 	step = 50;
 
@@ -91,7 +91,7 @@ void Game::loadWindowEndGameBackground()
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/grass-original.png");
+	p.append("/sarpe/grass-end.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
@@ -128,6 +128,9 @@ void Game::loadTextures()
 
 	newGameTexture.loadFromFile("newGame.png", renderer);
 	loadGameTexture.loadFromFile("loadGame.png", renderer);
+	replayGameTexture.loadFromFile("replayGame.png", renderer);
+	quitGameTexture.loadFromFile("quitGame.png", renderer);
+	//addScoreTexture.loadFromFile("addScore.png", renderer);
 }
 
 
@@ -327,26 +330,54 @@ void Game::startGamePage()
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
-		while (SDL_WaitEvent(&e) != 0)
+
+		bool quit = false;
+		while (!quit)
 		{
-			//when an event appears i check what button is pressed :  new game, load game or quit game
-			if (newGameButton->isPressed(e))
-				executeGame();
-			if (loadGameButton->isPressed(e))
-				loadWindowEndGameBackground();
+			while (SDL_PollEvent(&e) != 0)
+			{
+				//when an event appears i check what button is pressed :  new game, load game or quit game
+				if (newGameButton->isPressed(e))
+					executeGame();
+				if (loadGameButton->isPressed(e))
+					loadWindowEndGameBackground();
+				if (e.type == SDL_QUIT)
+					quit = true;
+			}
 		}
 	}
-	
+		
 }
 
 void Game::endGamePage()
 {
+	SDL_Event e;
 	if (working == false)
 	{
 		loadWindowEndGameBackground();
+		SDL_RenderCopyEx(renderer, replayGameTexture.GetTexture(), NULL, &replayGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, quitGameTexture.GetTexture(), NULL, &quitGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		//SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
-	}
-	
+
+		bool quit = false;
+		
+		while (!quit)
+		{
+			while ( SDL_PollEvent(&e) != 0)
+			{
+				////////asta nu prea vrea sa mearga/////
+				if (replayGameButton->isPressed(e))
+					executeGame();
+				if (quitGameButton->isPressed(e))
+					quit = true;
+				//if (addScoreButton->isPressed(e))
+					//adauga in baza de date
+				if (e.type == SDL_QUIT)
+					quit = true;
+			}
+		}
+	}	
 }
 
 void Game::executeGame()
@@ -416,12 +447,14 @@ void Game::executeGame()
 				if (rules.isOutOfBounds() || rules.eatItself())
 				{
 					std::cout << "GAME OVER!" << std::endl;
+					working = false;
 					endGamePage();
 				}
 			}
 			else
 			{
 				std::cout << "GAME OVER!" << std::endl;
+				working = false;
 				endGamePage();
 			}
 
@@ -449,6 +482,9 @@ Game::~Game()
 	SDL_RenderPresent(renderer);
 	delete newGameButton;
 	delete loadGameButton;
+	delete replayGameButton;
+	delete quitGameButton;
+	//delete addScoreButton;
 
 	delete inputHandler;
 

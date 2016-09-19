@@ -34,6 +34,9 @@ private:
 
 	Texture newGameTexture;
 	Texture loadGameTexture;
+	Texture replayGameTexture;
+	Texture quitGameTexture;
+	Texture addScoreTexture;
 
 	std::map<char, SDL_Texture*> textures;
 
@@ -44,6 +47,9 @@ private:
 
 	Button* newGameButton;
 	Button* loadGameButton;
+	Button* replayGameButton;
+	Button* addScoreButton;
+	Button* quitGameButton;
 
 
 public:

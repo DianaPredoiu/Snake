@@ -7,7 +7,8 @@ enum ButtonActions
 	newGame,
 	loadGame,
 	replayGame,
-	quitGame
+	quitGame,
+	addScore
 };
 
 class Button
