@@ -341,8 +341,12 @@ void Game::startGamePage()
 
 void Game::endGamePage()
 {
-	loadWindowEndGameBackground();
-	SDL_RenderPresent(renderer);
+	if (working == false)
+	{
+		loadWindowEndGameBackground();
+		SDL_RenderPresent(renderer);
+	}
+	
 }
 
 void Game::executeGame()
