@@ -56,5 +56,6 @@ ${PROJECT_NAME}
 	Snake
 )
 
+set_target_properties(SnakeGraphics PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
 
 add_definitions(-D"FOO=\\"${CMAKE_SOURCE_DIR}\\"")

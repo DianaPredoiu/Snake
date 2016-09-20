@@ -328,6 +328,8 @@ void Game::startGamePage()
 		SDL_RenderPresent(renderer);
 		while (SDL_WaitEvent(&e) != 0)
 		{
+			if (e.type == SDL_QUIT)
+				SDL_Quit();
 			//when an event appears i check what button is pressed :  new game or load game 
 			if (newGameButton->isPressed(e))
 				executeGame();
@@ -349,9 +351,14 @@ void Game::endGamePage()
 		SDL_RenderPresent(renderer);
 		while (SDL_WaitEvent(&e) != 0)
 		{
+			if (e.type == SDL_QUIT)
+				SDL_Quit();
 			//when an event appears i check what button is pressed :  new game or load game 
 			if (newGameButton->isPressed(e))
+			{
 				executeGame();
+				working = true;
+			}
 			if (loadGameButton->isPressed(e))
 				loadWindowEndGameBackground();//change to load game window
 		}
@@ -368,7 +375,7 @@ void Game::executeGame()
 	std::vector<Position*> positions = game.initializeGrid(game.getSnake().getCoordinates());
 
 	game.setScore(0);
-
+	bool playing = true;
 	if (!working)
 	{
 		std::cout << "Failed to initialize!\n" << std::endl;
@@ -395,65 +402,69 @@ void Game::executeGame()
 		//int delta_time = currentTime - lastUpdateTime * 10;
 
 		SDL_Event e;
-		while (working)
-		{		
-			capTimer.start();
-			while (SDL_PollEvent(&e) != 0 && working)
+		while (playing)
+		{
+			while (working)
 			{
-				working = inputHandler->keyDown(e, game);
-
-				loadWindowGameBackground();
-				displaySnake(game);
-				displayGameDetails(game, positions);
-				SDL_RenderPresent(renderer);
-
-				if (rules.isOutOfBounds() || working == false || rules.eatItself())
+				capTimer.start();
+				while (SDL_PollEvent(&e) != 0 )
 				{
-					std::cout << "GAME OVER" << std::endl;
-					working = false;
+					if (e.type == SDL_QUIT)
+						SDL_Quit();
+					working = inputHandler->keyDown(e, game);
+
+					loadWindowGameBackground();
+					displaySnake(game);
+					displayGameDetails(game, positions);
+					SDL_RenderPresent(renderer);
+
+					if (rules.isOutOfBounds() || working == false || rules.eatItself())
+					{
+						//std::cout << "GAME OVER" << std::endl;
+						working = false;
+						//endGamePage();
+						break;
+					}
+				}
+
+
+				if (!rules.continuousMovement())
+				{
+					loadWindowGameBackground();
+					displaySnake(game);
+					displayGameDetails(game, positions);
+					SDL_RenderPresent(renderer);
+
+					if (rules.isOutOfBounds() || rules.eatItself())
+					{
+						//std::cout << "GAME OVER!" << std::endl;
+						//endGamePage();
+						working = false;
+						break;
+					}
+				}
+				else
+				{
+					//std::cout << "GAME OVER!" << std::endl;
 					//endGamePage();
+					working = false;
 					break;
 				}
-			}
 
 
-			if (!rules.continuousMovement())
-			{
-				loadWindowGameBackground();
-				displaySnake(game);
-				displayGameDetails(game, positions);
-				SDL_RenderPresent(renderer);
-
-				if (rules.isOutOfBounds() || rules.eatItself())
+				int frameTicks = capTimer.getTicks();
+				if (frameTicks < SCREEN_TICK_PER_FRAME)
 				{
-					std::cout << "GAME OVER!" << std::endl;
-					//endGamePage();
-					working = false;
-					break;
+					//Wait remaining time
+					SDL_Delay(delay);
 				}
 			}
-			else
-			{
-				std::cout << "GAME OVER!" << std::endl;
-				//endGamePage();
-				working = false;
-				break;
-			}
-
-
-			int frameTicks = capTimer.getTicks();
-			if (frameTicks < SCREEN_TICK_PER_FRAME)
-			{
-				//Wait remaining time
-				SDL_Delay(delay);
-			}
+			endGamePage();
 		}
-
-		endGamePage();
-		SDL_RenderPresent(renderer);
+		
 	}
 
-	SDL_Quit();
+	
 }
 #pragma endregion
 
