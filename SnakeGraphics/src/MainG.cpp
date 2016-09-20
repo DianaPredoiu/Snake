@@ -2,6 +2,8 @@
 #include "SDL.h"
 #include <Game.h>
 #include <Windows.h>
+#include <Player.h>
+#include "SQLite.h"
 
 int WINAPI WinMain(
 	HINSTANCE hInstance,
@@ -11,6 +13,9 @@ int WINAPI WinMain(
 {
 	Game *game = new Game();
 	game->startGamePage();
+
+	SQLite sql;
+	sql.insert(Player("ana", 2200));
 
 	return 0;
 }
