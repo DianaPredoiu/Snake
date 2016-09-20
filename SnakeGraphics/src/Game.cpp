@@ -356,8 +356,8 @@ void Game::endGamePage()
 		loadWindowEndGameBackground();
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderPresent(renderer);
 
+		
 		while (SDL_WaitEvent(&e) != 0)
 		{
 			//when an event appears i check what button is pressed :  new game, load game or quit game
