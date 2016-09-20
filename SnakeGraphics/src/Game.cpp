@@ -347,8 +347,9 @@ void Game::startGamePage()
 
 void Game::endGamePage(int score)
 {
-	Texture scoreTexture;
+	Texture scoreTexture, playerNameTexture;
 	std::string scoreText = "Your score is ";
+	std::string playerName = "Name: ";
 	scoreText.append(std::to_string(score));
 	SDL_Event e;
 	if (!working)
@@ -360,24 +361,72 @@ void Game::endGamePage(int score)
 		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-		printScores(scoreTexture, 230, 180, 0, 300,70);
+		printScores(scoreTexture, 230, 180, 0, 300, 70);
+
+		playerNameTexture.loadFromRenderedText(playerName, textColor, renderer);
+		printScores(playerNameTexture, 230, 240, 0, 200, 50);
+
 		SDL_RenderPresent(renderer);
-		
+
+		SDL_StartTextInput();
 		while (SDL_WaitEvent(&e) != 0)
 		{
 			//when an event appears i check what button is pressed :  new game, load game or quit game
+			if (e.type == SDL_KEYDOWN && playerName.size() < 15)
+			{
+				if (e.key.keysym.sym == (Uint16)' ')
+				{
+					//Append the character
+					playerName += (char)e.key.keysym.sym;
+				}
+				else if ((e.key.keysym.sym >= (Uint16)'0') && (e.key.keysym.sym <= (Uint16)'9'))
+				{
+					//Append the character
+					playerName += (char)e.key.keysym.sym;
+				}
+				//If the key is a uppercase letter
+				else if ((e.key.keysym.sym >= (Uint16)'A') && (e.key.keysym.sym <= (Uint16)'Z'))
+				{
+					//Append the character
+					playerName += (char)e.key.keysym.sym;
+				}
+				//If the key is a lowercase letter
+				else if ((e.key.keysym.sym >= (Uint16)'a') && (e.key.keysym.sym <= (Uint16)'z'))
+				{
+					//Append the character
+					playerName += (char)e.key.keysym.sym;
+				}
+
+				
+				loadWindowEndGameBackground();
+				SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+				SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+
+				scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
+				printScores(scoreTexture, 230, 180, 0, 300, 70);
+
+				playerNameTexture.loadFromRenderedText(playerName, textColor, renderer);
+				printScores(playerNameTexture, 240, 260, 0, 100, 20);
+
+				SDL_RenderPresent(renderer);
+
+			}
+
 			if (newGameButton->isPressed(e))
 			{
 				working = true;
 				executeGame();
 			}
 			if (loadGameButton->isPressed(e))
-				loadWindowEndGameBackground();
+			{
+			
+			}
 
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
-
+		
+		SDL_StopTextInput();
 	}
 }
 
