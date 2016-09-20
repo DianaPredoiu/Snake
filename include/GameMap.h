@@ -66,6 +66,7 @@ public:
 	Bonus getBonus();
 	Surprise getSurprise();
 
+	bool checkItemNotInSnake(int x, int y);
 	void addFood();
 	void addBonus();
 	void addSurprise();

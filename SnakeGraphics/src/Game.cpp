@@ -316,8 +316,7 @@ void Game::printScores(Texture textureName, int x, int y, int angle)
 #pragma region Execution
 
 void Game::startGamePage()
-{
-	
+{	
 	SDL_Event e;
 	if (working)
 	{
@@ -329,11 +328,11 @@ void Game::startGamePage()
 		SDL_RenderPresent(renderer);
 		while (SDL_WaitEvent(&e) != 0)
 		{
-			//when an event appears i check what button is pressed :  new game, load game or quit game
+			//when an event appears i check what button is pressed :  new game or load game 
 			if (newGameButton->isPressed(e))
 				executeGame();
 			if (loadGameButton->isPressed(e))
-				loadWindowEndGameBackground();
+				loadWindowEndGameBackground();//change to load game window
 		}
 	}
 	
@@ -341,10 +340,21 @@ void Game::startGamePage()
 
 void Game::endGamePage()
 {
-	if (working == false)
+	SDL_Event e;
+	if (!working)
 	{
 		loadWindowEndGameBackground();
+		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
+		while (SDL_WaitEvent(&e) != 0)
+		{
+			//when an event appears i check what button is pressed :  new game or load game 
+			if (newGameButton->isPressed(e))
+				executeGame();
+			if (loadGameButton->isPressed(e))
+				loadWindowEndGameBackground();//change to load game window
+		}
 	}
 	
 }
@@ -401,7 +411,8 @@ void Game::executeGame()
 				{
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
-					endGamePage();
+					//endGamePage();
+					break;
 				}
 			}
 
@@ -416,13 +427,17 @@ void Game::executeGame()
 				if (rules.isOutOfBounds() || rules.eatItself())
 				{
 					std::cout << "GAME OVER!" << std::endl;
-					endGamePage();
+					//endGamePage();
+					working = false;
+					break;
 				}
 			}
 			else
 			{
 				std::cout << "GAME OVER!" << std::endl;
-				endGamePage();
+				//endGamePage();
+				working = false;
+				break;
 			}
 
 
@@ -433,8 +448,11 @@ void Game::executeGame()
 				SDL_Delay(delay);
 			}
 		}
-		
+
+		endGamePage();
+		SDL_RenderPresent(renderer);
 	}
+
 	SDL_Quit();
 }
 #pragma endregion
