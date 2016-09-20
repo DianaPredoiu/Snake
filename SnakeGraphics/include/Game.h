@@ -64,7 +64,7 @@ public:
 
 	void startGamePage();
 	void executeGame();
-	void endGamePage();
+	void endGamePage(int score);
 
 	void displaySnake(GameMap &game);
 	void displayFood(int x, int y);
@@ -74,7 +74,7 @@ public:
 
 	void printImage(char textureName, int x, int y, int angle);
 
-	void printScores(Texture textureName, int x, int y, int angle);
+	void printScores(Texture textureName, int x, int y, int angle, int w, int h);
 
 	bool hasTheGameStarted();
 

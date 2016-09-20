@@ -241,18 +241,18 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 
 	//rectangles for score and chrono for bonus and surprise
 	scoreTexture.loadFromRenderedText(std::to_string(game.getScore()), textColor, renderer);
-	printScores(scoreTexture, 110, 795, 0);
+	printScores(scoreTexture, 110, 795, 0, 60, 40);
 
 	if (game.getBonus().getTime() != 0 && game.getBonus().getState())
 	{
 		bonusTexture.loadFromRenderedText(std::to_string(game.getBonus().getTime()), textColor, renderer);
-		printScores(bonusTexture, 400, 795, 0);
+		printScores(bonusTexture, 400, 795, 0, 60, 40);
 	}
 
 	if (game.getSurprise().getTime() != 0 && game.getSurprise().getState())
 	{
 		surpriseTexture.loadFromRenderedText(std::to_string(game.getSurprise().getTime()), textColor, renderer);
-		printScores(surpriseTexture, 680, 795, 0);
+		printScores(surpriseTexture, 680, 795, 0, 60, 40);
 	}
 
 }
@@ -299,7 +299,7 @@ void Game::printImage(char textureName, int x, int y, int angle)
 	//SDL_RenderPresent(renderer);
 }
 
-void Game::printScores(Texture textureName, int x, int y, int angle)
+void Game::printScores(Texture textureName, int x, int y, int angle, int w, int h)
 {
 	SDL_Rect rectangle;
 
@@ -308,13 +308,12 @@ void Game::printScores(Texture textureName, int x, int y, int angle)
 
 	rectangle.x = x;
 	rectangle.y = y;
-	rectangle.w = 60;
-	rectangle.h = 40;
+	rectangle.w = w;
+	rectangle.h = h;
 
 	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 	//SDL_RenderPresent(renderer);
 }
-
 
 #pragma region Execution
 
@@ -346,8 +345,11 @@ void Game::startGamePage()
 
 }
 
-void Game::endGamePage()
+void Game::endGamePage(int score)
 {
+	Texture scoreTexture;
+	std::string scoreText = "Your score is ";
+	scoreText.append(std::to_string(score));
 	SDL_Event e;
 	if (!working)
 	{
@@ -357,6 +359,9 @@ void Game::endGamePage()
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
+		scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
+		printScores(scoreTexture, 230, 180, 0, 300,70);
+		SDL_RenderPresent(renderer);
 		
 		while (SDL_WaitEvent(&e) != 0)
 		{
@@ -430,7 +435,7 @@ void Game::executeGame()
 				{
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
-					endGamePage();
+					endGamePage(game.getScore());
 				}
 			}
 
@@ -446,14 +451,14 @@ void Game::executeGame()
 				{
 					std::cout << "GAME OVER!" << std::endl;
 					working = false;
-					endGamePage();
+					endGamePage(game.getScore());
 				}
 			}
 			else
 			{
 				std::cout << "GAME OVER!" << std::endl;
 				working = false;
-				endGamePage();
+				endGamePage(game.getScore());
 			}
 
 
