@@ -14,7 +14,6 @@ set(HEADERS
 	include/SymbolTranslation.h
 	include/Timer.h
 	include/Button.h
-	include/SQLite.h
   )
   
 set(SOURCES
@@ -24,7 +23,6 @@ set(SOURCES
 	src/SymbolTranslation.cpp
 	src/Timer.cpp
 	src/Button.cpp
-	src/SQLite.cpp
 	
 	)
 include_directories(
@@ -59,6 +57,6 @@ ${PROJECT_NAME}
 	Snake
 )
 
-
+set_target_properties(SnakeGraphics PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
 
 add_definitions(-D"FOO=\\"${CMAKE_SOURCE_DIR}\\"")

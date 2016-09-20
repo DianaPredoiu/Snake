@@ -43,23 +43,34 @@ GameMap::~GameMap()
 #pragma endregion
 
 #pragma region Add Items
+
+bool GameMap::checkItemPosition(int x, int y)
+{
+	for (int i = 0; i < snake.getCoordinates().size(); i++)
+		if (snake.getCoordinates().at(i)->getX() == x &&
+			snake.getCoordinates().at(i)->getY() == y)
+			return false;
+	return true;
+}
+
 void GameMap::addFood()
 {
-	if (food.getState() == false)
+	while (food.getState() == false)
 	{
 		food.setState(true);
 		food.setCoordinates(Position(std::rand() % width, std::rand() % height));
 		for (int i = 0; i < snake.getCoordinates().size(); i++)
 			if (snake.getCoordinates().at(i)->getY() == food.getCoordinates().getY() && snake.getCoordinates().at(i)->getX() == food.getCoordinates().getX())
 				food.setCoordinates(Position(std::rand() % width, std::rand() % height));
-
+		if (checkItemPosition(food.getCoordinates().getX(), food.getCoordinates().getY()) == false)
+			food.setState(false);
 	}
 
 }
 
 void GameMap::addBonus()
 {
-	if (bonus.getState() == false)
+	while (bonus.getState() == false)
 	{
 		bonus = Bonus();
 		bonus.setState(true);
@@ -69,13 +80,14 @@ void GameMap::addBonus()
 		for (int i = 0; i < snake.getCoordinates().size(); i++)
 			if (snake.getCoordinates().at(i)->getY() == bonus.getCoordinates().getY() && snake.getCoordinates().at(i)->getX() == bonus.getCoordinates().getX())
 				bonus.setCoordinates(Position(std::rand() % width, std::rand() % height));
-
+		if (checkItemPosition(bonus.getCoordinates().getX(), bonus.getCoordinates().getY()) == false)
+			bonus.setState(false);
 	}
 }
 
 void GameMap::addSurprise()
 {
-	if (surprise.getState() == false)
+	while (surprise.getState() == false)
 	{
 		surprise = Surprise();
 		surprise.setState(true);
@@ -86,7 +98,8 @@ void GameMap::addSurprise()
 			for (int i = 0; i < snake.getCoordinates().size(); i++)
 				if (snake.getCoordinates().at(i)->getY() == surprise.getCoordinates().getY() && snake.getCoordinates().at(i)->getX() == surprise.getCoordinates().getX())
 					surprise.setCoordinates(Position(std::rand() % width, std::rand() % height));
-
+		if (checkItemPosition(surprise.getCoordinates().getX(), surprise.getCoordinates().getY()) == false)
+			surprise.setState(false);
 	}
 }
 #pragma endregion

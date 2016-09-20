@@ -320,7 +320,7 @@ void Game::printScores(Texture textureName, int x, int y, int angle)
 
 void Game::startGamePage()
 {
-	
+
 	SDL_Event e;
 	if (working)
 	{
@@ -331,53 +331,49 @@ void Game::startGamePage()
 		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
-		bool quit = false;
-		while (!quit)
+		while (SDL_WaitEvent(&e) != 0)
 		{
-			while (SDL_PollEvent(&e) != 0)
-			{
-				//when an event appears i check what button is pressed :  new game, load game or quit game
-				if (newGameButton->isPressed(e))
-					executeGame();
-				if (loadGameButton->isPressed(e))
-					loadWindowEndGameBackground();
-				if (e.type == SDL_QUIT)
-					quit = true;
-			}
+			//when an event appears i check what button is pressed :  new game, load game or quit game
+			if (newGameButton->isPressed(e))
+				executeGame();
+			if (loadGameButton->isPressed(e))
+				loadWindowEndGameBackground();
+			if (e.type == SDL_QUIT)
+				SDL_Quit();
 		}
+
 	}
-		
+
 }
 
 void Game::endGamePage()
 {
 	SDL_Event e;
-	if (working == false)
+	if (!working)
 	{
+		//here i display all the buttons which must be in the start page
+
 		loadWindowEndGameBackground();
-		SDL_RenderCopyEx(renderer, replayGameTexture.GetTexture(), NULL, &replayGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, quitGameTexture.GetTexture(), NULL, &quitGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		//SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
-		bool quit = false;
-		
-		while (!quit)
+		while (SDL_WaitEvent(&e) != 0)
 		{
-			while ( SDL_PollEvent(&e) != 0)
+			//when an event appears i check what button is pressed :  new game, load game or quit game
+			if (newGameButton->isPressed(e))
 			{
-				////////asta nu prea vrea sa mearga/////
-				if (replayGameButton->isPressed(e))
-					executeGame();
-				if (quitGameButton->isPressed(e))
-					quit = true;
-				//if (addScoreButton->isPressed(e))
-					//adauga in baza de date
-				if (e.type == SDL_QUIT)
-					quit = true;
+				working = true;
+				executeGame();
 			}
+			if (loadGameButton->isPressed(e))
+				loadWindowEndGameBackground();
+
+			if (e.type == SDL_QUIT)
+				SDL_Quit();
 		}
-	}	
+
+	}
 }
 
 void Game::executeGame()
@@ -417,10 +413,12 @@ void Game::executeGame()
 
 		SDL_Event e;
 		while (working)
-		{		
+		{
 			capTimer.start();
 			while (SDL_PollEvent(&e) != 0 && working)
 			{
+				if (e.type == SDL_QUIT)
+					SDL_Quit();
 				working = inputHandler->keyDown(e, game);
 
 				loadWindowGameBackground();
@@ -466,7 +464,7 @@ void Game::executeGame()
 				SDL_Delay(delay);
 			}
 		}
-		
+
 	}
 	SDL_Quit();
 }
