@@ -15,7 +15,6 @@ set(HEADERS
 	include/Timer.h
 	include/Button.h
 	include/SQLite.h
-	include/TextInput.h
   )
   
 set(SOURCES
@@ -26,7 +25,6 @@ set(SOURCES
 	src/Timer.cpp
 	src/Button.cpp
 	src/SQLite.cpp
-	src/TextInput.cpp
 	)
 include_directories(
 	include
