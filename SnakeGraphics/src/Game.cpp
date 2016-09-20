@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <Windows.h>
 #include "Presets.h"
+#include "SQLite.h"
 
 Game::Game()
 {
@@ -347,6 +348,7 @@ void Game::startGamePage()
 
 void Game::endGamePage(int score)
 {
+	SQLite sql;
 	Texture scoreTexture, playerNameTexture;
 	std::string scoreText = "Your score is ";
 	std::string playerName = "Name: ";
@@ -412,6 +414,8 @@ void Game::endGamePage(int score)
 
 			}
 
+			
+
 			if (newGameButton->isPressed(e))
 			{
 				working = true;
@@ -420,6 +424,11 @@ void Game::endGamePage(int score)
 			if (loadGameButton->isPressed(e))
 			{
 			
+			}
+			if (addScoreButton->isPressed(e))
+			{
+				//insert score in database
+				sql.insert(Player(playerName, score));
 			}
 
 			if (e.type == SDL_QUIT)
