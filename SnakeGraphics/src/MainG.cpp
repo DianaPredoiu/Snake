@@ -16,6 +16,7 @@ int WINAPI WinMain(
 
 	SQLite sql;
 	sql.insert(Player("ana", 2200));
+	//sql.select();
 
 	return 0;
 }
