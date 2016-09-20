@@ -21,6 +21,7 @@ Game::Game()
 	loadGameButton = new Button(loadGame, 295, 430, 200, 50);
 	replayGameButton = new Button(replayGame, 295, 360, 200, 50);
 	quitGameButton = new Button(quitGame, 295, 430, 200, 50);
+	addScoreButton = new Button(addScore, 500, 240, 48, 48);
 
 	step = 50;
 
@@ -131,7 +132,7 @@ void Game::loadTextures()
 	loadGameTexture.loadFromFile("loadGame.png", renderer);
 	replayGameTexture.loadFromFile("replayGame.png", renderer);
 	quitGameTexture.loadFromFile("quitGame.png", renderer);
-	//addScoreTexture.loadFromFile("addScore.png", renderer);
+	addScoreTexture.loadFromFile("addScore.png", renderer);
 }
 
 
@@ -361,6 +362,7 @@ void Game::endGamePage(int score)
 		loadWindowEndGameBackground();
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
 		printScores(scoreTexture, 230, 180, 0, 300, 70);
@@ -403,6 +405,7 @@ void Game::endGamePage(int score)
 				loadWindowEndGameBackground();
 				SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 				SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 				scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
 				printScores(scoreTexture, 230, 180, 0, 300, 70);
@@ -545,7 +548,7 @@ Game::~Game()
 	delete loadGameButton;
 	delete replayGameButton;
 	delete quitGameButton;
-	//delete addScoreButton;
+	delete addScoreButton;
 
 	delete inputHandler;
 
