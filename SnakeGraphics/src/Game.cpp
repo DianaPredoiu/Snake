@@ -18,10 +18,12 @@ Game::Game()
 	surpriseTexture.init();
 
 	newGameButton = new Button(newGame, 295, 360, 200, 50);
-	loadGameButton = new Button(loadGame, 295, 430, 200, 50);
+	aboutButton = new Button(loadGame, 295, 430, 200, 50);
 	//replayGameButton = new Button(replayGame, 295, 360, 200, 50);
 	//quitGameButton = new Button(quitGame, 295, 430, 200, 50);
 	addScoreButton = new Button(addScore, 500, 240, 50, 50);
+
+	background = nullptr;
 
 	step = 50;
 }
@@ -66,28 +68,34 @@ void Game::loadWindowGameBackground()
 	// and attach the img folder to the project source path
 	p.append("/sarpe/grass.png");
 	// load img and print on window
-	background = IMG_LoadTexture(renderer, p.c_str());
+	if (background == nullptr)
+		background = IMG_LoadTexture(renderer, p.c_str());
 
-	SDL_RenderCopy(renderer, background, NULL, NULL);
-	//SDL_RenderPresent(renderer);
+	while (SDL_RenderCopy(renderer, background, NULL, NULL)==-1)
+	{
+		background = IMG_LoadTexture(renderer, p.c_str());
+	}
 }
 
 void Game::loadWindowStartGameBackground()
 {
+	delete background;
 	SDL_RenderClear(renderer);
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/grassStartGame.png");
+	p.append("/sarpe/startGamePage.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
 	SDL_RenderCopy(renderer, background, NULL, NULL);
-	//SDL_RenderPresent(renderer);
+	//delete background;
+	background = nullptr;
 }
 
 void Game::loadWindowEndGameBackground()
 {
+
 	SDL_RenderClear(renderer);
 	// get the path to the img source folder
 	std::string p = FOO;
@@ -97,7 +105,8 @@ void Game::loadWindowEndGameBackground()
 	background = IMG_LoadTexture(renderer, p.c_str());
 
 	SDL_RenderCopy(renderer, background, NULL, NULL);
-	//SDL_RenderPresent(renderer);
+	//delete background;
+	background = nullptr;
 }
 // using the class that converts from a given symbol to a specific 
 // texture we load a map of textures for the game
@@ -138,26 +147,26 @@ void Game::loadTextures()
 #pragma region display items + snake + details
 void Game::displayFood(int x, int y)
 {
-	printImage('F', x * step + 20, y * step + 20, 0);
+	printImage('F', x * step + 10, y * step + 10, 0);
 }
 
 void Game::displayBonus(int x, int y)
 {
-	printImage('B', x * step + 20, y * step + 20, 0);
+	printImage('B', x * step + 10, y * step + 10, 0);
 	delay = 50;
 
 }
 
 void Game::displaySurprise(int x, int y)
 {
-	printImage('?', x * step + 20, y * step + 20, 0);
+	printImage('?', x * step + 10, y * step + 10, 0);
 	delay = 50;
 }
 
 void Game::displaySnake(GameMap &game)
 {
 	int s = game.getSnake().getCoordinates().size() - 1;
-	printImage('T', game.getSnake().getCoordinates().at(s)->getX() * step + 20, game.getSnake().getCoordinates().at(s)->getY() * step + 20, tailDirection(game));
+	printImage('T', game.getSnake().getCoordinates().at(s)->getX() * step + 10, game.getSnake().getCoordinates().at(s)->getY() * step + 10, tailDirection(game));
 
 	for (int i = game.getSnake().getCoordinates().size() - 2; i >= 0; i--)
 	{
@@ -167,25 +176,25 @@ void Game::displaySnake(GameMap &game)
 			if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX() + 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY())
 			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, -90);
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 10, game.getSnake().getCoordinates().at(i)->getY() *step + 10, -90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX() - 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY())
 			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, 90);
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 10, game.getSnake().getCoordinates().at(i)->getY() *step + 10, 90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY() - 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX())
 			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, 90);
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 10, game.getSnake().getCoordinates().at(i)->getY() *step + 10, 90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i - 1)->getY() + 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i - 1)->getX())
 			{
-				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() * step + 20, 90);
+				printImage('b', game.getSnake().getCoordinates().at(i)->getX() *step + 10, game.getSnake().getCoordinates().at(i)->getY() * step + 10, 90);
 
 			}
 		}
@@ -194,25 +203,25 @@ void Game::displaySnake(GameMap &game)
 			if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX() - 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY())
 			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, 90);
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step + 10, game.getSnake().getCoordinates().at(i)->getY() *step + 10, 90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX() + 1
 				&& game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY())
 			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, -90);
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() * step + 10, game.getSnake().getCoordinates().at(i)->getY() *step + 10, -90);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY() - 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX())
 			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() * step + 20, 180);
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step + 10, game.getSnake().getCoordinates().at(i)->getY() * step + 10, 180);
 
 			}
 			else if (game.getSnake().getCoordinates().at(i)->getY() == game.getSnake().getCoordinates().at(i + 1)->getY() + 1
 				&& game.getSnake().getCoordinates().at(i)->getX() == game.getSnake().getCoordinates().at(i + 1)->getX())
 			{
-				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step + 20, game.getSnake().getCoordinates().at(i)->getY() *step + 20, 0);
+				printImage('H', game.getSnake().getCoordinates().at(i)->getX() *step + 10, game.getSnake().getCoordinates().at(i)->getY() *step + 10, 0);
 
 			}
 		}
@@ -345,7 +354,7 @@ void Game::startGamePage()
 
 		loadWindowStartGameBackground();
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
 		while (SDL_WaitEvent(&e) != 0)
@@ -353,7 +362,7 @@ void Game::startGamePage()
 			//when an event appears i check what button is pressed :  new game, load game or quit game
 			if (newGameButton->isPressed(e))
 				executeGame();
-			if (loadGameButton->isPressed(e))
+			if (aboutButton->isPressed(e))
 				loadWindowEndGameBackground();
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
@@ -366,7 +375,7 @@ void Game::startGamePage()
 void Game::endGamePage(int score)
 {
 	SQLite sql;
-
+	
 	Texture scoreTexture, inputTextTexture;
 	scoreTexture.setPath("/sarpe/BuxtonSketch.ttf");
 	inputTextTexture.setPath("/sarpe/BuxtonSketch.ttf");
@@ -441,7 +450,7 @@ void Game::endGamePage(int score)
 					inputText += (char)e.key.keysym.sym;
 				}
 
-
+				
 				loadWindowEndGameBackground();
 				SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
@@ -461,7 +470,7 @@ void Game::endGamePage(int score)
 				working = true;
 				executeGame();
 			}
-			if (loadGameButton->isPressed(e))
+			if (aboutButton->isPressed(e))
 			{
 
 			}
@@ -582,9 +591,7 @@ Game::~Game()
 {
 	SDL_RenderPresent(renderer);
 	delete newGameButton;
-	delete loadGameButton;
-	delete replayGameButton;
-	delete quitGameButton;
+	delete aboutButton;
 	delete addScoreButton;
 
 	delete inputHandler;

@@ -1,7 +1,7 @@
 #pragma once
 
-const int SCREEN_WIDTH = 790;
-const int SCREEN_HEIGHT = 840;
+const int SCREEN_WIDTH = 770;
+const int SCREEN_HEIGHT = 800;
 const int IMAGE_WIDTH = 30;
 const int IMAGE_HEIGHT = 30;
 const int ROW_SIZE = 20;

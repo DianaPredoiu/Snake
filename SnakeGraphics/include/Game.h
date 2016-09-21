@@ -46,10 +46,8 @@ private:
 	SDL_Color bgColor;
 
 	Button* newGameButton;
-	Button* loadGameButton;
-	Button* replayGameButton;
+	Button* aboutButton;
 	Button* addScoreButton;
-	Button* quitGameButton;
 
 
 public:
