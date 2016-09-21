@@ -14,6 +14,12 @@ SDL_Rect Button::getBox()
 	return box;
 }
 
+void Button::setCoordinates(int x, int y)
+{
+	box.x = x;
+	box.y = y;
+}
+
 bool Button::isPressed(SDL_Event e)
 {
 	int mouseX = e.button.x;

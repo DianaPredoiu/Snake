@@ -22,6 +22,8 @@ public:
 
 	SDL_Rect getBox();
 
+	void setCoordinates(int x ,int y);
+
 	bool isPressed(SDL_Event e);
 
 	~Button();

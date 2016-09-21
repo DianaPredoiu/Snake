@@ -15,6 +15,7 @@ class Texture
 
 public:
 	Texture();
+	void setPath(std::string path);
 
 	void init();
 

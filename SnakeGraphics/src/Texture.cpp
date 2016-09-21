@@ -2,10 +2,16 @@
 #include <iostream>
 #include "Presets.h"
 
-
 Texture::Texture()
 {
+	path = FOO;
+	path.append("/sarpe/font.ttf");
+}
 
+void Texture::setPath(std::string path)
+{
+	this->path = FOO;
+	this->path.append(path);
 }
 
 void Texture::init()
@@ -17,8 +23,7 @@ void Texture::init()
 	}
 	else
 	{
-		path = FOO;
-		path.append("/sarpe/font.ttf");
+		
 		font = TTF_OpenFont(path.c_str(), 30);
 	}
 }

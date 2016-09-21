@@ -11,7 +11,7 @@ Game::Game()
 	delay = 150;
 
 	inputHandler = new InputHandler();
-	textColor = { 0, 0, 0, 50 };
+	textColor = { 0, 0, 0, 0 };
 
 	scoreTexture.init();
 	bonusTexture.init();
@@ -19,12 +19,11 @@ Game::Game()
 
 	newGameButton = new Button(newGame, 295, 360, 200, 50);
 	loadGameButton = new Button(loadGame, 295, 430, 200, 50);
-	replayGameButton = new Button(replayGame, 295, 360, 200, 50);
-	quitGameButton = new Button(quitGame, 295, 430, 200, 50);
-	addScoreButton = new Button(addScore, 500, 240, 48, 48);
+	//replayGameButton = new Button(replayGame, 295, 360, 200, 50);
+	//quitGameButton = new Button(quitGame, 295, 430, 200, 50);
+	addScoreButton = new Button(addScore, 500, 240, 50, 50);
 
 	step = 50;
-
 }
 
 bool Game::init()
@@ -70,7 +69,7 @@ void Game::loadWindowGameBackground()
 	background = IMG_LoadTexture(renderer, p.c_str());
 
 	SDL_RenderCopy(renderer, background, NULL, NULL);
-	SDL_RenderPresent(renderer);
+	//SDL_RenderPresent(renderer);
 }
 
 void Game::loadWindowStartGameBackground()
@@ -79,12 +78,12 @@ void Game::loadWindowStartGameBackground()
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/grass-original.png");
+	p.append("/sarpe/grassStartGame.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
 	SDL_RenderCopy(renderer, background, NULL, NULL);
-	SDL_RenderPresent(renderer);
+	//SDL_RenderPresent(renderer);
 }
 
 void Game::loadWindowEndGameBackground()
@@ -93,12 +92,12 @@ void Game::loadWindowEndGameBackground()
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/grass-end.png");
+	p.append("/sarpe/grassEndGame.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
 	SDL_RenderCopy(renderer, background, NULL, NULL);
-	SDL_RenderPresent(renderer);
+	//SDL_RenderPresent(renderer);
 }
 // using the class that converts from a given symbol to a specific 
 // texture we load a map of textures for the game
@@ -350,10 +349,22 @@ void Game::startGamePage()
 void Game::endGamePage(int score)
 {
 	SQLite sql;
-	Texture scoreTexture, playerNameTexture;
-	std::string scoreText = "Your score is ";
-	std::string playerName = "Name: ";
+
+	Texture scoreTexture, inputTextTexture;
+	scoreTexture.setPath("/sarpe/BuxtonSketch.ttf");
+	inputTextTexture.setPath("/sarpe/BuxtonSketch.ttf");
+
+	scoreTexture.init();
+	inputTextTexture.init();
+
+	std::string scoreText = " ";
+	std::string inputText = " ";
 	scoreText.append(std::to_string(score));
+
+	newGameButton->setCoordinates(500, 360);
+	loadGameButton->setCoordinates(500, 430);
+	addScoreButton->setCoordinates(320, 340);
+
 	SDL_Event e;
 	if (!working)
 	{
@@ -365,10 +376,10 @@ void Game::endGamePage(int score)
 		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-		printScores(scoreTexture, 230, 180, 0, 300, 70);
+		printScores(scoreTexture, 255, 225, 0, 50, 40);
 
-		playerNameTexture.loadFromRenderedText(playerName, textColor, renderer);
-		printScores(playerNameTexture, 230, 240, 0, 200, 50);
+		inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
+		printScores(inputTextTexture, 40, 340, 0, 200, 50);
 
 		SDL_RenderPresent(renderer);
 
@@ -376,48 +387,60 @@ void Game::endGamePage(int score)
 		while (SDL_WaitEvent(&e) != 0)
 		{
 			//when an event appears i check what button is pressed :  new game, load game or quit game
-			if (e.type == SDL_KEYDOWN && playerName.size() < 15)
+			if (e.type == SDL_KEYDOWN && inputText.size() < 15)
 			{
+				//Handle backspace
+				if (e.key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0)
+				{
+					//lop off character
+					inputText.pop_back();
+				}
+				else if (e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL)
+				{
+					SDL_SetClipboardText(inputText.c_str());
+				}
+				else if (e.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL)
+				{
+					inputText = SDL_GetClipboardText();
+				}
 				if (e.key.keysym.sym == (Uint16)' ')
 				{
 					//Append the character
-					playerName += (char)e.key.keysym.sym;
+					inputText += (char)e.key.keysym.sym;
 				}
 				else if ((e.key.keysym.sym >= (Uint16)'0') && (e.key.keysym.sym <= (Uint16)'9'))
 				{
 					//Append the character
-					playerName += (char)e.key.keysym.sym;
+					inputText += (char)e.key.keysym.sym;
 				}
 				//If the key is a uppercase letter
 				else if ((e.key.keysym.sym >= (Uint16)'A') && (e.key.keysym.sym <= (Uint16)'Z'))
 				{
 					//Append the character
-					playerName += (char)e.key.keysym.sym;
+					inputText += (char)e.key.keysym.sym;
 				}
 				//If the key is a lowercase letter
 				else if ((e.key.keysym.sym >= (Uint16)'a') && (e.key.keysym.sym <= (Uint16)'z'))
 				{
 					//Append the character
-					playerName += (char)e.key.keysym.sym;
+					inputText += (char)e.key.keysym.sym;
 				}
 
-				
+
 				loadWindowEndGameBackground();
 				SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 				SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 				scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-				printScores(scoreTexture, 230, 180, 0, 300, 70);
+				printScores(scoreTexture, 255, 225, 0, 50, 40);
 
-				playerNameTexture.loadFromRenderedText(playerName, textColor, renderer);
-				printScores(playerNameTexture, 240, 260, 0, 100, 20);
+				inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
+				printScores(inputTextTexture, 40, 340, 0, 200, 50);
 
 				SDL_RenderPresent(renderer);
 
 			}
-
-			
 
 			if (newGameButton->isPressed(e))
 			{
@@ -426,18 +449,18 @@ void Game::endGamePage(int score)
 			}
 			if (loadGameButton->isPressed(e))
 			{
-			
+
 			}
 			if (addScoreButton->isPressed(e))
 			{
 				//insert score in database
-				sql.insert(Player(playerName, score));
+				sql.insert(Player(inputText, score));
 			}
 
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
-		
+
 		SDL_StopTextInput();
 	}
 }
