@@ -39,6 +39,7 @@ include_directories(
 link_directories(
 	${CMAKE_HOME_DIRECTORY}/utility/SDL2/lib/x86
 	${CMAKE_HOME_DIRECTORY}/lib/Debug
+	${CMAKE_HOME_DIRECTORY}/utility/SQL
 )
 
 link_directories(
@@ -58,6 +59,8 @@ ${PROJECT_NAME}
 	SDL2_image
 	SDL2_ttf
 	Snake
+	sqlite3
+	
 )
 
 set_target_properties(SnakeGraphics PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
