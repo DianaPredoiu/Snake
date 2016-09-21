@@ -84,7 +84,7 @@ void Game::loadWindowStartGameBackground()
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/startGamePage.png");
+	p.append("/sarpe/snake-start.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
