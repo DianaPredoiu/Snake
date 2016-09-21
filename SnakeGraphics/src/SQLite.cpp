@@ -1,6 +1,9 @@
 # include "SQLite.h"
+#include <Player.h>
+#include <iostream>
+#include <vector>
 
-std::string players;
+std::vector<Player> players;
 
 sqlite3* SQLite::getDB()
 {
@@ -24,20 +27,11 @@ char* SQLite::getSql()
 
 int SQLite::callback(void *data, int argc, char **argv, char **azColName)
 {
-	int i;
-	//fprintf(stderr, "%s: ", (const char*)data);
-	for (i = 0; i<argc; i++)
-	{
-		players += "\n";
-		players += azColName[i];
-		if (argv[i])
-			players += argv[i];
-		else
-			players += "NULL";
-		players += "\n";
-		//printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-	}
-	//printf("\n");
+	Player player;
+	player.setPlayerName(argv[1]);
+	player.setPlayerScore(std::stoi(argv[2]));
+	players.push_back(player);
+
 	return 0;
 }
 
@@ -85,7 +79,6 @@ void SQLite::insert(Player player)
 void SQLite::select()
 {
 	openConnection();
-	players = "";
 	sql = "SELECT * FROM players order by score desc limit 5;";
 	execute();
 }
