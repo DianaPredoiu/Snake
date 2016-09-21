@@ -74,7 +74,8 @@ public:
 
 	void printImage(char textureName, int x, int y, int angle);
 
-	void printScores(Texture textureName, int x, int y, int angle, int w, int h);
+	void printText(Texture textureName, int x, int y, int angle, int w, int h);
+	void printRectTextColored(Texture textureName, int x, int y, int angle, int w, int h);
 
 	bool hasTheGameStarted();
 

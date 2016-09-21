@@ -242,18 +242,18 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 
 	//rectangles for score and chrono for bonus and surprise
 	scoreTexture.loadFromRenderedText(std::to_string(game.getScore()), textColor, renderer);
-	printScores(scoreTexture, 110, 795, 0, 60, 40);
+	printText(scoreTexture, 110, 795, 0, 60, 40);
 
 	if (game.getBonus().getTime() != 0 && game.getBonus().getState())
 	{
 		bonusTexture.loadFromRenderedText(std::to_string(game.getBonus().getTime()), textColor, renderer);
-		printScores(bonusTexture, 400, 795, 0, 60, 40);
+		printText(bonusTexture, 400, 795, 0, 60, 40);
 	}
 
 	if (game.getSurprise().getTime() != 0 && game.getSurprise().getState())
 	{
 		surpriseTexture.loadFromRenderedText(std::to_string(game.getSurprise().getTime()), textColor, renderer);
-		printScores(surpriseTexture, 680, 795, 0, 60, 40);
+		printText(surpriseTexture, 680, 795, 0, 60, 40);
 	}
 
 }
@@ -300,7 +300,7 @@ void Game::printImage(char textureName, int x, int y, int angle)
 	//SDL_RenderPresent(renderer);
 }
 
-void Game::printScores(Texture textureName, int x, int y, int angle, int w, int h)
+void Game::printText(Texture textureName, int x, int y, int angle, int w, int h)
 {
 	SDL_Rect rectangle;
 
@@ -316,6 +316,23 @@ void Game::printScores(Texture textureName, int x, int y, int angle, int w, int 
 	//SDL_RenderPresent(renderer);
 }
 
+void Game::printRectTextColored(Texture textureName, int x, int y, int angle, int w, int h)
+{
+	SDL_Rect rectangle;
+
+	int a, b;
+	SDL_QueryTexture(textureName.GetTexture(), NULL, NULL, &a, &b);
+
+	rectangle.x = x;
+	rectangle.y = y;
+	rectangle.w = w;
+	rectangle.h = h;
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &rectangle);
+
+	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
+}
 #pragma region Execution
 
 void Game::startGamePage()
@@ -361,9 +378,8 @@ void Game::endGamePage(int score)
 	std::string inputText = " ";
 	scoreText.append(std::to_string(score));
 
-	newGameButton->setCoordinates(500, 360);
-	loadGameButton->setCoordinates(500, 430);
-	addScoreButton->setCoordinates(320, 340);
+	newGameButton->setCoordinates(290, 700);
+	addScoreButton->setCoordinates(280, 340);
 
 	SDL_Event e;
 	if (!working)
@@ -372,14 +388,13 @@ void Game::endGamePage(int score)
 
 		loadWindowEndGameBackground();
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-		printScores(scoreTexture, 255, 225, 0, 50, 40);
+		printText(scoreTexture, 255, 225, 0, 50, 40);
 
 		inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
-		printScores(inputTextTexture, 40, 340, 0, 200, 50);
+		printRectTextColored(inputTextTexture, 40, 340, 0, 200, 40);
 
 		SDL_RenderPresent(renderer);
 
@@ -429,14 +444,13 @@ void Game::endGamePage(int score)
 
 				loadWindowEndGameBackground();
 				SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-				SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &loadGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 				scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-				printScores(scoreTexture, 255, 225, 0, 50, 40);
+				printText(scoreTexture, 255, 225, 0, 50, 40);
 
 				inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
-				printScores(inputTextTexture, 40, 340, 0, 200, 50);
+				printRectTextColored(inputTextTexture, 40, 340, 0, 200, 40);
 
 				SDL_RenderPresent(renderer);
 
