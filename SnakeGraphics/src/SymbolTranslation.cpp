@@ -41,7 +41,7 @@ void SymbolTranslation::ConvertToTextureFromSymbol()
 		}
 		case 'H':
 		{
-			texture.loadFromFile("cap.png", renderer);
+			texture.loadFromFile("head.png", renderer);
 			break;
 		}
 		case 'b':
