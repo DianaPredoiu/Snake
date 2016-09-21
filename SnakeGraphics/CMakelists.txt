@@ -59,7 +59,6 @@ ${PROJECT_NAME}
 	SDL2_image
 	SDL2_ttf
 	Snake
-	sqlite3
 	
 )
 
