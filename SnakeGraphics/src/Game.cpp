@@ -34,11 +34,15 @@ Game::Game()
 
 	scoreTexture.setPath("/sarpe/BuxtonSketch.ttf");
 	inputTextTexture.setPath("/sarpe/BuxtonSketch.ttf");
-	displayTop3.setPath("/sarpe/BuxtonSketch.ttf");
+	displayTop5Easy.setPath("/sarpe/BuxtonSketch.ttf");
+	displayTop5Medium.setPath("/sarpe/BuxtonSketch.ttf");
+	displayTop5Hard.setPath("/sarpe/BuxtonSketch.ttf");
 
 	scoreTexture.init();
 	inputTextTexture.init();
-	displayTop3.init();
+	displayTop5Easy.init();
+	displayTop5Medium.init();
+	displayTop5Hard.init();
 
 	scoreText = " ";
 	inputText = " ";
@@ -132,7 +136,7 @@ void Game::loadWindowScoresBackground()
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/snake-scores.png");
+	p.append("/sarpe/snake-scores2.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
@@ -299,18 +303,18 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 
 	//rectangles for score and chrono for bonus and surprise
 	scoreTexture.loadFromRenderedText(std::to_string(game.getScore()), textColor, renderer);
-	printText(scoreTexture, 155, 770, 0, 60, 40);
+	printText(scoreTexture, 155, 770);
 
 	if (game.getBonus().getTime() != 0 && game.getBonus().getState())
 	{
 		bonusTexture.loadFromRenderedText(std::to_string(game.getBonus().getTime()), textColor, renderer);
-		printText(bonusTexture, 390, 770, 0, 60, 40);
+		printText(bonusTexture, 390, 770);
 	}
 
 	if (game.getSurprise().getTime() != 0 && game.getSurprise().getState())
 	{
 		surpriseTexture.loadFromRenderedText(std::to_string(game.getSurprise().getTime()), textColor, renderer);
-		printText(surpriseTexture, 670, 770, 0, 60, 40);
+		printText(surpriseTexture, 670, 770);
 	}
 
 }
@@ -360,35 +364,26 @@ void Game::printImage(char textureName, int x, int y, int angle)
 	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 }
 
-void Game::printText(Texture textureName, int x, int y, int angle, int w, int h)
+void Game::printText(Texture textureName, int x, int y)
 {
 	SDL_Rect rectangle;
-
-	int a, b;
-	SDL_QueryTexture(textureName.GetTexture(), NULL, NULL, &a, &b);
 
 	rectangle.x = x;
 	rectangle.y = y;
 	rectangle.w = textureName.w;
 	rectangle.h = textureName.h;
 
-	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, 0, NULL, SDL_FLIP_NONE);
 }
 
-void Game::printRectTextColored(Texture textureName, int x, int y, int angle, int w, int h)
+void Game::printTextScores(Texture textureName, int x, int y, int angle, int w, int h)
 {
 	SDL_Rect rectangle;
 
-	int a, b;
-	SDL_QueryTexture(textureName.GetTexture(), NULL, NULL, &a, &b);
-
 	rectangle.x = x;
 	rectangle.y = y;
-	rectangle.w = textureName.w;
-	rectangle.h = textureName.h;
-
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderFillRect(renderer, &rectangle);
+	rectangle.w = w;
+	rectangle.h = h;
 
 	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 }
@@ -481,23 +476,30 @@ void Game::aboutPage()
 
 void Game::scoresPage()
 {
+	easyLevelPlayers = " ";
+	mediumLevelPlayers = " ";
+	hardLevelPlayers = " ";
 	if (working)
 	{
-		SQLite sql;
+		populateEasyLevelPlayers();
+		populateMediumLevelPlayers();
+		populateHardLevelPlayers();
 
 		loadWindowScoresBackground();
 		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
+		displayTop5Easy.loadFromRenderedTextWrapped(easyLevelPlayers, textColor, renderer);
+		printTextScores(displayTop5Easy, 20, 170, 0, 170, 150);
+
+		displayTop5Medium.loadFromRenderedTextWrapped(mediumLevelPlayers, textColor, renderer);
+		printTextScores(displayTop5Medium, 20, 360, 0, 170, 150);
+
+		displayTop5Hard.loadFromRenderedTextWrapped(hardLevelPlayers, textColor, renderer);
+		printTextScores(displayTop5Hard, 20, 570, 0, 170, 150);
+
 		SDL_RenderPresent(renderer);
 
-		sql.select("easy");
-		std::vector<Player> easyPlayers=sql.getPlayers();
-
-		sql.select("medium");
-		std::vector<Player> mediumPlayers = sql.getPlayers();
-
-		sql.select("hard");
-		std::vector<Player> hardPlayers = sql.getPlayers();
+		
 
 		//print players
 
@@ -515,7 +517,7 @@ void Game::endGamePage(int score, int difficulty)
 {
 	SQLite sql;
 	scoreText = " ";
-	inputText = "write here";
+	inputText = "player's name";
 	bool firstchar = true;
 	scoreText.append(std::to_string(score));
 
@@ -529,10 +531,10 @@ void Game::endGamePage(int score, int difficulty)
 		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-		printText(scoreTexture, 290, 215, 0, 50, 50);
+		printText(scoreTexture, 290, 215);
 
 		inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
-		printText(inputTextTexture, 100, 330, 0, 200, 40);
+		printText(inputTextTexture, 100, 330);
 
 		SDL_RenderPresent(renderer);
 
@@ -588,10 +590,10 @@ void Game::endGamePage(int score, int difficulty)
 				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 				displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-				printText(scoreTexture, 290, 215, 0, 50, 50);
+				printText(scoreTexture, 290, 215);
 
 				inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
-				printText(inputTextTexture, 100, 330, 0, 200, 40);
+				printText(inputTextTexture, 100, 330);
 
 				SDL_RenderPresent(renderer);
 
@@ -727,6 +729,53 @@ void Game::executeGame(int difficulty)
 #pragma endregion
 
 
+void Game::populateEasyLevelPlayers()
+{
+	SQLite sql;
+
+	sql.select("easy");
+	std::vector<Player> easyPlayers = sql.getPlayers();
+	for (int i = 0; i < easyPlayers.size(); ++i)
+	{
+		easyLevelPlayers += easyPlayers.at(i).getPlayerName();
+		easyLevelPlayers += " - ";
+		easyLevelPlayers += std::to_string(easyPlayers.at(i).getScore());
+		easyLevelPlayers += "\n";
+		easyLevelPlayers += " ";
+	}
+}
+
+void Game::populateMediumLevelPlayers()
+{
+	SQLite sql;
+
+	sql.select("medium");
+	std::vector<Player> mediumPlayers = sql.getPlayers();
+	for (int i = 0; i < mediumPlayers.size(); ++i)
+	{
+		mediumLevelPlayers += mediumPlayers.at(i).getPlayerName();
+		mediumLevelPlayers += " - ";
+		mediumLevelPlayers += std::to_string(mediumPlayers.at(i).getScore());
+		mediumLevelPlayers += "\n";
+		mediumLevelPlayers += " ";
+	}
+}
+
+void Game::populateHardLevelPlayers()
+{
+	SQLite sql;
+
+	sql.select("hard");
+	std::vector<Player> hardPlayers = sql.getPlayers();
+	for (int i = 0; i < hardPlayers.size(); ++i)
+	{
+		hardLevelPlayers += hardPlayers.at(i).getPlayerName();
+		hardLevelPlayers += " - ";
+		hardLevelPlayers += std::to_string(hardPlayers.at(i).getScore());
+		hardLevelPlayers += "\n";
+		hardLevelPlayers += " ";
+	}
+}
 
 Game::~Game()
 {

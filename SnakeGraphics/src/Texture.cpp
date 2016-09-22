@@ -93,6 +93,39 @@ bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor,
 	return imTexture != NULL;
 }
 
+bool Texture::loadFromRenderedTextWrapped(std::string textureText, SDL_Color textColor, SDL_Renderer* renderer)
+{
+	//Render text surface
+	if (!font)
+	{
+		std::cout << "Unable to load font style! SDL_TTF Error: \n" << TTF_GetError();
+	}
+	else
+	{
+		init();
+		SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, textureText.c_str(), textColor, 300);
+		h = textSurface->h;
+		w = textSurface->w;
+		if (textSurface == NULL)
+		{
+			std::cout << "Unable to render text surface! SDL_ttf Error: \n" << TTF_GetError();
+		}
+		else
+		{
+			//Create texture from surface pixels
+			imTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+			if (imTexture == NULL)
+			{
+				std::cout << "Unable to create texture from rendered text! SDL Error: \n" << SDL_GetError();
+			}
+			//Get rid of old surface
+			SDL_FreeSurface(textSurface);
+		}
+	}
+	//Return success
+	return imTexture != NULL;
+}
+
 SDL_Texture* Texture::GetTexture()
 {
 	return imTexture;

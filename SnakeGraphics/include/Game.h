@@ -34,7 +34,9 @@ private:
 
 	Texture displayScoreTexture;
 	Texture inputTextTexture;
-	Texture displayTop3;
+	Texture displayTop5Easy;
+	Texture displayTop5Medium;
+	Texture displayTop5Hard;
 
 	Texture scoreTexture;
 	Texture bonusTexture;
@@ -66,6 +68,10 @@ private:
 	Button* backToMenuButton;
 	Button* viewScoresButton;
 
+	std::string easyLevelPlayers;
+	std::string mediumLevelPlayers;
+	std::string hardLevelPlayers;
+
 
 public:
 	Game();
@@ -91,8 +97,12 @@ public:
 	void displayGameDetails(GameMap &game, std::vector<Position*> pos);
 
 	void printImage(char textureName, int x, int y, int angle);
-	void printText(Texture textureName, int x, int y, int angle, int w, int h);
-	void printRectTextColored(Texture textureName, int x, int y, int angle, int w, int h);
+	void printText(Texture textureName, int x, int y);
+	void printTextScores(Texture textureName, int x, int y, int angle, int w, int h);
+
+	void populateEasyLevelPlayers();
+	void populateMediumLevelPlayers();
+	void populateHardLevelPlayers();
 
 	int tailDirection(GameMap &game);
 
