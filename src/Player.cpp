@@ -39,6 +39,16 @@ void Player::setPlayerScore(int score)
 	playerScore = score;
 }
 
+std::string Player::getLevel()
+{
+	return level;
+}
+
+void Player::setLevel(std::string level)
+{
+	this->level = level;
+}
+
 #pragma endregion
 
 #pragma region Destructor

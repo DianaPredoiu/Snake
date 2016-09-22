@@ -8,6 +8,7 @@ private:
 	// length measured in units as in grid cells
 	std::string playerName;
 	int playerScore;
+	std::string level;
 
 public:
 	// Constructors
@@ -25,6 +26,9 @@ public:
 
 	// Setter for the score
 	void setPlayerScore(int score);
+
+	std::string getLevel();
+	void setLevel(std::string level);
 
 	~Player();
 };

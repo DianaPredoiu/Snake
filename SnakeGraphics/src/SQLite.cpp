@@ -35,6 +35,7 @@ int SQLite::callback(void *data, int argc, char **argv, char **azColName)
 	Player player;
 	player.setPlayerName(argv[1]);
 	player.setPlayerScore(std::stoi(argv[2]));
+	player.setLevel(argv[3]);
 	players.push_back(player);
 
 	return 0;
@@ -75,7 +76,8 @@ void SQLite::insert(Player player)
 	std::string name = player.getPlayerName();
 	int score = player.getScore();
 	std::string sscore = std::to_string(score);
-	std::string insert = "INSERT INTO players (NAME,SCORE) VALUES ('" + name + "'," + sscore + "); ";
+	std::string level = player.getLevel();
+	std::string insert = "INSERT INTO players (NAME,SCORE,LEVEL) VALUES ('" + name + "'," + sscore +", '"+ level + "'); ";
 	sql = new char[insert.length() + 1];
 	strcpy(sql, insert.c_str());
 	execute();
