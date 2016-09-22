@@ -20,12 +20,13 @@ Game::Game()
 
 	newGameButton = new Button(newGame, 295, 360, 200, 50);
 	aboutButton = new Button(about, 295, 430, 200, 50);
+	viewScoresButton = new Button(viewScores, 295, 500, 200, 50);
 	addScoreButton = new Button(addScore, 500, 240, 50, 50);
 	easyGameButton = new Button(easy, 270, 300, 200, 50);
 	mediumGameButton = new Button(medium, 270, 400, 200, 50);
 	hardGameButton = new Button(hard, 270, 500, 200, 50);
 	backToMenuButton = new Button(back, 50, 50, 50, 50);
-	viewScoresButton = new Button(viewScores,295,500 , 200, 50);
+	
 
 	background = nullptr;
 
@@ -429,6 +430,10 @@ void Game::startGamePage()
 
 void Game::chooseLevelPage()
 {
+	newGameButton->setCoordinates(295, 360);
+	aboutButton->setCoordinates(295, 430);
+	viewScoresButton->setCoordinates(295, 500);
+
 	if (working)
 	{
 		loadWindowStartGameBackground();
