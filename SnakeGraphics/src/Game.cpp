@@ -515,7 +515,8 @@ void Game::endGamePage(int score, int difficulty)
 {
 	SQLite sql;
 	scoreText = " ";
-	inputText = " ";
+	inputText = "write here";
+	bool firstchar = true;
 	scoreText.append(std::to_string(score));
 
 	newGameButton->setCoordinates(290, 700);
@@ -540,6 +541,11 @@ void Game::endGamePage(int score, int difficulty)
 		{
 			if (e.type == SDL_KEYDOWN && inputText.size() < 15)
 			{
+				if (firstchar == true)
+				{
+					inputText = " ";
+					firstchar = false;
+				}
 				//Handle backspace
 				if (e.key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0)
 				{
@@ -582,7 +588,7 @@ void Game::endGamePage(int score, int difficulty)
 				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 				displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-				printText(scoreTexture, 290, 210, 0, 50, 50);
+				printText(scoreTexture, 290, 215, 0, 50, 50);
 
 				inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
 				printText(inputTextTexture, 100, 330, 0, 200, 40);
