@@ -25,7 +25,7 @@ public:
 	void openConnection();
 	void execute();
 	void insert(Player player);
-	void select();
+	void select(std::string level);
 
 	~SQLite();
 
