@@ -11,8 +11,6 @@ Game::Game()
 	loadButtonTextures();
 	loadBackgroundTextures();
 
-	//delay = 500;
-
 	inputHandler = new InputHandler();
 	textColor = { 0, 0, 0, 0 };
 
@@ -29,9 +27,6 @@ Game::Game()
 	hardGameButton = new Button(hard, 270, 500, 200, 50);
 	backToMenuButton = new Button(back, 50, 50, 50, 50);
 
-
-	step = 50;
-
 	scoreTexture.setPath("/sarpe/BuxtonSketch.ttf");
 	inputTextTexture.setPath("/sarpe/BuxtonSketch.ttf");
 	displayTop5Easy.setPath("/sarpe/BuxtonSketch.ttf");
@@ -46,6 +41,7 @@ Game::Game()
 
 	scoreText = " ";
 	inputText = " ";
+	step = 50;
 }
 
 bool Game::init()
@@ -80,6 +76,7 @@ bool Game::init()
 	return success;
 }
 
+#pragma region loading textures
 void Game::loadWindowGameBackground()
 {
 	SDL_RenderClear(renderer);
@@ -111,8 +108,6 @@ void Game::loadWindowEndGameBackground()
 
 }
 
-// using the class that converts from a given symbol to a specific 
-// texture we load a map of textures for the game
 void Game::loadItemTextures()
 {
 	SymbolTranslation* capSym = new SymbolTranslation('H', renderer);
@@ -144,28 +139,28 @@ void Game::loadItemTextures()
 void Game::loadButtonTextures()
 {
 	newGameTexture.loadFromFile("newGame.png", renderer);
-	backgrounds["newGame"] = newGameTexture.GetTexture();
+	buttons["newGame"] = newGameTexture.GetTexture();
 
 	addScoreTexture.loadFromFile("addScore.png", renderer);
-	backgrounds["addScore"] = addScoreTexture.GetTexture();
+	buttons["addScore"] = addScoreTexture.GetTexture();
 
 	easyGameTexture.loadFromFile("easyGame.png", renderer);
-	backgrounds["easy"] = easyGameTexture.GetTexture();
+	buttons["easy"] = easyGameTexture.GetTexture();
 
 	mediumGameTexture.loadFromFile("mediumGame.png", renderer);
-	backgrounds["medium"] = mediumGameTexture.GetTexture();
+	buttons["medium"] = mediumGameTexture.GetTexture();
 
 	hardGameTexture.loadFromFile("hardGame.png", renderer);
-	backgrounds["hard"] = hardGameTexture.GetTexture();
+	buttons["hard"] = hardGameTexture.GetTexture();
 
 	backToMenuTexture.loadFromFile("back.png", renderer);
-	backgrounds["back"] = backToMenuTexture.GetTexture();
+	buttons["back"] = backToMenuTexture.GetTexture();
 
 	aboutTexture.loadFromFile("about.png", renderer);
-	backgrounds["about"] = aboutTexture.GetTexture();
+	buttons["about"] = aboutTexture.GetTexture();
 
 	viewScoresTexture.loadFromFile("scores.png", renderer);
-	backgrounds["scores"] = viewScoresTexture.GetTexture();
+	buttons["scores"] = viewScoresTexture.GetTexture();
 }
 
 void Game::loadBackgroundTextures()
@@ -196,9 +191,11 @@ void Game::loadBackgroundTextures()
 	p.append("/sarpe/snake-about.png");
 	backgroundAbout = IMG_LoadTexture(renderer, p.c_str());
 }
+#pragma endregion
 
 
 #pragma region display items + snake + details
+
 void Game::displayItem(int x, int y, char c)
 {
 	switch (c)
@@ -317,6 +314,7 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 	}
 
 }
+
 #pragma endregion
 
 
@@ -400,9 +398,9 @@ void Game::startGamePage()
 		//here i display all the buttons which must be in the start page
 
 		loadWindowStartGameBackground();
-		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, aboutTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, viewScoresTexture.GetTexture(), NULL, &viewScoresButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["newGame"], NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["about"], NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["scores"], NULL, &viewScoresButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
 		while (SDL_WaitEvent(&e) != 0)
@@ -432,10 +430,10 @@ void Game::chooseLevelPage()
 	{
 		loadWindowStartGameBackground();
 
-		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, easyGameTexture.GetTexture(), NULL, &easyGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, mediumGameTexture.GetTexture(), NULL, &mediumGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, hardGameTexture.GetTexture(), NULL, &hardGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["back"], NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["easy"], NULL, &easyGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["medium"], NULL, &mediumGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["hard"], NULL, &hardGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
 		while (SDL_WaitEvent(&e) != 0)
@@ -459,7 +457,7 @@ void Game::aboutPage()
 	if (working)
 	{
 		loadWindowAboutBackground();
-		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["back"], NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		SDL_RenderPresent(renderer);
 
@@ -485,7 +483,7 @@ void Game::scoresPage()
 		populateHardLevelPlayers();
 
 		loadWindowScoresBackground();
-		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["back"], NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		displayTop5Easy.loadFromRenderedTextWrapped(easyLevelPlayers, textColor, renderer);
 		printTextScores(displayTop5Easy, 20, 170, 0, 170, 150);
@@ -497,10 +495,6 @@ void Game::scoresPage()
 		printTextScores(displayTop5Hard, 20, 570, 0, 170, 150);
 
 		SDL_RenderPresent(renderer);
-
-
-
-		//print players
 
 		while (SDL_WaitEvent(&e) != 0)
 		{
@@ -526,8 +520,8 @@ void Game::endGamePage(int score, int difficulty)
 	if (!working)
 	{
 		loadWindowEndGameBackground();
-		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["newGame"], NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["addScore"], NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
 		printText(scoreTexture, 290, 215);
@@ -587,8 +581,8 @@ void Game::endGamePage(int score, int difficulty)
 
 
 				loadWindowEndGameBackground();
-				SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+				SDL_RenderCopyEx(renderer, buttons["newGame"], NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+				SDL_RenderCopyEx(renderer, buttons["addScore"], NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 				displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
 				printText(scoreTexture, 290, 215);
