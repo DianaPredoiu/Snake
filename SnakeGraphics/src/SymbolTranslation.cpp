@@ -46,12 +46,12 @@ void SymbolTranslation::ConvertToTextureFromSymbol()
 		}
 		case 'b':
 		{
-			texture.loadFromFile("corp.png", renderer);
+			texture.loadFromFile("body.png", renderer);
 			break;
 		}
 		case 'T':
 		{
-			texture.loadFromFile("coada.png", renderer);
+			texture.loadFromFile("tail.png", renderer);
 			break;
 		}
 		default: break;

@@ -8,7 +8,7 @@ Game::Game()
 	working = init();
 	loadTextures();
 
-	delay = 150;
+	//delay = 500;
 
 	inputHandler = new InputHandler();
 	textColor = { 0, 0, 0, 0 };
@@ -18,10 +18,12 @@ Game::Game()
 	surpriseTexture.init();
 
 	newGameButton = new Button(newGame, 295, 360, 200, 50);
-	aboutButton = new Button(loadGame, 295, 430, 200, 50);
-	//replayGameButton = new Button(replayGame, 295, 360, 200, 50);
-	//quitGameButton = new Button(quitGame, 295, 430, 200, 50);
+	aboutButton = new Button(about, 295, 430, 200, 50);
 	addScoreButton = new Button(addScore, 500, 240, 50, 50);
+	easyGameButton = new Button(easy, 270, 300, 200, 50);
+	mediumGameButton = new Button(medium, 270, 400, 200, 50);
+	hardGameButton = new Button(hard, 270, 500, 200, 50);
+	backToMenuButton = new Button(back, 50, 50, 50, 50);
 
 	background = nullptr;
 
@@ -95,12 +97,11 @@ void Game::loadWindowStartGameBackground()
 
 void Game::loadWindowEndGameBackground()
 {
-
 	SDL_RenderClear(renderer);
 	// get the path to the img source folder
 	std::string p = FOO;
 	// and attach the img folder to the project source path
-	p.append("/sarpe/snake-end1.png");
+	p.append("/sarpe/snake-end2.png");
 	// load img and print on window
 	background = IMG_LoadTexture(renderer, p.c_str());
 
@@ -108,6 +109,7 @@ void Game::loadWindowEndGameBackground()
 	//delete background;
 	background = nullptr;
 }
+
 // using the class that converts from a given symbol to a specific 
 // texture we load a map of textures for the game
 void Game::loadTextures()
@@ -137,33 +139,33 @@ void Game::loadTextures()
 	textures['?'] = surpriseSym->GetTexture();
 
 	newGameTexture.loadFromFile("newGame.png", renderer);
-	loadGameTexture.loadFromFile("loadGame.png", renderer);
-	replayGameTexture.loadFromFile("replayGame.png", renderer);
-	quitGameTexture.loadFromFile("quitGame.png", renderer);
 	addScoreTexture.loadFromFile("addScore.png", renderer);
+	easyGameTexture.loadFromFile("easyGame.png", renderer);
+	mediumGameTexture.loadFromFile("mediumGame.png", renderer);
+	hardGameTexture.loadFromFile("hardGame.png", renderer); 
+	backToMenuTexture.loadFromFile("back.png", renderer);
+	aboutTexture.loadFromFile("about.png", renderer);
 }
 
 
 #pragma region display items + snake + details
-void Game::displayFood(int x, int y)
+void Game::displayItem(int x, int y, char c)
 {
-	printImage('F', x * step + 10, y * step + 10, 0);
+	switch (c)
+	{
+	case 'F':
+		printImage('F', x * step + 10, y * step + 10, 0);
+		break;
+	case 'B':
+		printImage('B', x * step + 10, y * step + 10, 0); \
+		break;
+	case '?':
+		printImage('?', x * step + 10, y * step + 10, 0);
+		break;
+	}
 }
 
-void Game::displayBonus(int x, int y)
-{
-	printImage('B', x * step + 10, y * step + 10, 0);
-	delay = 50;
-
-}
-
-void Game::displaySurprise(int x, int y)
-{
-	printImage('?', x * step + 10, y * step + 10, 0);
-	delay = 50;
-}
-
-void Game::displaySnake(GameMap &game)
+void Game::displaySnake(GameMap &game, int difficulty)
 {
 	int s = game.getSnake().getCoordinates().size() - 1;
 	printImage('T', game.getSnake().getCoordinates().at(s)->getX() * step + 10, game.getSnake().getCoordinates().at(s)->getY() * step + 10, tailDirection(game));
@@ -230,17 +232,16 @@ void Game::displaySnake(GameMap &game)
 
 	if (game.getBonus().getState())
 	{
-		displayBonus(game.getBonus().getCoordinates().getX(), game.getBonus().getCoordinates().getY());
+		displayItem(game.getBonus().getCoordinates().getX(), game.getBonus().getCoordinates().getY(), 'B');
 	}
 	else if (game.getSurprise().getState())
 	{
-		displaySurprise(game.getSurprise().getCoordinates().getX(), game.getSurprise().getCoordinates().getY());
+		displayItem(game.getSurprise().getCoordinates().getX(), game.getSurprise().getCoordinates().getY(), '?');
 	}
 	else if (game.getFood().getState())
 	{
 		game.addFood();
-		displayFood(game.getFood().getCoordinates().getX(), game.getFood().getCoordinates().getY());
-		delay = 150;
+		displayItem(game.getFood().getCoordinates().getX(), game.getFood().getCoordinates().getY(), 'F');
 	}
 
 }
@@ -251,22 +252,23 @@ void Game::displayGameDetails(GameMap &game, std::vector<Position*> pos)
 
 	//rectangles for score and chrono for bonus and surprise
 	scoreTexture.loadFromRenderedText(std::to_string(game.getScore()), textColor, renderer);
-	printText(scoreTexture, 110, 795, 0, 60, 40);
+	printText(scoreTexture, 155, 770, 0, 60, 40);
 
 	if (game.getBonus().getTime() != 0 && game.getBonus().getState())
 	{
 		bonusTexture.loadFromRenderedText(std::to_string(game.getBonus().getTime()), textColor, renderer);
-		printText(bonusTexture, 400, 795, 0, 60, 40);
+		printText(bonusTexture, 390, 770, 0, 60, 40);
 	}
 
 	if (game.getSurprise().getTime() != 0 && game.getSurprise().getState())
 	{
 		surpriseTexture.loadFromRenderedText(std::to_string(game.getSurprise().getTime()), textColor, renderer);
-		printText(surpriseTexture, 680, 795, 0, 60, 40);
+		printText(surpriseTexture, 670, 770, 0, 60, 40);
 	}
 
 }
 #pragma endregion
+
 
 int Game::tailDirection(GameMap &game)
 {
@@ -293,6 +295,9 @@ int Game::tailDirection(GameMap &game)
 	}
 }
 
+
+#pragma region Print to screen
+
 void Game::printImage(char textureName, int x, int y, int angle)
 {
 	SDL_Rect rectangle;
@@ -306,7 +311,6 @@ void Game::printImage(char textureName, int x, int y, int angle)
 	rectangle.h = 50;
 
 	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
-	//SDL_RenderPresent(renderer);
 }
 
 void Game::printText(Texture textureName, int x, int y, int angle, int w, int h)
@@ -322,7 +326,6 @@ void Game::printText(Texture textureName, int x, int y, int angle, int w, int h)
 	rectangle.h = h;
 
 	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
-	//SDL_RenderPresent(renderer);
 }
 
 void Game::printRectTextColored(Texture textureName, int x, int y, int angle, int w, int h)
@@ -342,11 +345,14 @@ void Game::printRectTextColored(Texture textureName, int x, int y, int angle, in
 
 	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 }
+
+#pragma endregion
+
+
 #pragma region Execution
 
 void Game::startGamePage()
 {
-
 	SDL_Event e;
 	if (working)
 	{
@@ -354,22 +360,77 @@ void Game::startGamePage()
 
 		loadWindowStartGameBackground();
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderCopyEx(renderer, loadGameTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, aboutTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
 		while (SDL_WaitEvent(&e) != 0)
 		{
 			//when an event appears i check what button is pressed :  new game, load game or quit game
 			if (newGameButton->isPressed(e))
-				executeGame();
+				chooseLevelPage();
 			if (aboutButton->isPressed(e))
-				loadWindowEndGameBackground();
+				aboutPage();
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
 
 	}
 
+}
+
+void Game::chooseLevelPage()
+{
+	SDL_Event e;
+	if (working)
+	{
+		//here i display all the buttons which must be in the start page
+
+		loadWindowStartGameBackground();
+		//SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		//SDL_RenderCopyEx(renderer, aboutTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, easyGameTexture.GetTexture(), NULL, &easyGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, mediumGameTexture.GetTexture(), NULL, &mediumGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, hardGameTexture.GetTexture(), NULL, &hardGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderPresent(renderer);
+
+		while (SDL_WaitEvent(&e) != 0)
+		{
+			//when an event appears i check what button is pressed :  new game, load game or quit game
+			if (easyGameButton->isPressed(e))
+				executeGame(300);
+			if (mediumGameButton->isPressed(e))
+				executeGame(200);
+			if (hardGameButton->isPressed(e))
+				executeGame(50);
+			if (e.type == SDL_QUIT)
+				SDL_Quit();
+		}
+
+	}
+}
+
+void Game::aboutPage()
+{
+	SDL_Event e;
+	if (working)
+	{
+		//here i display out details
+
+		loadWindowStartGameBackground();
+		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		//SDL_RenderCopyEx(renderer, aboutTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderPresent(renderer);
+
+		while (SDL_WaitEvent(&e) != 0)
+		{
+			//when an event appears i check what button is pressed :  new game, load game or quit game
+			if (backToMenuButton->isPressed(e))
+				startGamePage();
+			if (e.type == SDL_QUIT)
+				SDL_Quit();
+		}
+
+	}
 }
 
 void Game::endGamePage(int score)
@@ -388,7 +449,7 @@ void Game::endGamePage(int score)
 	scoreText.append(std::to_string(score));
 
 	newGameButton->setCoordinates(290, 700);
-	addScoreButton->setCoordinates(280, 340);
+	addScoreButton->setCoordinates(290, 325);
 
 	SDL_Event e;
 	if (!working)
@@ -400,10 +461,10 @@ void Game::endGamePage(int score)
 		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-		printText(scoreTexture, 255, 225, 0, 50, 40);
+		printText(scoreTexture, 290, 210, 0, 50, 50);
 
 		inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
-		printRectTextColored(inputTextTexture, 40, 340, 0, 200, 40);
+		printRectTextColored(inputTextTexture, 50, 330, 0, 200, 40);
 
 		SDL_RenderPresent(renderer);
 
@@ -456,10 +517,10 @@ void Game::endGamePage(int score)
 				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 				scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-				printText(scoreTexture, 255, 225, 0, 50, 40);
+				printText(scoreTexture, 290, 210, 0, 50, 50);
 
 				inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
-				printRectTextColored(inputTextTexture, 40, 340, 0, 200, 40);
+				printRectTextColored(inputTextTexture, 50, 330, 0, 200, 40);
 
 				SDL_RenderPresent(renderer);
 
@@ -468,11 +529,7 @@ void Game::endGamePage(int score)
 			if (newGameButton->isPressed(e))
 			{
 				working = true;
-				executeGame();
-			}
-			if (aboutButton->isPressed(e))
-			{
-
+				chooseLevelPage();
 			}
 			if (addScoreButton->isPressed(e))
 			{
@@ -488,7 +545,7 @@ void Game::endGamePage(int score)
 	}
 }
 
-void Game::executeGame()
+void Game::executeGame(int difficulty)
 {
 	GameMap game(15, 15);
 	Rules rules(&game);
@@ -498,6 +555,8 @@ void Game::executeGame()
 
 	game.setScore(0);
 
+	delay = difficulty;
+
 	if (!working)
 	{
 		std::cout << "Failed to initialize!\n" << std::endl;
@@ -505,7 +564,7 @@ void Game::executeGame()
 	else
 	{
 		loadWindowGameBackground();
-		displaySnake(game);
+		displaySnake(game, difficulty);
 		displayGameDetails(game, positions);
 		SDL_RenderPresent(renderer);
 		inputHandler = new InputHandler();
@@ -534,7 +593,7 @@ void Game::executeGame()
 				working = inputHandler->keyDown(e, game);
 
 				loadWindowGameBackground();
-				displaySnake(game);
+				displaySnake(game, difficulty);
 				displayGameDetails(game, positions);
 				SDL_RenderPresent(renderer);
 
@@ -550,7 +609,7 @@ void Game::executeGame()
 			if (!rules.continuousMovement())
 			{
 				loadWindowGameBackground();
-				displaySnake(game);
+				displaySnake(game, difficulty);
 				displayGameDetails(game, positions);
 				SDL_RenderPresent(renderer);
 
@@ -582,10 +641,7 @@ void Game::executeGame()
 }
 #pragma endregion
 
-bool Game::hasTheGameStarted()
-{
-	return init();
-}
+
 
 Game::~Game()
 {
@@ -593,6 +649,10 @@ Game::~Game()
 	delete newGameButton;
 	delete aboutButton;
 	delete addScoreButton;
+	delete easyGameButton;
+	delete mediumGameButton;
+	delete hardGameButton;
+	delete aboutButton;
 
 	delete inputHandler;
 

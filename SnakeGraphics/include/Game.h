@@ -33,10 +33,13 @@ private:
 	Texture surpriseTexture;
 
 	Texture newGameTexture;
-	Texture loadGameTexture;
-	Texture replayGameTexture;
-	Texture quitGameTexture;
 	Texture addScoreTexture;
+	Texture aboutTexture;
+	Texture easyGameTexture;
+	Texture mediumGameTexture;
+	Texture hardGameTexture;
+	Texture backToMenuTexture;
+
 
 	std::map<char, SDL_Texture*> textures;
 
@@ -48,6 +51,10 @@ private:
 	Button* newGameButton;
 	Button* aboutButton;
 	Button* addScoreButton;
+	Button* easyGameButton;
+	Button* mediumGameButton;
+	Button* hardGameButton;
+	Button* backToMenuButton;
 
 
 public:
@@ -61,21 +68,18 @@ public:
 	void loadWindowEndGameBackground();
 
 	void startGamePage();
-	void executeGame();
+	void chooseLevelPage();
+	void aboutPage();
+	void executeGame(int difficulty);
 	void endGamePage(int score);
 
-	void displaySnake(GameMap &game);
-	void displayFood(int x, int y);
-	void displayBonus(int x, int y);
-	void displaySurprise(int x, int y);
+	void displaySnake(GameMap &game, int difficulty);
+	void displayItem(int x, int y, char c);
 	void displayGameDetails(GameMap &game, std::vector<Position*> pos);
 
 	void printImage(char textureName, int x, int y, int angle);
-
 	void printText(Texture textureName, int x, int y, int angle, int w, int h);
 	void printRectTextColored(Texture textureName, int x, int y, int angle, int w, int h);
-
-	bool hasTheGameStarted();
 
 	int tailDirection(GameMap &game);
 

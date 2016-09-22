@@ -5,10 +5,12 @@
 enum ButtonActions
 {
 	newGame,
-	loadGame,
-	replayGame,
-	quitGame,
-	addScore
+	about,
+	easy,
+	medium,
+	hard,
+	addScore,
+	back
 };
 
 class Button
