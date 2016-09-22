@@ -13,7 +13,9 @@ class Texture
 	TTF_Font *font;
 	std::string path;
 
+
 public:
+	int h, w;
 	Texture();
 	void setPath(std::string path);
 
@@ -21,7 +23,7 @@ public:
 
 	bool loadFromFile(std::string fileName, SDL_Renderer* renderer);	
 
-	bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor, SDL_Renderer* renderer);
+	bool loadFromRenderedText(std::string textureText, SDL_Color textColor, SDL_Renderer* renderer);
 
 	SDL_Texture* GetTexture();
 

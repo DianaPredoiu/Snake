@@ -71,7 +71,8 @@ bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor,
 	{
 		init();
 		SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
-
+		h = textSurface->h;
+		w = textSurface->w;
 		if (textSurface == NULL)
 		{
 			std::cout << "Unable to render text surface! SDL_ttf Error: \n" << TTF_GetError();
@@ -91,7 +92,6 @@ bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor,
 	//Return success
 	return imTexture != NULL;
 }
-
 
 SDL_Texture* Texture::GetTexture()
 {

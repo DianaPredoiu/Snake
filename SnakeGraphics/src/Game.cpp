@@ -369,8 +369,8 @@ void Game::printText(Texture textureName, int x, int y, int angle, int w, int h)
 
 	rectangle.x = x;
 	rectangle.y = y;
-	rectangle.w = w;
-	rectangle.h = h;
+	rectangle.w = textureName.w;
+	rectangle.h = textureName.h;
 
 	SDL_RenderCopyEx(renderer, textureName.GetTexture(), NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
 }
@@ -384,8 +384,8 @@ void Game::printRectTextColored(Texture textureName, int x, int y, int angle, in
 
 	rectangle.x = x;
 	rectangle.y = y;
-	rectangle.w = w;
-	rectangle.h = h;
+	rectangle.w = textureName.w;
+	rectangle.h = textureName.h;
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &rectangle);
@@ -528,10 +528,10 @@ void Game::endGamePage(int score, int difficulty)
 		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
-		printText(scoreTexture, 290, 210, 0, 50, 50);
+		printText(scoreTexture, 290, 215, 0, 50, 50);
 
 		inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
-		printRectTextColored(inputTextTexture, 50, 330, 0, 200, 40);
+		printText(inputTextTexture, 100, 330, 0, 200, 40);
 
 		SDL_RenderPresent(renderer);
 
@@ -585,7 +585,7 @@ void Game::endGamePage(int score, int difficulty)
 				printText(scoreTexture, 290, 210, 0, 50, 50);
 
 				inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
-				printRectTextColored(inputTextTexture, 50, 330, 0, 200, 40);
+				printText(inputTextTexture, 100, 330, 0, 200, 40);
 
 				SDL_RenderPresent(renderer);
 
