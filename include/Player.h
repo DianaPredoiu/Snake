@@ -13,7 +13,7 @@ private:
 public:
 	// Constructors
 	Player();
-	Player(std::string name, int score);
+	Player(std::string name, int score, std::string level);
 	
 	// Accessor for the name
 	std::string getPlayerName();

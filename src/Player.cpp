@@ -7,8 +7,8 @@ Player::Player()
 	playerScore = 0;
 }
 
-Player::Player(std::string name, int score)
-	: playerName(name), playerScore(score)
+Player::Player(std::string name, int score, std::string level)
+	: playerName(name), playerScore(score), level(level)
 {
 
 }

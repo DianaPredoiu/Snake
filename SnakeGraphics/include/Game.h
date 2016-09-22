@@ -79,7 +79,7 @@ public:
 	void chooseLevelPage();
 	void aboutPage();
 	void executeGame(int difficulty);
-	void endGamePage(int score);
+	void endGamePage(int score, int difficulty);
 
 	void displaySnake(GameMap &game, int difficulty);
 	void displayItem(int x, int y, char c);

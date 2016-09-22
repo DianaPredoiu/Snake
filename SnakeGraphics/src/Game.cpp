@@ -436,7 +436,7 @@ void Game::aboutPage()
 	}
 }
 
-void Game::endGamePage(int score)
+void Game::endGamePage(int score, int difficulty)
 {
 	SQLite sql;
 	scoreText = " ";
@@ -524,7 +524,16 @@ void Game::endGamePage(int score)
 			if (addScoreButton->isPressed(e))
 			{
 				//insert score in database
-				sql.insert(Player(inputText, score));
+				std::string level;
+				if (difficulty == HARDLEVEL)
+					level = "hard";
+				else
+				if (difficulty == MEDIUMLEVEL)
+					level = "medium";
+				else
+					level = "easy";
+
+				sql.insert(Player(inputText, score,level));
 			}
 
 			if (e.type == SDL_QUIT)
@@ -591,7 +600,7 @@ void Game::executeGame(int difficulty)
 				{
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
-					endGamePage(game.getScore());
+					endGamePage(game.getScore(),difficulty);
 				}
 			}
 
@@ -607,14 +616,14 @@ void Game::executeGame(int difficulty)
 				{
 					std::cout << "GAME OVER!" << std::endl;
 					working = false;
-					endGamePage(game.getScore());
+					endGamePage(game.getScore(),difficulty);
 				}
 			}
 			else
 			{
 				std::cout << "GAME OVER!" << std::endl;
 				working = false;
-				endGamePage(game.getScore());
+				endGamePage(game.getScore(),difficulty);
 			}
 
 
