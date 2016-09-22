@@ -30,6 +30,11 @@ char* SQLite::getSql()
 	return sql;
 }
 
+std::vector<Player> SQLite:: getPlayers()
+{
+	return players;
+}
+
 int SQLite::callback(void *data, int argc, char **argv, char **azColName)
 {
 	Player player;

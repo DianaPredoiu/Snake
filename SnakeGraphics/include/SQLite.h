@@ -3,6 +3,7 @@
 #include <Player.h>
 #include <stdio.h>
 #include <sqlite3.h> 
+#include <vector>
 
 class SQLite
 {
@@ -20,6 +21,7 @@ public:
 	char* getErrMsg();
 	int getRc();
 	char* getSql();
+	std::vector<Player> getPlayers();
 
 	static int callback(void *NotUsed, int argc, char **argv, char **azColName);
 	void openConnection();

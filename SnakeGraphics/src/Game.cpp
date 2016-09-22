@@ -550,6 +550,11 @@ void Game::endGamePage(int score, int difficulty)
 					level = "easy";
 
 				sql.insert(Player(inputText, score,level));
+
+				//select top 5 with the same level
+				sql.select(level);
+				sql.getPlayers();
+				//print players
 			}
 
 			if (e.type == SDL_QUIT)
