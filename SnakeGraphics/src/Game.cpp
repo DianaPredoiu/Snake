@@ -24,6 +24,7 @@ Game::Game()
 	mediumGameButton = new Button(medium, 270, 400, 200, 50);
 	hardGameButton = new Button(hard, 270, 500, 200, 50);
 	backToMenuButton = new Button(back, 50, 50, 50, 50);
+	viewScoresButton = new Button(viewScores,295,500 , 200, 50);
 
 	background = nullptr;
 
@@ -122,6 +123,22 @@ void Game::loadWindowAboutBackground()
 	background = nullptr;
 }
 
+void Game::loadWindowScoresBackground()
+{
+	delete background;
+	SDL_RenderClear(renderer);
+	// get the path to the img source folder
+	std::string p = FOO;
+	// and attach the img folder to the project source path
+	p.append("/sarpe/snake-scores.png");
+	// load img and print on window
+	background = IMG_LoadTexture(renderer, p.c_str());
+
+	SDL_RenderCopy(renderer, background, NULL, NULL);
+	//delete background;
+	background = nullptr;
+}
+
 void Game::loadWindowEndGameBackground()
 {
 	SDL_RenderClear(renderer);
@@ -172,6 +189,7 @@ void Game::loadTextures()
 	hardGameTexture.loadFromFile("hardGame.png", renderer);
 	backToMenuTexture.loadFromFile("back.png", renderer);
 	aboutTexture.loadFromFile("about.png", renderer);
+	viewScoresTexture.loadFromFile("scores.png", renderer);
 }
 
 
@@ -388,6 +406,7 @@ void Game::startGamePage()
 		loadWindowStartGameBackground();
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, aboutTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, viewScoresTexture.GetTexture(), NULL, &viewScoresButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
 		while (SDL_WaitEvent(&e) != 0)
@@ -397,6 +416,8 @@ void Game::startGamePage()
 				chooseLevelPage();
 			if (aboutButton->isPressed(e))
 				aboutPage();
+			if (viewScoresButton->isPressed(e))
+				scoresPage();
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
@@ -438,6 +459,25 @@ void Game::aboutPage()
 	if (working)
 	{
 		loadWindowAboutBackground();
+		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+
+		SDL_RenderPresent(renderer);
+
+		while (SDL_WaitEvent(&e) != 0)
+		{
+			if (backToMenuButton->isPressed(e))
+				startGamePage();
+			if (e.type == SDL_QUIT)
+				SDL_Quit();
+		}
+	}
+}
+
+void Game::scoresPage()
+{
+	if (working)
+	{
+		loadWindowScoresBackground();
 		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		SDL_RenderPresent(renderer);

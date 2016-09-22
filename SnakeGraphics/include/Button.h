@@ -10,7 +10,8 @@ enum ButtonActions
 	medium,
 	hard,
 	addScore,
-	back
+	back,
+	viewScores
 };
 
 class Button

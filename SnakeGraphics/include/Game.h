@@ -47,6 +47,7 @@ private:
 	Texture mediumGameTexture;
 	Texture hardGameTexture;
 	Texture backToMenuTexture;
+	Texture viewScoresTexture;
 
 
 	std::map<char, SDL_Texture*> textures;
@@ -63,6 +64,7 @@ private:
 	Button* mediumGameButton;
 	Button* hardGameButton;
 	Button* backToMenuButton;
+	Button* viewScoresButton;
 
 
 public:
@@ -75,10 +77,12 @@ public:
 	void loadWindowStartGameBackground();
 	void loadWindowEndGameBackground();
 	void loadWindowAboutBackground();
+	void loadWindowScoresBackground();
 
 	void startGamePage();
 	void chooseLevelPage();
 	void aboutPage();
+	void scoresPage();
 	void executeGame(int difficulty);
 	void endGamePage(int score, int difficulty);
 
