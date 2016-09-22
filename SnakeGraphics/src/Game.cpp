@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "Presets.h"
 #include "SQLite.h"
+#include <Player.h>
 
 Game::Game()
 {
@@ -477,10 +478,23 @@ void Game::scoresPage()
 {
 	if (working)
 	{
+		SQLite sql;
+
 		loadWindowScoresBackground();
 		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		SDL_RenderPresent(renderer);
+
+		sql.select("easy");
+		std::vector<Player> easyPlayers=sql.getPlayers();
+
+		sql.select("medium");
+		std::vector<Player> mediumPlayers = sql.getPlayers();
+
+		sql.select("hard");
+		std::vector<Player> hardPlayers = sql.getPlayers();
+
+		//print players
 
 		while (SDL_WaitEvent(&e) != 0)
 		{

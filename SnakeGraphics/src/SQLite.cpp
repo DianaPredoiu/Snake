@@ -91,6 +91,7 @@ void SQLite::insert(Player player)
 void SQLite::select(std::string level)
 {
 	openConnection();
+	players.clear();
 	std::string select = "SELECT * FROM players where LEVEL= '" + level + "' order by score desc limit 5;";
 	sql = new char[select.length() + 1];
 	strcpy(sql, select.c_str());
