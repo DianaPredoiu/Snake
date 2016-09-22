@@ -11,10 +11,16 @@
 #include <map>
 #include <Timer.h>
 #include "Button.h"
+#include "SDL_mixer.h"
 
 class Game{
 
 private:
+
+	Uint32 wav_length; // length of our sample
+	Uint8 *wav_buffer; // buffer containing our audio file
+	SDL_AudioSpec wav_spec; // the specs of our piece of music
+
 
 	bool working;
 	int score;
@@ -114,6 +120,8 @@ public:
 	void populateHardLevelPlayers();
 
 	int tailDirection(GameMap &game);
+
+	void loadSound(std::string file);
 
 	~Game();
 	

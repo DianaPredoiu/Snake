@@ -4,6 +4,9 @@
 #include "SQLite.h"
 #include <Player.h>
 
+Uint8 *audio_pos; // global pointer to the audio buffer to be played
+Uint32 audio_len; // remaining length of the sample we have to play
+
 Game::Game()
 {
 	working = init();
@@ -44,6 +47,20 @@ Game::Game()
 	step = 50;
 }
 
+void my_audio_callback(void *userdata, Uint8 *stream, int len) 
+{
+
+	if (audio_len == 0)
+		return;
+
+	len = (len > audio_len ? audio_len : len);
+	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
+	SDL_MixAudio(stream, audio_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
+
+	audio_pos += len;
+	audio_len -= len;
+}
+
 bool Game::init()
 {
 	screenSurface = NULL;
@@ -51,7 +68,7 @@ bool Game::init()
 	bool success = true;
 
 	//Initialize SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		std::cout << "SDL could not initialize! SDL Error: \n" << SDL_GetError();
 		success = false;
@@ -74,6 +91,21 @@ bool Game::init()
 	}
 
 	return success;
+}
+
+void Game::loadSound(std::string file)
+{
+	/* Load the WAV */
+	// the specs, length and buffer of our wav are filled
+	if (SDL_LoadWAV(file.c_str(), &wav_spec, &wav_buffer, &wav_length) != NULL){
+
+		// set the callback function
+		wav_spec.callback = my_audio_callback;
+		wav_spec.userdata = NULL;
+		// set our global static variables
+		audio_pos = wav_buffer; // copy sound buffer
+		audio_len = wav_length; // copy file length
+	}
 }
 
 #pragma region loading textures
@@ -280,15 +312,55 @@ void Game::displaySnake(GameMap &game, int difficulty)
 	if (game.getBonus().getState())
 	{
 		displayItem(game.getBonus().getCoordinates().getX(), game.getBonus().getCoordinates().getY(), 'B');
+		if (game.getBonus().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
+			&& game.getBonus().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
+		{
+			std::string p = FOO;
+			p.append("/sound/bonus.wav");
+			loadSound(p);
+			if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+			{
+				SDL_PauseAudio(0);
+				SDL_Delay(500);
+			}
+			SDL_CloseAudio();
+		}
 	}
 	else if (game.getSurprise().getState())
 	{
 		displayItem(game.getSurprise().getCoordinates().getX(), game.getSurprise().getCoordinates().getY(), '?');
+		if (game.getSurprise().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
+			&& game.getSurprise().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
+		{
+			std::string p = FOO;
+			p.append("/sound/surprise.wav");
+			loadSound(p);
+			if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+			{
+				SDL_PauseAudio(0);
+				SDL_Delay(500);
+			}
+			SDL_CloseAudio();
+		}
 	}
 	else if (game.getFood().getState())
 	{
 		game.addFood();
 		displayItem(game.getFood().getCoordinates().getX(), game.getFood().getCoordinates().getY(), 'F');
+
+		if (game.getFood().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
+			&& game.getFood().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
+		{
+			std::string p = FOO;
+			p.append("/sound/bite.wav");
+			loadSound(p);
+			if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+			{
+				SDL_PauseAudio(0);
+				SDL_Delay(500);
+			}
+			SDL_CloseAudio();
+		}
 	}
 
 }
@@ -403,15 +475,36 @@ void Game::startGamePage()
 		SDL_RenderCopyEx(renderer, buttons["scores"], NULL, &viewScoresButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
+		std::string p = FOO;
+		p.append("/sound/beat.wav");
+		loadSound(p);
+		if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+		{
+			SDL_PauseAudio(0);
+		}
+
 		while (SDL_WaitEvent(&e) != 0)
 		{
 			//when an event appears i check what button is pressed :  new game, load game or quit game
+
 			if (newGameButton->isPressed(e))
+			{
+				SDL_CloseAudio();
 				chooseLevelPage();
+
+			}
 			if (aboutButton->isPressed(e))
+			{
+				SDL_CloseAudio();
 				aboutPage();
+
+			}
 			if (viewScoresButton->isPressed(e))
+			{
+				SDL_CloseAudio();
 				scoresPage();
+
+			}
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
@@ -645,6 +738,11 @@ void Game::executeGame(int difficulty)
 	}
 	else
 	{
+
+		std::string p = FOO;
+		p.append("/sound/over_.wav");
+		loadSound(p);
+
 		loadWindowGameBackground();
 		displaySnake(game, difficulty);
 		displayGameDetails(game, positions);
@@ -683,6 +781,13 @@ void Game::executeGame(int difficulty)
 				{
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
+					
+					if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+					{
+						SDL_PauseAudio(0);
+						SDL_Delay(500);
+					}
+					SDL_CloseAudio();
 					endGamePage(game.getScore(), difficulty);
 				}
 			}
@@ -699,6 +804,13 @@ void Game::executeGame(int difficulty)
 				{
 					std::cout << "GAME OVER!" << std::endl;
 					working = false;
+					
+					if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+					{
+						SDL_PauseAudio(0);
+						SDL_Delay(500);
+					}
+					SDL_CloseAudio();
 					endGamePage(game.getScore(), difficulty);
 				}
 			}
@@ -706,6 +818,14 @@ void Game::executeGame(int difficulty)
 			{
 				std::cout << "GAME OVER!" << std::endl;
 				working = false;
+				
+				if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+				{
+					SDL_PauseAudio(0);
+					
+				}
+				SDL_Delay(500);
+				SDL_CloseAudio();
 				endGamePage(game.getScore(), difficulty);
 			}
 
