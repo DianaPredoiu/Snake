@@ -74,6 +74,7 @@ public:
 	void loadWindowGameBackground();
 	void loadWindowStartGameBackground();
 	void loadWindowEndGameBackground();
+	void loadWindowAboutBackground();
 
 	void startGamePage();
 	void chooseLevelPage();

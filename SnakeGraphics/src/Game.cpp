@@ -106,6 +106,22 @@ void Game::loadWindowStartGameBackground()
 	background = nullptr;
 }
 
+void Game::loadWindowAboutBackground()
+{
+	delete background;
+	SDL_RenderClear(renderer);
+	// get the path to the img source folder
+	std::string p = FOO;
+	// and attach the img folder to the project source path
+	p.append("/sarpe/snake-about.png");
+	// load img and print on window
+	background = IMG_LoadTexture(renderer, p.c_str());
+
+	SDL_RenderCopy(renderer, background, NULL, NULL);
+	//delete background;
+	background = nullptr;
+}
+
 void Game::loadWindowEndGameBackground()
 {
 	SDL_RenderClear(renderer);
@@ -421,7 +437,7 @@ void Game::aboutPage()
 {
 	if (working)
 	{
-		loadWindowStartGameBackground();
+		loadWindowAboutBackground();
 		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		SDL_RenderPresent(renderer);
