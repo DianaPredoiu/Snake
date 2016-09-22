@@ -16,6 +16,7 @@ set(HEADERS
 	include/Button.h
 	include/SQLite.h
 	include/sqlite3.h
+	include/SDL_mixer.h
   )
   
 set(SOURCES
@@ -59,6 +60,7 @@ ${PROJECT_NAME}
 	SDL2_image
 	SDL2_ttf
 	Snake
+	SDL2.lib
 	
 )
 
