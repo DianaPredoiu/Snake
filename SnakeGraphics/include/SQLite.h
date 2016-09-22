@@ -14,6 +14,8 @@ private:
 	const char* data = "Callback function called";
 
 public:
+	SQLite();
+
 	sqlite3* getDB();
 	char* getErrMsg();
 	int getRc();
@@ -24,5 +26,7 @@ public:
 	void execute();
 	void insert(Player player);
 	void select();
+
+	~SQLite();
 
 };

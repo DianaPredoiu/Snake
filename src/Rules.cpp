@@ -183,3 +183,8 @@ bool Rules::continuousMovement()
 }
 
 #pragma endregion 
+
+Rules::~Rules()
+{
+
+}

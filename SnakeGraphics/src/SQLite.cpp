@@ -5,6 +5,11 @@
 
 std::vector<Player> players;
 
+SQLite::SQLite()
+{
+
+}
+
 sqlite3* SQLite::getDB()
 {
 	return db;
@@ -83,3 +88,7 @@ void SQLite::select()
 	execute();
 }
 
+SQLite::~SQLite()
+{
+
+}

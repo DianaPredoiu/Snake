@@ -31,12 +31,12 @@ void SymbolTranslation::ConvertToTextureFromSymbol()
 		}
 		case 'B':
 		{
-			texture.loadFromFile("bonus.png", renderer);
+			texture.loadFromFile("bonus2.png", renderer);
 			break;
 		}
 		case '?':
 		{
-			texture.loadFromFile("surprise.png", renderer);
+			texture.loadFromFile("surprise2.png", renderer);
 			break;
 		}
 		case 'H':
@@ -56,5 +56,9 @@ void SymbolTranslation::ConvertToTextureFromSymbol()
 		}
 		default: break;
 	}
-	//return texture;
+}
+
+SymbolTranslation::~SymbolTranslation()
+{
+	delete renderer;
 }

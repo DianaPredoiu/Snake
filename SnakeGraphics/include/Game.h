@@ -21,12 +21,20 @@ private:
 	int step;
 	int delay;
 
+	std::string scoreText;
+	std::string inputText;
+	SDL_Event e;
+
 	SDL_Surface* screenSurface;
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
 	SDL_Texture* background;
+
+	Texture displayScoreTexture;
+	Texture inputTextTexture;
+	Texture displayTop3;
 
 	Texture scoreTexture;
 	Texture bonusTexture;

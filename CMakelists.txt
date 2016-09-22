@@ -18,7 +18,6 @@ set(HEADERS
 	include/Snake.h
 	include/Rules.h
 	include/DLLExportOptions.h
-	include/Directions.h
 	include/Command.h
 	include/MoveUp.h
 	include/MoveLeft.h

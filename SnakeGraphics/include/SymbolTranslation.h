@@ -20,4 +20,6 @@ public:
 
 	// Texture management depending on given symbol
 	void ConvertToTextureFromSymbol();
+
+	~SymbolTranslation();
 };

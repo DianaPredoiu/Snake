@@ -28,6 +28,17 @@ Game::Game()
 	background = nullptr;
 
 	step = 50;
+
+	scoreTexture.setPath("/sarpe/BuxtonSketch.ttf");
+	inputTextTexture.setPath("/sarpe/BuxtonSketch.ttf");
+	displayTop3.setPath("/sarpe/BuxtonSketch.ttf");
+
+	scoreTexture.init();
+	inputTextTexture.init();
+	displayTop3.init();
+
+	scoreText = " ";
+	inputText = " ";
 }
 
 bool Game::init()
@@ -353,7 +364,7 @@ void Game::printRectTextColored(Texture textureName, int x, int y, int angle, in
 
 void Game::startGamePage()
 {
-	SDL_Event e;
+	//SDL_Event e;
 	if (working)
 	{
 		//here i display all the buttons which must be in the start page
@@ -380,7 +391,7 @@ void Game::startGamePage()
 
 void Game::chooseLevelPage()
 {
-	SDL_Event e;
+	//SDL_Event e;
 	if (working)
 	{
 		//here i display all the buttons which must be in the start page
@@ -411,7 +422,7 @@ void Game::chooseLevelPage()
 
 void Game::aboutPage()
 {
-	SDL_Event e;
+	//SDL_Event e;
 	if (working)
 	{
 		//here i display out details
@@ -436,22 +447,13 @@ void Game::aboutPage()
 void Game::endGamePage(int score)
 {
 	SQLite sql;
-	
-	Texture scoreTexture, inputTextTexture;
-	scoreTexture.setPath("/sarpe/BuxtonSketch.ttf");
-	inputTextTexture.setPath("/sarpe/BuxtonSketch.ttf");
-
-	scoreTexture.init();
-	inputTextTexture.init();
-
-	std::string scoreText = " ";
-	std::string inputText = " ";
+	scoreText = " ";
+	inputText = " ";
 	scoreText.append(std::to_string(score));
 
 	newGameButton->setCoordinates(290, 700);
 	addScoreButton->setCoordinates(290, 325);
 
-	SDL_Event e;
 	if (!working)
 	{
 		//here i display all the buttons which must be in the start page
@@ -460,7 +462,7 @@ void Game::endGamePage(int score)
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
-		scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
+		displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
 		printText(scoreTexture, 290, 210, 0, 50, 50);
 
 		inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
@@ -516,7 +518,7 @@ void Game::endGamePage(int score)
 				SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
-				scoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
+				displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
 				printText(scoreTexture, 290, 210, 0, 50, 50);
 
 				inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);

@@ -19,4 +19,6 @@ public:
 	bool isOutOfBounds();
 
 	bool continuousMovement();
+
+	~Rules();
 };
