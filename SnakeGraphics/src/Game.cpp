@@ -84,7 +84,7 @@ void Game::loadWindowGameBackground()
 	if (background == nullptr)
 		background = IMG_LoadTexture(renderer, p.c_str());
 
-	while (SDL_RenderCopy(renderer, background, NULL, NULL)==-1)
+	while (SDL_RenderCopy(renderer, background, NULL, NULL) == -1)
 	{
 		background = IMG_LoadTexture(renderer, p.c_str());
 	}
@@ -153,7 +153,7 @@ void Game::loadTextures()
 	addScoreTexture.loadFromFile("addScore.png", renderer);
 	easyGameTexture.loadFromFile("easyGame.png", renderer);
 	mediumGameTexture.loadFromFile("mediumGame.png", renderer);
-	hardGameTexture.loadFromFile("hardGame.png", renderer); 
+	hardGameTexture.loadFromFile("hardGame.png", renderer);
 	backToMenuTexture.loadFromFile("back.png", renderer);
 	aboutTexture.loadFromFile("about.png", renderer);
 }
@@ -169,7 +169,7 @@ void Game::displayItem(int x, int y, char c)
 		break;
 	case 'B':
 		printImage('B', x * step + 10, y * step + 10, 0); \
-		break;
+			break;
 	case '?':
 		printImage('?', x * step + 10, y * step + 10, 0);
 		break;
@@ -391,14 +391,11 @@ void Game::startGamePage()
 
 void Game::chooseLevelPage()
 {
-	//SDL_Event e;
 	if (working)
 	{
-		//here i display all the buttons which must be in the start page
-
 		loadWindowStartGameBackground();
-		//SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		//SDL_RenderCopyEx(renderer, aboutTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+
+		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, easyGameTexture.GetTexture(), NULL, &easyGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, mediumGameTexture.GetTexture(), NULL, &mediumGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, hardGameTexture.GetTexture(), NULL, &hardGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
@@ -406,41 +403,36 @@ void Game::chooseLevelPage()
 
 		while (SDL_WaitEvent(&e) != 0)
 		{
-			//when an event appears i check what button is pressed :  new game, load game or quit game
 			if (easyGameButton->isPressed(e))
 				executeGame(300);
 			if (mediumGameButton->isPressed(e))
 				executeGame(200);
 			if (hardGameButton->isPressed(e))
 				executeGame(50);
-			if (e.type == SDL_QUIT)
-				SDL_Quit();
-		}
-
-	}
-}
-
-void Game::aboutPage()
-{
-	//SDL_Event e;
-	if (working)
-	{
-		//here i display out details
-
-		loadWindowStartGameBackground();
-		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		//SDL_RenderCopyEx(renderer, aboutTexture.GetTexture(), NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
-		SDL_RenderPresent(renderer);
-
-		while (SDL_WaitEvent(&e) != 0)
-		{
-			//when an event appears i check what button is pressed :  new game, load game or quit game
 			if (backToMenuButton->isPressed(e))
 				startGamePage();
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
+	}
+}
 
+void Game::aboutPage()
+{
+	if (working)
+	{
+		loadWindowStartGameBackground();
+		SDL_RenderCopyEx(renderer, backToMenuTexture.GetTexture(), NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+
+		SDL_RenderPresent(renderer);
+
+		while (SDL_WaitEvent(&e) != 0)
+		{
+			if (backToMenuButton->isPressed(e))
+				startGamePage();
+			if (e.type == SDL_QUIT)
+				SDL_Quit();
+		}
 	}
 }
 
@@ -456,8 +448,6 @@ void Game::endGamePage(int score)
 
 	if (!working)
 	{
-		//here i display all the buttons which must be in the start page
-
 		loadWindowEndGameBackground();
 		SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
@@ -473,47 +463,45 @@ void Game::endGamePage(int score)
 		SDL_StartTextInput();
 		while (SDL_WaitEvent(&e) != 0)
 		{
-			//when an event appears i check what button is pressed :  new game, load game or quit game
 			if (e.type == SDL_KEYDOWN && inputText.size() < 15)
 			{
 				//Handle backspace
 				if (e.key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0)
 				{
-					//lop off character
 					inputText.pop_back();
 				}
+				//handle copy
 				else if (e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL)
 				{
 					SDL_SetClipboardText(inputText.c_str());
 				}
+				//handle paste
 				else if (e.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL)
 				{
 					inputText = SDL_GetClipboardText();
 				}
+				//If the key is a blank space
 				if (e.key.keysym.sym == (Uint16)' ')
 				{
-					//Append the character
 					inputText += (char)e.key.keysym.sym;
 				}
+				//If the key is a number
 				else if ((e.key.keysym.sym >= (Uint16)'0') && (e.key.keysym.sym <= (Uint16)'9'))
 				{
-					//Append the character
 					inputText += (char)e.key.keysym.sym;
 				}
 				//If the key is a uppercase letter
 				else if ((e.key.keysym.sym >= (Uint16)'A') && (e.key.keysym.sym <= (Uint16)'Z'))
 				{
-					//Append the character
 					inputText += (char)e.key.keysym.sym;
 				}
 				//If the key is a lowercase letter
 				else if ((e.key.keysym.sym >= (Uint16)'a') && (e.key.keysym.sym <= (Uint16)'z'))
 				{
-					//Append the character
 					inputText += (char)e.key.keysym.sym;
 				}
 
-				
+
 				loadWindowEndGameBackground();
 				SDL_RenderCopyEx(renderer, newGameTexture.GetTexture(), NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 				SDL_RenderCopyEx(renderer, addScoreTexture.GetTexture(), NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
