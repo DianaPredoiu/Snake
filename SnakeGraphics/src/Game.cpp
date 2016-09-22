@@ -7,7 +7,9 @@
 Game::Game()
 {
 	working = init();
-	loadTextures();
+	loadItemTextures();
+	loadButtonTextures();
+	loadBackgroundTextures();
 
 	//delay = 500;
 
@@ -26,9 +28,7 @@ Game::Game()
 	mediumGameButton = new Button(medium, 270, 400, 200, 50);
 	hardGameButton = new Button(hard, 270, 500, 200, 50);
 	backToMenuButton = new Button(back, 50, 50, 50, 50);
-	
 
-	background = nullptr;
 
 	step = 50;
 
@@ -83,86 +83,37 @@ bool Game::init()
 void Game::loadWindowGameBackground()
 {
 	SDL_RenderClear(renderer);
-	// get the path to the img source folder
-	std::string p = FOO;
-	// and attach the img folder to the project source path
-	p.append("/sarpe/grass.png");
-	// load img and print on window
-	if (background == nullptr)
-		background = IMG_LoadTexture(renderer, p.c_str());
-
-	while (SDL_RenderCopy(renderer, background, NULL, NULL) == -1)
-	{
-		background = IMG_LoadTexture(renderer, p.c_str());
-	}
+	SDL_RenderCopy(renderer, backgroundPlayGame, NULL, NULL);
 }
 
 void Game::loadWindowStartGameBackground()
 {
-	delete background;
 	SDL_RenderClear(renderer);
-	// get the path to the img source folder
-	std::string p = FOO;
-	// and attach the img folder to the project source path
-	p.append("/sarpe/snake-start.png");
-	// load img and print on window
-	background = IMG_LoadTexture(renderer, p.c_str());
-
-	SDL_RenderCopy(renderer, background, NULL, NULL);
-	//delete background;
-	background = nullptr;
+	SDL_RenderCopy(renderer, backgroundStartGame, NULL, NULL);
 }
 
 void Game::loadWindowAboutBackground()
 {
-	delete background;
 	SDL_RenderClear(renderer);
-	// get the path to the img source folder
-	std::string p = FOO;
-	// and attach the img folder to the project source path
-	p.append("/sarpe/snake-about.png");
-	// load img and print on window
-	background = IMG_LoadTexture(renderer, p.c_str());
-
-	SDL_RenderCopy(renderer, background, NULL, NULL);
-	//delete background;
-	background = nullptr;
+	SDL_RenderCopy(renderer, backgroundAbout, NULL, NULL);
 }
 
 void Game::loadWindowScoresBackground()
 {
-	delete background;
 	SDL_RenderClear(renderer);
-	// get the path to the img source folder
-	std::string p = FOO;
-	// and attach the img folder to the project source path
-	p.append("/sarpe/snake-scores2.png");
-	// load img and print on window
-	background = IMG_LoadTexture(renderer, p.c_str());
-
-	SDL_RenderCopy(renderer, background, NULL, NULL);
-	//delete background;
-	background = nullptr;
+	SDL_RenderCopy(renderer, backgroundScore, NULL, NULL);
 }
 
 void Game::loadWindowEndGameBackground()
 {
 	SDL_RenderClear(renderer);
-	// get the path to the img source folder
-	std::string p = FOO;
-	// and attach the img folder to the project source path
-	p.append("/sarpe/snake-end2.png");
-	// load img and print on window
-	background = IMG_LoadTexture(renderer, p.c_str());
+	SDL_RenderCopy(renderer, backgroundEndGame, NULL, NULL);
 
-	SDL_RenderCopy(renderer, background, NULL, NULL);
-	//delete background;
-	background = nullptr;
 }
 
 // using the class that converts from a given symbol to a specific 
 // texture we load a map of textures for the game
-void Game::loadTextures()
+void Game::loadItemTextures()
 {
 	SymbolTranslation* capSym = new SymbolTranslation('H', renderer);
 	capSym->ConvertToTextureFromSymbol();
@@ -188,14 +139,62 @@ void Game::loadTextures()
 	surpriseSym->ConvertToTextureFromSymbol();
 	textures['?'] = surpriseSym->GetTexture();
 
+}
+
+void Game::loadButtonTextures()
+{
 	newGameTexture.loadFromFile("newGame.png", renderer);
+	backgrounds["newGame"] = newGameTexture.GetTexture();
+
 	addScoreTexture.loadFromFile("addScore.png", renderer);
+	backgrounds["addScore"] = addScoreTexture.GetTexture();
+
 	easyGameTexture.loadFromFile("easyGame.png", renderer);
+	backgrounds["easy"] = easyGameTexture.GetTexture();
+
 	mediumGameTexture.loadFromFile("mediumGame.png", renderer);
+	backgrounds["medium"] = mediumGameTexture.GetTexture();
+
 	hardGameTexture.loadFromFile("hardGame.png", renderer);
+	backgrounds["hard"] = hardGameTexture.GetTexture();
+
 	backToMenuTexture.loadFromFile("back.png", renderer);
+	backgrounds["back"] = backToMenuTexture.GetTexture();
+
 	aboutTexture.loadFromFile("about.png", renderer);
+	backgrounds["about"] = aboutTexture.GetTexture();
+
 	viewScoresTexture.loadFromFile("scores.png", renderer);
+	backgrounds["scores"] = viewScoresTexture.GetTexture();
+}
+
+void Game::loadBackgroundTextures()
+{
+	std::string p;
+
+	p = FOO;
+	p.append("/sarpe/grass.png");
+	backgroundPlayGame = IMG_LoadTexture(renderer, p.c_str());
+
+	p = FOO;
+	p.append("/sarpe/snake-start.png");
+	backgroundStartGame = IMG_LoadTexture(renderer, p.c_str());
+
+	p = FOO;
+	p.append("/sarpe/snake-start.png");
+	backgroundChooseLevel = IMG_LoadTexture(renderer, p.c_str());
+
+	p = FOO;
+	p.append("/sarpe/snake-end2.png");
+	backgroundEndGame = IMG_LoadTexture(renderer, p.c_str());
+
+	p = FOO;
+	p.append("/sarpe/snake-scores2.png");
+	backgroundScore = IMG_LoadTexture(renderer, p.c_str());
+
+	p = FOO;
+	p.append("/sarpe/snake-about.png");
+	backgroundAbout = IMG_LoadTexture(renderer, p.c_str());
 }
 
 
@@ -499,7 +498,7 @@ void Game::scoresPage()
 
 		SDL_RenderPresent(renderer);
 
-		
+
 
 		//print players
 
@@ -549,9 +548,11 @@ void Game::endGamePage(int score, int difficulty)
 					firstchar = false;
 				}
 				//Handle backspace
-				if (e.key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0)
+				if (e.key.keysym.sym == SDLK_BACKSPACE && inputText.empty() == false)
 				{
 					inputText.pop_back();
+					if (inputText.empty() == true)
+						inputText += " ";
 				}
 				//handle copy
 				else if (e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL)
@@ -611,12 +612,12 @@ void Game::endGamePage(int score, int difficulty)
 				if (difficulty == HARDLEVEL)
 					level = "hard";
 				else
-				if (difficulty == MEDIUMLEVEL)
-					level = "medium";
-				else
-					level = "easy";
+					if (difficulty == MEDIUMLEVEL)
+						level = "medium";
+					else
+						level = "easy";
 
-				sql.insert(Player(inputText, score,level));
+				sql.insert(Player(inputText, score, level));
 
 				//select top 5 with the same level
 				sql.select(level);
@@ -688,7 +689,7 @@ void Game::executeGame(int difficulty)
 				{
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
-					endGamePage(game.getScore(),difficulty);
+					endGamePage(game.getScore(), difficulty);
 				}
 			}
 
@@ -704,14 +705,14 @@ void Game::executeGame(int difficulty)
 				{
 					std::cout << "GAME OVER!" << std::endl;
 					working = false;
-					endGamePage(game.getScore(),difficulty);
+					endGamePage(game.getScore(), difficulty);
 				}
 			}
 			else
 			{
 				std::cout << "GAME OVER!" << std::endl;
 				working = false;
-				endGamePage(game.getScore(),difficulty);
+				endGamePage(game.getScore(), difficulty);
 			}
 
 
@@ -792,7 +793,13 @@ Game::~Game()
 
 	delete screenSurface;
 	delete window;
-	delete background;
 	delete renderer;
+
+	delete backgroundStartGame;
+	delete backgroundChooseLevel;
+	delete backgroundEndGame;
+	delete backgroundScore;
+	delete backgroundAbout;
+	delete backgroundPlayGame;
 }
 

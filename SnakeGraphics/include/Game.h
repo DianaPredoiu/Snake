@@ -30,7 +30,12 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-	SDL_Texture* background;
+	SDL_Texture* backgroundStartGame;
+	SDL_Texture* backgroundChooseLevel;
+	SDL_Texture* backgroundEndGame;
+	SDL_Texture* backgroundScore;
+	SDL_Texture* backgroundAbout;
+	SDL_Texture* backgroundPlayGame;
 
 	Texture displayScoreTexture;
 	Texture inputTextTexture;
@@ -53,6 +58,8 @@ private:
 
 
 	std::map<char, SDL_Texture*> textures;
+	std::map<std::string, SDL_Texture*> buttons;
+	std::map<std::string, SDL_Texture*> backgrounds;
 
 	InputHandler* inputHandler;
 
@@ -77,7 +84,9 @@ public:
 	Game();
 
 	bool init();
-	void loadTextures();
+	void loadItemTextures();
+	void loadButtonTextures();
+	void loadBackgroundTextures();
 
 	void loadWindowGameBackground();
 	void loadWindowStartGameBackground();

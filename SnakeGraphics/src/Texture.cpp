@@ -133,5 +133,5 @@ SDL_Texture* Texture::GetTexture()
 
 Texture::~Texture()
 {
-
+	
 }
