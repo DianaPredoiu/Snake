@@ -4,8 +4,18 @@
 #include "SQLite.h"
 #include <Player.h>
 
-Uint8 *audio_pos; // global pointer to the audio buffer to be played
-Uint32 audio_len; // remaining length of the sample we have to play
+#pragma region audio
+Uint8 *main_pos; 
+Uint32 main_len; 
+Uint8* food_pos;
+Uint32 food_len;
+Uint8* bonus_pos;
+Uint32 bonus_len;
+Uint8* surprise_pos;
+Uint32 surprise_len;
+Uint8* over_pos;
+Uint32 over_len;
+#pragma endregion
 
 Game::Game()
 {
@@ -45,22 +55,87 @@ Game::Game()
 	scoreText = " ";
 	inputText = " ";
 	step = 50;
+
+	loadMainSound();
+	loadFoodSound();
+	loadGameOverSound();
+	loadBonusSound();
+	loadSurpriseSound();
 }
 
-void my_audio_callback(void *userdata, Uint8 *stream, int len) 
+#pragma region callback
+
+void main_callback(void *userdata, Uint8 *stream, int len)
 {
 
-	if (audio_len == 0)
+	if (main_len == 0)
 		return;
 
-	len = (len > audio_len ? audio_len : len);
+	len = (len > main_len ? main_len : len);
 	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
-	SDL_MixAudio(stream, audio_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
+	SDL_MixAudio(stream, main_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
 
-	audio_pos += len;
-	audio_len -= len;
+	main_pos += len;
+	main_len -= len;
 }
 
+void food_callback(void *userdata, Uint8 *stream, int len)
+{
+
+	if (food_len == 0)
+		return;
+
+	len = (len > food_len ? food_len : len);
+	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
+	SDL_MixAudio(stream, food_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
+
+	food_pos += len;
+	food_len -= len;
+}
+
+void bonus_callback(void *userdata, Uint8 *stream, int len)
+{
+
+	if (bonus_len == 0)
+		return;
+
+	len = (len > bonus_len ? bonus_len : len);
+	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
+	SDL_MixAudio(stream, bonus_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
+
+	bonus_pos += len;
+	bonus_len -= len;
+}
+
+void surprise_callback(void *userdata, Uint8 *stream, int len)
+{
+
+	if (surprise_len == 0)
+		return;
+
+	len = (len >  surprise_len ? surprise_len : len);
+	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
+	SDL_MixAudio(stream, surprise_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
+
+	surprise_pos += len;
+	surprise_len -= len;
+}
+
+void over_callback(void *userdata, Uint8 *stream, int len)
+{
+
+	if (over_len == 0)
+		return;
+
+	len = (len > over_len ? over_len : len);
+	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
+	SDL_MixAudio(stream, over_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
+
+	over_pos += len;
+	over_len -= len;
+}
+
+#pragma endregion
 bool Game::init()
 {
 	screenSurface = NULL;
@@ -93,20 +168,95 @@ bool Game::init()
 	return success;
 }
 
-void Game::loadSound(std::string file)
+#pragma region loadSounds
+void Game::loadFoodSound()
 {
-	/* Load the WAV */
-	// the specs, length and buffer of our wav are filled
-	if (SDL_LoadWAV(file.c_str(), &wav_spec, &wav_buffer, &wav_length) != NULL){
+	std::string p = FOO;
+	std::string food = p + "/sound/food.wav";
+	foodSound = SDL_LoadWAV(food.c_str(), &food_spec, &food_buffer, &food_length);
 
+	if (foodSound != NULL)
+	{
 		// set the callback function
-		wav_spec.callback = my_audio_callback;
-		wav_spec.userdata = NULL;
+		food_spec.callback = food_callback;
+		food_spec.userdata = NULL;
 		// set our global static variables
-		audio_pos = wav_buffer; // copy sound buffer
-		audio_len = wav_length; // copy file length
+		food_pos = food_buffer; // copy sound buffer
+		food_len = food_length; // copy file length
+
+	}
+
+}
+
+void Game::loadMainSound()
+{
+	std::string p = FOO;
+	std::string main_ = p + "/sound/beat.wav";
+	mainSound = SDL_LoadWAV(main_.c_str(), &main_spec, &main_buffer, &main_length);
+
+	if (mainSound != NULL)
+	{
+		main_spec.callback = main_callback;
+		main_spec.userdata = NULL;
+		// set our global static variables
+		main_pos = main_buffer; // copy sound buffer
+		main_len = main_length; // copy file length
+
 	}
 }
+
+void Game::loadGameOverSound()
+{
+	std::string p = FOO;
+	p.append("/sound/over_.wav");
+	gameOverSound = SDL_LoadWAV(p.c_str(), &over_spec, &over_buffer, &over_length);
+
+	if (gameOverSound != NULL)
+	{
+		over_spec.callback = over_callback;
+		over_spec.userdata = NULL;
+		// set our global static variables
+		over_pos = over_buffer; // copy sound buffer
+		over_len = over_length; // copy file length
+
+	}
+}
+
+void Game::loadBonusSound()
+{
+	std::string p = FOO;
+	p.append("/sound/bonus.wav");
+	bonusSound = SDL_LoadWAV(p.c_str(), &bonus_spec, &bonus_buffer, &bonus_length);
+
+	if (bonusSound != NULL)
+	{
+		bonus_spec.callback = bonus_callback;
+		bonus_spec.userdata = NULL;
+		// set our global static variables
+		bonus_pos = bonus_buffer; // copy sound buffer
+		bonus_len = bonus_length; // copy file length
+
+	}
+}
+
+void Game::loadSurpriseSound()
+{
+	std::string p = FOO;
+	p.append("/sound/surprise.wav");
+	surpriseSound = SDL_LoadWAV(p.c_str(), &surprise_spec, &surprise_buffer, &surprise_length);
+
+	if (surpriseSound != NULL)
+	{
+		surprise_spec.callback = surprise_callback;
+		surprise_spec.userdata = NULL;
+		// set our global static variables
+		surprise_pos = surprise_buffer; // copy sound buffer
+		surprise_len = surprise_length; // copy file length
+
+	}
+}
+
+#pragma endregion
 
 #pragma region loading textures
 void Game::loadWindowGameBackground()
@@ -321,10 +471,8 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getBonus().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getBonus().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			std::string p = FOO;
-			p.append("/sound/bonus.wav");
-			loadSound(p);
-			if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+			int open = SDL_OpenAudio(bonusSound, NULL);
+			if (open == 0)
 			{
 				SDL_PauseAudio(0);
 				SDL_Delay(500);
@@ -338,10 +486,8 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getSurprise().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getSurprise().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			std::string p = FOO;
-			p.append("/sound/surprise.wav");
-			loadSound(p);
-			if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+			int open = SDL_OpenAudio(surpriseSound, NULL);
+			if (open == 0)
 			{
 				SDL_PauseAudio(0);
 				SDL_Delay(500);
@@ -357,13 +503,11 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getFood().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getFood().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			std::string p = FOO;
-			p.append("/sound/bite.wav");
-			loadSound(p);
-			if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+			int open = SDL_OpenAudio(foodSound, NULL);
+			if (open == 0)
 			{
 				SDL_PauseAudio(0);
-				//SDL_Delay(500);
+				SDL_Delay(500);
 			}
 			SDL_CloseAudio();
 		}
@@ -481,10 +625,8 @@ void Game::startGamePage()
 		SDL_RenderCopyEx(renderer, buttons["scores"], NULL, &viewScoresButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
-		std::string p = FOO;
-		p.append("/sound/beat.wav");
-		loadSound(p);
-		if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+		int open=SDL_OpenAudio(mainSound, NULL);
+		if (open == 0)
 		{
 			SDL_PauseAudio(0);
 		}
@@ -771,11 +913,6 @@ void Game::executeGame(int difficulty)
 	}
 	else
 	{
-
-		std::string p = FOO;
-		p.append("/sound/over_.wav");
-		loadSound(p);
-
 		loadWindowGameBackground();
 		displaySnake(game, difficulty);
 		displayGameDetails(game, positions);
@@ -820,7 +957,7 @@ void Game::executeGame(int difficulty)
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
 					
-					if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+					if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
 					{
 						SDL_PauseAudio(0);
 						SDL_Delay(500);
@@ -843,7 +980,7 @@ void Game::executeGame(int difficulty)
 					std::cout << "GAME OVER!" << std::endl;
 					working = false;
 					
-					if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+					if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
 					{
 						SDL_PauseAudio(0);
 						SDL_Delay(500);
@@ -857,7 +994,7 @@ void Game::executeGame(int difficulty)
 				std::cout << "GAME OVER!" << std::endl;
 				working = false;
 				
-				if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
+				if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
 				{
 					SDL_PauseAudio(0);
 					

@@ -17,9 +17,29 @@ class Game{
 
 private:
 
-	Uint32 wav_length; // length of our sample
-	Uint8 *wav_buffer; // buffer containing our audio file
-	SDL_AudioSpec wav_spec; // the specs of our piece of music
+	SDL_AudioSpec* foodSound;
+	SDL_AudioSpec* mainSound;
+	SDL_AudioSpec* bonusSound;
+	SDL_AudioSpec* surpriseSound;
+	SDL_AudioSpec* gameOverSound;
+
+	SDL_AudioSpec food_spec;
+	SDL_AudioSpec main_spec;
+	SDL_AudioSpec bonus_spec;
+	SDL_AudioSpec surprise_spec;
+	SDL_AudioSpec over_spec;
+
+	Uint32 food_length;
+	Uint32 main_length;
+	Uint32 bonus_length;
+	Uint32 surprise_length;
+	Uint32 over_length;
+
+	Uint8* food_buffer;
+	Uint8* main_buffer;
+	Uint8* bonus_buffer;
+	Uint8* surprise_buffer;
+	Uint8* over_buffer;
 
 
 	bool working;
@@ -123,7 +143,11 @@ public:
 
 	int tailDirection(GameMap &game);
 
-	void loadSound(std::string file);
+	void loadFoodSound();
+	void loadMainSound();
+	void loadGameOverSound();
+	void loadBonusSound();
+	void loadSurpriseSound();
 
 	~Game();
 	
