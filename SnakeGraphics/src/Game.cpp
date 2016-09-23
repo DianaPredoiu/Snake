@@ -3,10 +3,11 @@
 #include "Presets.h"
 #include "SQLite.h"
 #include <Player.h>
+#include <thread>
 
 #pragma region audio
-Uint8 *main_pos; 
-Uint32 main_len; 
+Uint8 *main_pos;
+Uint32 main_len;
 Uint8* food_pos;
 Uint32 food_len;
 Uint8* bonus_pos;
@@ -113,7 +114,7 @@ void surprise_callback(void *userdata, Uint8 *stream, int len)
 	if (surprise_len == 0)
 		return;
 
-	len = (len >  surprise_len ? surprise_len : len);
+	len = (len > surprise_len ? surprise_len : len);
 	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
 	SDL_MixAudio(stream, surprise_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
 
@@ -256,6 +257,47 @@ void Game::loadSurpriseSound()
 	}
 }
 
+void openMainSound(SDL_AudioSpec* mainSound)
+{
+	int open = SDL_OpenAudio(mainSound, NULL);
+	if (open == 0)
+	{
+		SDL_PauseAudio(0);
+	}
+}
+
+void openFoodSound(SDL_AudioSpec* foodSound)
+{
+	int open = SDL_OpenAudio(foodSound, NULL);
+	if (open == 0)
+	{
+		SDL_PauseAudio(0);
+	}
+	SDL_Delay(500);
+	SDL_CloseAudio();
+}
+
+void openBonusSound(SDL_AudioSpec* bonusSound)
+{
+	int open = SDL_OpenAudio(bonusSound, NULL);
+	if (open == 0)
+	{
+		SDL_PauseAudio(0);
+	}
+	SDL_Delay(500);
+	SDL_CloseAudio();
+}
+
+void openSurpriseSound(SDL_AudioSpec* surpriseSound)
+{
+	int open = SDL_OpenAudio(surpriseSound, NULL);
+	if (open == 0)
+	{
+		SDL_PauseAudio(0);
+	}
+	SDL_Delay(500);
+	SDL_CloseAudio();
+}
 #pragma endregion
 
 #pragma region loading textures
@@ -468,31 +510,23 @@ void Game::displaySnake(GameMap &game, int difficulty)
 	if (game.getBonus().getState())
 	{
 		displayItem(game.getBonus().getCoordinates().getX(), game.getBonus().getCoordinates().getY(), 'B');
+
 		if (game.getBonus().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getBonus().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			int open = SDL_OpenAudio(bonusSound, NULL);
-			if (open == 0)
-			{
-				SDL_PauseAudio(0);
-				SDL_Delay(500);
-			}
-			SDL_CloseAudio();
+			std::thread t(&openBonusSound, bonusSound);
+			t.detach();
 		}
 	}
 	else if (game.getSurprise().getState())
 	{
 		displayItem(game.getSurprise().getCoordinates().getX(), game.getSurprise().getCoordinates().getY(), '?');
+
 		if (game.getSurprise().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getSurprise().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			int open = SDL_OpenAudio(surpriseSound, NULL);
-			if (open == 0)
-			{
-				SDL_PauseAudio(0);
-				SDL_Delay(500);
-			}
-			SDL_CloseAudio();
+			std::thread t(&openSurpriseSound, surpriseSound);
+			t.detach();
 		}
 	}
 	else if (game.getFood().getState())
@@ -503,13 +537,8 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getFood().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getFood().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			int open = SDL_OpenAudio(foodSound, NULL);
-			if (open == 0)
-			{
-				SDL_PauseAudio(0);
-				SDL_Delay(500);
-			}
-			SDL_CloseAudio();
+			std::thread t(&openFoodSound, foodSound);
+			t.detach();
 		}
 	}
 
@@ -625,11 +654,16 @@ void Game::startGamePage()
 		SDL_RenderCopyEx(renderer, buttons["scores"], NULL, &viewScoresButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
-		int open=SDL_OpenAudio(mainSound, NULL);
-		if (open == 0)
-		{
-			SDL_PauseAudio(0);
-		}
+		//std::async(std::launch::async, openMainSound);
+		std::thread t(&openMainSound, mainSound);
+		t.detach();
+		//std::async([](SDL_AudioSpec* mainSound){
+		//	int open = SDL_OpenAudio(mainSound, NULL);
+		//	if (open == 0)
+		//	{
+		//		SDL_PauseAudio(0);
+		//	}});
+
 
 		while (SDL_WaitEvent(&e) != 0)
 		{
@@ -637,19 +671,19 @@ void Game::startGamePage()
 
 			if (newGameButton->isPressed(e))
 			{
-				SDL_CloseAudio();
+				//SDL_CloseAudio();
 				chooseLevelPage();
 
 			}
 			if (aboutButton->isPressed(e))
 			{
-				SDL_CloseAudio();
+				//SDL_CloseAudio();
 				aboutPage();
 
 			}
 			if (viewScoresButton->isPressed(e))
 			{
-				SDL_CloseAudio();
+				//SDL_CloseAudio();
 				scoresPage();
 
 			}
@@ -663,6 +697,9 @@ void Game::startGamePage()
 
 void Game::chooseLevelPage()
 {
+	std::thread t(&openMainSound, mainSound);
+	t.detach();
+
 	newGameButton->setCoordinates(295, 360);
 	aboutButton->setCoordinates(295, 430);
 	viewScoresButton->setCoordinates(295, 500);
@@ -695,6 +732,12 @@ void Game::chooseLevelPage()
 
 void Game::aboutPage()
 {
+	int open = SDL_OpenAudio(mainSound, NULL);
+	if (open == 0)
+	{
+		SDL_PauseAudio(0);
+	}
+
 	if (working)
 	{
 		loadWindowAboutBackground();
@@ -714,6 +757,12 @@ void Game::aboutPage()
 
 void Game::scoresPage()
 {
+	int open = SDL_OpenAudio(mainSound, NULL);
+	if (open == 0)
+	{
+		SDL_PauseAudio(0);
+	}
+
 	easyLevelPlayers = " ";
 	mediumLevelPlayers = " ";
 	hardLevelPlayers = " ";
@@ -749,6 +798,9 @@ void Game::scoresPage()
 
 void Game::endGamePage(int score, int difficulty)
 {
+	std::thread t(&openMainSound, mainSound);
+	t.detach();
+
 	SQLite sql;
 	scoreText = " ";
 	inputText = "player's name";
@@ -897,6 +949,8 @@ void Game::endGamePage(int score, int difficulty)
 
 void Game::executeGame(int difficulty)
 {
+	SDL_CloseAudio();
+
 	GameMap game(15, 15);
 	Rules rules(&game);
 	InputHandler *inputHandler;
@@ -956,7 +1010,7 @@ void Game::executeGame(int difficulty)
 				{
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
-					
+
 					if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
 					{
 						SDL_PauseAudio(0);
@@ -979,7 +1033,7 @@ void Game::executeGame(int difficulty)
 				{
 					std::cout << "GAME OVER!" << std::endl;
 					working = false;
-					
+
 					if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
 					{
 						SDL_PauseAudio(0);
@@ -993,11 +1047,11 @@ void Game::executeGame(int difficulty)
 			{
 				std::cout << "GAME OVER!" << std::endl;
 				working = false;
-				
+
 				if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
 				{
 					SDL_PauseAudio(0);
-					
+
 				}
 				SDL_Delay(500);
 				SDL_CloseAudio();
