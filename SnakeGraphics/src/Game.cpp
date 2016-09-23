@@ -610,6 +610,7 @@ void Game::endGamePage(int score, int difficulty)
 	SQLite sql;
 	scoreText = " ";
 	inputText = "player's name";
+	level = " ";
 	bool firstchar = true;
 	scoreText.append(std::to_string(score));
 
@@ -627,6 +628,37 @@ void Game::endGamePage(int score, int difficulty)
 
 		inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
 		printText(inputTextTexture, 100, 330);
+
+		switch (difficulty)
+		{
+		case EASYLEVEL:
+			level = "Level : EASY";
+			displayLevel.loadFromRenderedText(level, textColor, renderer);
+			printText(displayLevel, 75, 450);
+
+			populateEasyLevelPlayers();
+			displayTop5Easy.loadFromRenderedTextWrapped(easyLevelPlayers, textColor, renderer);
+			printTextScores(displayTop5Easy, 25, 485, 0, 200, 200);
+			break;
+		case MEDIUMLEVEL:
+			level = "Level : MEDIUM";
+			displayLevel.loadFromRenderedText(level, textColor, renderer);
+			printText(displayLevel, 75, 450);
+
+			populateMediumLevelPlayers();
+			displayTop5Medium.loadFromRenderedTextWrapped(mediumLevelPlayers, textColor, renderer);
+			printTextScores(displayTop5Medium, 25, 485, 0, 200, 200);
+			break;
+		case HARDLEVEL:
+			level = "Level : HARD";
+			displayLevel.loadFromRenderedText(level, textColor, renderer);
+			printText(displayLevel, 75, 450);
+
+			populateHardLevelPlayers();
+			displayTop5Hard.loadFromRenderedTextWrapped(hardLevelPlayers, textColor, renderer);
+			printTextScores(displayTop5Hard, 25, 485, 0, 200, 200);
+			break;
+		}
 
 		SDL_RenderPresent(renderer);
 
@@ -711,11 +743,6 @@ void Game::endGamePage(int score, int difficulty)
 						level = "easy";
 
 				sql.insert(Player(inputText, score, level));
-
-				//select top 5 with the same level
-				sql.select(level);
-				sql.getPlayers();
-				//print players
 			}
 
 			if (e.type == SDL_QUIT)
@@ -854,11 +881,12 @@ void Game::executeGame(int difficulty)
 }
 #pragma endregion
 
+#pragma  region populate levels
 
 void Game::populateEasyLevelPlayers()
 {
 	SQLite sql;
-
+	easyLevelPlayers = " ";
 	sql.select("easy");
 	std::vector<Player> easyPlayers = sql.getPlayers();
 	for (int i = 0; i < easyPlayers.size(); ++i)
@@ -874,7 +902,7 @@ void Game::populateEasyLevelPlayers()
 void Game::populateMediumLevelPlayers()
 {
 	SQLite sql;
-
+	mediumLevelPlayers = " ";
 	sql.select("medium");
 	std::vector<Player> mediumPlayers = sql.getPlayers();
 	for (int i = 0; i < mediumPlayers.size(); ++i)
@@ -890,7 +918,7 @@ void Game::populateMediumLevelPlayers()
 void Game::populateHardLevelPlayers()
 {
 	SQLite sql;
-
+	hardLevelPlayers = " ";
 	sql.select("hard");
 	std::vector<Player> hardPlayers = sql.getPlayers();
 	for (int i = 0; i < hardPlayers.size(); ++i)
@@ -902,6 +930,7 @@ void Game::populateHardLevelPlayers()
 		hardLevelPlayers += " ";
 	}
 }
+#pragma endregion
 
 Game::~Game()
 {

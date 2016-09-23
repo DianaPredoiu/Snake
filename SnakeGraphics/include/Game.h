@@ -48,6 +48,7 @@ private:
 	Texture displayTop5Easy;
 	Texture displayTop5Medium;
 	Texture displayTop5Hard;
+	Texture displayLevel;
 
 	Texture scoreTexture;
 	Texture bonusTexture;
@@ -84,6 +85,7 @@ private:
 	std::string easyLevelPlayers;
 	std::string mediumLevelPlayers;
 	std::string hardLevelPlayers;
+	std::string level;
 
 
 public:
