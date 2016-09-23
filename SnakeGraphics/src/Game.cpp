@@ -112,31 +112,31 @@ void Game::loadSound(std::string file)
 void Game::loadWindowGameBackground()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, backgroundPlayGame, NULL, NULL);
+	SDL_RenderCopy(renderer, backgrounds["playGame"], NULL, NULL);
 }
 
 void Game::loadWindowStartGameBackground()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, backgroundStartGame, NULL, NULL);
+	SDL_RenderCopy(renderer, backgrounds["startGame"], NULL, NULL);
 }
 
 void Game::loadWindowAboutBackground()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, backgroundAbout, NULL, NULL);
+	SDL_RenderCopy(renderer, backgrounds["about"], NULL, NULL);
 }
 
 void Game::loadWindowScoresBackground()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, backgroundScore, NULL, NULL);
+	SDL_RenderCopy(renderer, backgrounds["score"], NULL, NULL);
 }
 
 void Game::loadWindowEndGameBackground()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, backgroundEndGame, NULL, NULL);
+	SDL_RenderCopy(renderer, backgrounds["endGame"], NULL, NULL);
 
 }
 
@@ -202,26 +202,32 @@ void Game::loadBackgroundTextures()
 	p = FOO;
 	p.append("/sarpe/grass.png");
 	backgroundPlayGame = IMG_LoadTexture(renderer, p.c_str());
+	backgrounds["playGame"] = backgroundPlayGame;
 
 	p = FOO;
 	p.append("/sarpe/snake-start.png");
 	backgroundStartGame = IMG_LoadTexture(renderer, p.c_str());
+	backgrounds["startGame"] = backgroundStartGame;
 
 	p = FOO;
 	p.append("/sarpe/snake-start.png");
 	backgroundChooseLevel = IMG_LoadTexture(renderer, p.c_str());
+	backgrounds["chooseLevel"] = backgroundChooseLevel;
 
 	p = FOO;
 	p.append("/sarpe/snake-end2.png");
 	backgroundEndGame = IMG_LoadTexture(renderer, p.c_str());
+	backgrounds["endGame"] = backgroundEndGame;
 
 	p = FOO;
 	p.append("/sarpe/snake-scores2.png");
 	backgroundScore = IMG_LoadTexture(renderer, p.c_str());
+	backgrounds["score"] = backgroundScore;
 
 	p = FOO;
 	p.append("/sarpe/snake-about.png");
 	backgroundAbout = IMG_LoadTexture(renderer, p.c_str());
+	backgrounds["about"] = backgroundAbout;
 }
 #pragma endregion
 
@@ -357,7 +363,7 @@ void Game::displaySnake(GameMap &game, int difficulty)
 			if (SDL_OpenAudio(&wav_spec, NULL) >= 0)
 			{
 				SDL_PauseAudio(0);
-				SDL_Delay(500);
+				//SDL_Delay(500);
 			}
 			SDL_CloseAudio();
 		}
@@ -776,7 +782,12 @@ void Game::executeGame(int difficulty)
 				displaySnake(game, difficulty);
 				displayGameDetails(game, positions);
 				SDL_RenderPresent(renderer);
-
+				if (difficulty == EASYLEVEL)
+					Sleep(150);
+				else if (difficulty == MEDIUMLEVEL)
+					Sleep(100);
+				else if (difficulty == HARDLEVEL)
+					Sleep(50);
 				if (rules.isOutOfBounds() || working == false || rules.eatItself())
 				{
 					std::cout << "GAME OVER" << std::endl;
