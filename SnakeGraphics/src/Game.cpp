@@ -1092,5 +1092,9 @@ Game::~Game()
 	delete backgroundScore;
 	delete backgroundAbout;
 	delete backgroundPlayGame;
+
+	buttons.clear();
+	backgrounds.clear();
+	textures.clear();
 }
 
