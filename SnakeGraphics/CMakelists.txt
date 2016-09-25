@@ -60,8 +60,7 @@ ${PROJECT_NAME}
 	SDL2_image
 	SDL2_ttf
 	Snake
-	SDL2.lib
-	
+	SDL2_mixer
 )
 
 set_target_properties(SnakeGraphics PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
