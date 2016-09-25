@@ -17,30 +17,12 @@ class Game{
 
 private:
 
-	SDL_AudioSpec* foodSound;
-	SDL_AudioSpec* mainSound;
-	SDL_AudioSpec* bonusSound;
-	SDL_AudioSpec* surpriseSound;
-	SDL_AudioSpec* gameOverSound;
-
-	SDL_AudioSpec food_spec;
-	SDL_AudioSpec main_spec;
-	SDL_AudioSpec bonus_spec;
-	SDL_AudioSpec surprise_spec;
-	SDL_AudioSpec over_spec;
-
-	Uint32 food_length;
-	Uint32 main_length;
-	Uint32 bonus_length;
-	Uint32 surprise_length;
-	Uint32 over_length;
-
-	Uint8* food_buffer;
-	Uint8* main_buffer;
-	Uint8* bonus_buffer;
-	Uint8* surprise_buffer;
-	Uint8* over_buffer;
-
+	Mix_Chunk *foodSound;
+	Mix_Chunk *mainSound;
+	Mix_Chunk *bonusSound;
+	Mix_Chunk *surpriseSound;
+	Mix_Chunk *gameOverSound;
+	int currentChannel;
 
 	bool working;
 	int score;
@@ -112,6 +94,8 @@ public:
 	Game();
 
 	bool init();
+	void loadSounds();
+	void openSound(Mix_Chunk* sound);
 	void loadItemTextures();
 	void loadButtonTextures();
 	void loadBackgroundTextures();
@@ -142,14 +126,6 @@ public:
 	void populateHardLevelPlayers();
 
 	int tailDirection(GameMap &game);
-
-	void loadFoodSound();
-	void loadMainSound();
-	void loadGameOverSound();
-	void loadBonusSound();
-	void loadSurpriseSound();
-
-
 
 	~Game();
 	

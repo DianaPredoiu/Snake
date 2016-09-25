@@ -4,19 +4,7 @@
 #include "SQLite.h"
 #include <Player.h>
 #include <thread>
-
-#pragma region audio
-Uint8 *main_pos;
-Uint32 main_len;
-Uint8* food_pos;
-Uint32 food_len;
-Uint8* bonus_pos;
-Uint32 bonus_len;
-Uint8* surprise_pos;
-Uint32 surprise_len;
-Uint8* over_pos;
-Uint32 over_len;
-#pragma endregion
+#include "SDL_mixer.h"
 
 Game::Game()
 {
@@ -57,86 +45,10 @@ Game::Game()
 	inputText = " ";
 	step = 50;
 
-	loadMainSound();
-	loadFoodSound();
-	loadGameOverSound();
-	loadBonusSound();
-	loadSurpriseSound();
+	loadSounds();
+	currentChannel = 0;
 }
 
-#pragma region callback
-
-void main_callback(void *userdata, Uint8 *stream, int len)
-{
-
-	if (main_len == 0)
-		return;
-
-	len = (len > main_len ? main_len : len);
-	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
-	SDL_MixAudio(stream, main_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
-
-	main_pos += len;
-	main_len -= len;
-}
-
-void food_callback(void *userdata, Uint8 *stream, int len)
-{
-
-	if (food_len == 0)
-		return;
-
-	len = (len > food_len ? food_len : len);
-	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
-	SDL_MixAudio(stream, food_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
-
-	food_pos += len;
-	food_len -= len;
-}
-
-void bonus_callback(void *userdata, Uint8 *stream, int len)
-{
-
-	if (bonus_len == 0)
-		return;
-
-	len = (len > bonus_len ? bonus_len : len);
-	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
-	SDL_MixAudio(stream, bonus_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
-
-	bonus_pos += len;
-	bonus_len -= len;
-}
-
-void surprise_callback(void *userdata, Uint8 *stream, int len)
-{
-
-	if (surprise_len == 0)
-		return;
-
-	len = (len > surprise_len ? surprise_len : len);
-	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
-	SDL_MixAudio(stream, surprise_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
-
-	surprise_pos += len;
-	surprise_len -= len;
-}
-
-void over_callback(void *userdata, Uint8 *stream, int len)
-{
-
-	if (over_len == 0)
-		return;
-
-	len = (len > over_len ? over_len : len);
-	//SDL_memcpy (stream, audio_pos, len); 					// simply copy from one buffer into the other
-	SDL_MixAudio(stream, over_pos, len, SDL_MIX_MAXVOLUME);// mix from one buffer into another
-
-	over_pos += len;
-	over_len -= len;
-}
-
-#pragma endregion
 bool Game::init()
 {
 	screenSurface = NULL;
@@ -163,142 +75,40 @@ bool Game::init()
 		{
 			//Get window surface
 			screenSurface = SDL_GetWindowSurface(window);
+			//Initialize SDL_mixer
+			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+			{
+				printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+				success = false;
+			}
 		}
 	}
 
 	return success;
 }
 
-#pragma region loadSounds
-void Game::loadFoodSound()
+void Game::loadSounds()
 {
 	std::string p = FOO;
-	std::string food = p + "/sound/food.wav";
-	foodSound = SDL_LoadWAV(food.c_str(), &food_spec, &food_buffer, &food_length);
+	p.append("/sound/food.wav");
+	foodSound = Mix_LoadWAV(p.c_str());
 
-	if (foodSound != NULL)
-	{
-		// set the callback function
-		food_spec.callback = food_callback;
-		food_spec.userdata = NULL;
-		// set our global static variables
-		food_pos = food_buffer; // copy sound buffer
-		food_len = food_length; // copy file length
+	p = FOO;
+	p.append("/sound/beat.wav");
+	mainSound = Mix_LoadWAV(p.c_str());
 
-	}
-
-}
-
-void Game::loadMainSound()
-{
-	std::string p = FOO;
-	std::string main_ = p + "/sound/beat.wav";
-	mainSound = SDL_LoadWAV(main_.c_str(), &main_spec, &main_buffer, &main_length);
-
-	if (mainSound != NULL)
-	{
-		main_spec.callback = main_callback;
-		main_spec.userdata = NULL;
-		// set our global static variables
-		main_pos = main_buffer; // copy sound buffer
-		main_len = main_length; // copy file length
-
-	}
-}
-
-void Game::loadGameOverSound()
-{
-	std::string p = FOO;
+	p = FOO;
 	p.append("/sound/over_.wav");
-	gameOverSound = SDL_LoadWAV(p.c_str(), &over_spec, &over_buffer, &over_length);
+	gameOverSound = Mix_LoadWAV(p.c_str());
 
-	if (gameOverSound != NULL)
-	{
-		over_spec.callback = over_callback;
-		over_spec.userdata = NULL;
-		// set our global static variables
-		over_pos = over_buffer; // copy sound buffer
-		over_len = over_length; // copy file length
-
-	}
-}
-
-void Game::loadBonusSound()
-{
-	std::string p = FOO;
+	p = FOO;
 	p.append("/sound/bonus.wav");
-	bonusSound = SDL_LoadWAV(p.c_str(), &bonus_spec, &bonus_buffer, &bonus_length);
+	bonusSound = Mix_LoadWAV(p.c_str());
 
-	if (bonusSound != NULL)
-	{
-		bonus_spec.callback = bonus_callback;
-		bonus_spec.userdata = NULL;
-		// set our global static variables
-		bonus_pos = bonus_buffer; // copy sound buffer
-		bonus_len = bonus_length; // copy file length
-
-	}
-}
-
-void Game::loadSurpriseSound()
-{
-	std::string p = FOO;
+	p = FOO;
 	p.append("/sound/surprise.wav");
-	surpriseSound = SDL_LoadWAV(p.c_str(), &surprise_spec, &surprise_buffer, &surprise_length);
-
-	if (surpriseSound != NULL)
-	{
-		surprise_spec.callback = surprise_callback;
-		surprise_spec.userdata = NULL;
-		// set our global static variables
-		surprise_pos = surprise_buffer; // copy sound buffer
-		surprise_len = surprise_length; // copy file length
-
-	}
+	surpriseSound = Mix_LoadWAV(p.c_str());
 }
-
-void openMainSound(SDL_AudioSpec* mainSound)
-{
-	int open = SDL_OpenAudio(mainSound, NULL);
-	if (open == 0)
-	{
-		SDL_PauseAudio(0);
-	}
-}
-
-void openFoodSound(SDL_AudioSpec* foodSound)
-{
-	int open = SDL_OpenAudio(foodSound, NULL);
-	if (open == 0)
-	{
-		SDL_PauseAudio(0);
-	}
-	SDL_Delay(500);
-	SDL_CloseAudio();
-}
-
-void openBonusSound(SDL_AudioSpec* bonusSound)
-{
-	int open = SDL_OpenAudio(bonusSound, NULL);
-	if (open == 0)
-	{
-		SDL_PauseAudio(0);
-	}
-	SDL_Delay(500);
-	SDL_CloseAudio();
-}
-
-void openSurpriseSound(SDL_AudioSpec* surpriseSound)
-{
-	int open = SDL_OpenAudio(surpriseSound, NULL);
-	if (open == 0)
-	{
-		SDL_PauseAudio(0);
-	}
-	SDL_Delay(500);
-	SDL_CloseAudio();
-}
-#pragma endregion
 
 #pragma region loading textures
 void Game::loadWindowGameBackground()
@@ -514,8 +324,9 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getBonus().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getBonus().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			std::thread t(&openBonusSound, bonusSound);
-			t.detach();
+			/*std::thread t(&openBonusSound, bonusSound);
+			t.detach();*/
+			currentChannel = Mix_PlayChannel(-1, bonusSound, 0);
 		}
 	}
 	else if (game.getSurprise().getState())
@@ -525,8 +336,9 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getSurprise().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getSurprise().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			std::thread t(&openSurpriseSound, surpriseSound);
-			t.detach();
+			/*std::thread t(&openSurpriseSound, surpriseSound);
+			t.detach();*/
+			currentChannel = Mix_PlayChannel(-1, surpriseSound, 0);
 		}
 	}
 	else if (game.getFood().getState())
@@ -537,8 +349,9 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getFood().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getFood().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			std::thread t(&openFoodSound, foodSound);
-			t.detach();
+			/*std::thread t(&openFoodSound, foodSound);
+			t.detach();*/
+			currentChannel = Mix_PlayChannel(-1, foodSound, 0);
 		}
 	}
 
@@ -654,16 +467,8 @@ void Game::startGamePage()
 		SDL_RenderCopyEx(renderer, buttons["scores"], NULL, &viewScoresButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
-		//std::async(std::launch::async, openMainSound);
-		std::thread t(&openMainSound, mainSound);
-		t.detach();
-		//std::async([](SDL_AudioSpec* mainSound){
-		//	int open = SDL_OpenAudio(mainSound, NULL);
-		//	if (open == 0)
-		//	{
-		//		SDL_PauseAudio(0);
-		//	}});
-
+		Mix_HaltChannel(currentChannel);
+		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
 		while (SDL_WaitEvent(&e) != 0)
 		{
@@ -697,8 +502,10 @@ void Game::startGamePage()
 
 void Game::chooseLevelPage()
 {
-	std::thread t(&openMainSound, mainSound);
-	t.detach();
+	/*std::thread t(&openMainSound, mainSound);
+	t.detach();*/
+	Mix_HaltChannel(currentChannel);
+	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
 	newGameButton->setCoordinates(295, 360);
 	aboutButton->setCoordinates(295, 430);
@@ -732,11 +539,13 @@ void Game::chooseLevelPage()
 
 void Game::aboutPage()
 {
-	int open = SDL_OpenAudio(mainSound, NULL);
+	/*int open = SDL_OpenAudio(mainSound, NULL);
 	if (open == 0)
 	{
 		SDL_PauseAudio(0);
-	}
+	}*/
+	Mix_HaltChannel(currentChannel);
+	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
 	if (working)
 	{
@@ -757,11 +566,13 @@ void Game::aboutPage()
 
 void Game::scoresPage()
 {
-	int open = SDL_OpenAudio(mainSound, NULL);
+	/*int open = SDL_OpenAudio(mainSound, NULL);
 	if (open == 0)
 	{
 		SDL_PauseAudio(0);
-	}
+	}*/
+	Mix_HaltChannel(currentChannel);
+	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
 	easyLevelPlayers = " ";
 	mediumLevelPlayers = " ";
@@ -798,8 +609,10 @@ void Game::scoresPage()
 
 void Game::endGamePage(int score, int difficulty)
 {
-	std::thread t(&openMainSound, mainSound);
-	t.detach();
+	/*std::thread t(&openMainSound, mainSound);
+	t.detach();*/
+	Mix_HaltChannel(currentChannel);
+	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
 	SQLite sql;
 	scoreText = " ";
@@ -949,8 +762,7 @@ void Game::endGamePage(int score, int difficulty)
 
 void Game::executeGame(int difficulty)
 {
-	SDL_CloseAudio();
-
+	Mix_HaltChannel(currentChannel);
 	GameMap game(15, 15);
 	Rules rules(&game);
 	InputHandler *inputHandler;
@@ -1011,12 +823,9 @@ void Game::executeGame(int difficulty)
 					std::cout << "GAME OVER" << std::endl;
 					working = false;
 
-					if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
-					{
-						SDL_PauseAudio(0);
-						SDL_Delay(500);
-					}
-					SDL_CloseAudio();
+					Mix_HaltChannel(currentChannel);
+					currentChannel = Mix_PlayChannel(-1, gameOverSound, 0);
+
 					endGamePage(game.getScore(), difficulty);
 				}
 			}
@@ -1034,12 +843,9 @@ void Game::executeGame(int difficulty)
 					std::cout << "GAME OVER!" << std::endl;
 					working = false;
 
-					if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
-					{
-						SDL_PauseAudio(0);
-						SDL_Delay(500);
-					}
-					SDL_CloseAudio();
+					Mix_HaltChannel(currentChannel);
+					currentChannel = Mix_PlayChannel(-1, gameOverSound, 0);
+
 					endGamePage(game.getScore(), difficulty);
 				}
 			}
@@ -1048,13 +854,9 @@ void Game::executeGame(int difficulty)
 				std::cout << "GAME OVER!" << std::endl;
 				working = false;
 
-				if (SDL_OpenAudio(gameOverSound, NULL) >= 0)
-				{
-					SDL_PauseAudio(0);
+				Mix_HaltChannel(currentChannel);
+				currentChannel = Mix_PlayChannel(-1, gameOverSound, 0);
 
-				}
-				SDL_Delay(500);
-				SDL_CloseAudio();
 				endGamePage(game.getScore(), difficulty);
 			}
 
@@ -1150,5 +952,20 @@ Game::~Game()
 	buttons.clear();
 	backgrounds.clear();
 	textures.clear();
+
+	Mix_FreeChunk(foodSound);
+	foodSound = NULL;
+
+	Mix_FreeChunk(bonusSound);
+	bonusSound = NULL;
+
+	Mix_FreeChunk(surpriseSound);
+	surpriseSound = NULL;
+
+	Mix_FreeChunk(mainSound);
+	mainSound = NULL;
+
+	Mix_FreeChunk(gameOverSound);
+	gameOverSound = NULL;
 }
 
