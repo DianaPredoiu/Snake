@@ -23,7 +23,7 @@ void Texture::init()
 	}
 	else
 	{
-		
+
 		font = TTF_OpenFont(path.c_str(), 30);
 	}
 }
@@ -40,7 +40,6 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
 	p.append(fileName);
 
 
-	//imTexture = IMG_LoadTexture(renderer, p.c_str());
 	SDL_Surface* loadedSurface = IMG_Load(p.c_str());
 	newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 
@@ -53,15 +52,12 @@ bool Texture::loadFromFile(std::string fileName, SDL_Renderer* renderer)
 
 	SDL_FreeSurface(loadedSurface);
 	newTexture = NULL;
-	//SDL_RenderCopyEx(renderer, newTexture, NULL, &texr, -90, &p, SDL_RendererFlip::SDL_FLIP_HORIZONTAL);
-	//SDL_RenderPresent(renderer);
 
 	return imTexture != NULL;
 }
 
 bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor, SDL_Renderer* renderer)
 {
-	
 	//Render text surface
 	if (!font)
 	{
@@ -85,13 +81,11 @@ bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor,
 			{
 				std::cout << "Unable to create texture from rendered text! SDL Error: \n" << SDL_GetError();
 			}
-			//Get rid of old surface
-			
+
 		}
+		//Get rid of old surface
 		SDL_FreeSurface(textSurface);
 	}
-	//Return success
-	
 	return imTexture != NULL;
 }
 
@@ -120,12 +114,12 @@ bool Texture::loadFromRenderedTextWrapped(std::string textureText, SDL_Color tex
 			{
 				std::cout << "Unable to create texture from rendered text! SDL Error: \n" << SDL_GetError();
 			}
-			//Get rid of old surface
-			
+
+
 		}
+		//Get rid of old surface
 		SDL_FreeSurface(textSurface);
 	}
-	//Return success
 	return imTexture != NULL;
 }
 
