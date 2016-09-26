@@ -805,7 +805,47 @@ void Game::endGamePage(int score, int difficulty)
 					else
 						level = "easy";
 
-				sql.insert(Player(inputText, score, level));
+				if (inputText == " " || inputText == "Player added!" || inputText == "Enter a name!" || inputText == "player's name")
+				{
+					SDL_RenderClear(renderer);
+					loadWindowEndGameBackground();
+					SDL_RenderCopyEx(renderer, buttons["newGame"], NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+					SDL_RenderCopyEx(renderer, buttons["addScore"], NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+					SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+
+					inputText = "Enter a name!";
+
+					displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
+					printText(scoreTexture, 290, 215);
+
+					inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
+					printText(inputTextTexture, 100, 330);
+
+					displayScoreTable(difficulty);
+					SDL_RenderPresent(renderer);
+				}
+				else
+				{
+					sql.insert(Player(inputText, score, level));
+
+					SDL_RenderClear(renderer);
+					loadWindowEndGameBackground();
+					SDL_RenderCopyEx(renderer, buttons["newGame"], NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+					SDL_RenderCopyEx(renderer, buttons["addScore"], NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+					SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+
+					inputText = "Player added!";
+
+					displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
+					printText(scoreTexture, 290, 215);
+
+					inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
+					printText(inputTextTexture, 100, 330);
+
+					displayScoreTable(difficulty);
+					SDL_RenderPresent(renderer);
+				}
+
 
 			}
 			if (playSoundButton->isPressed(e))
