@@ -48,6 +48,7 @@ Game::Game()
 
 	loadSounds();
 	currentChannel = 0;
+	isSoundMuted = false;
 }
 
 bool Game::init()
@@ -466,7 +467,11 @@ void Game::startGamePage()
 		SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
-		if (Mix_Paused(currentChannel) == 0)
+		if (isSoundMuted)
+		{
+			Mix_HaltChannel(currentChannel);
+		}
+		else
 		{
 			Mix_HaltChannel(currentChannel);
 			currentChannel = Mix_PlayChannel(-1, mainSound, -1);
@@ -490,13 +495,17 @@ void Game::startGamePage()
 			}
 			if (playSoundButton->isPressed(e))
 			{
-				if (Mix_Paused(currentChannel)==0)
+				if (isSoundMuted)
 				{
-					Mix_Pause(currentChannel);
+					isSoundMuted = false;
+					Mix_HaltChannel(currentChannel);
+					currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 				}
 				else
 				{
-					Mix_Resume(currentChannel);
+					isSoundMuted = true;
+					Mix_HaltChannel(currentChannel);
+					
 				}
 
 			}
@@ -508,7 +517,11 @@ void Game::startGamePage()
 
 void Game::chooseLevelPage()
 {
-	if (Mix_Paused(currentChannel) == 0)
+	if (isSoundMuted)
+	{
+		Mix_HaltChannel(currentChannel);
+	}
+	else
 	{
 		Mix_HaltChannel(currentChannel);
 		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
@@ -541,13 +554,17 @@ void Game::chooseLevelPage()
 				startGamePage();
 			if (playSoundButton->isPressed(e))
 			{
-				if (Mix_Paused(currentChannel)==0)
+				if (isSoundMuted)
 				{
-					Mix_Pause(currentChannel);
+					isSoundMuted = false;
+					Mix_HaltChannel(currentChannel);
+					currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 				}
 				else
 				{
-					Mix_Resume(currentChannel);
+					isSoundMuted = true;
+					Mix_HaltChannel(currentChannel);
+					
 				}
 
 			}
@@ -559,7 +576,11 @@ void Game::chooseLevelPage()
 
 void Game::aboutPage()
 {
-	if (Mix_Paused(currentChannel) == 0)
+	if (isSoundMuted)
+	{
+		Mix_HaltChannel(currentChannel);
+	}
+	else
 	{
 		Mix_HaltChannel(currentChannel);
 		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
@@ -579,13 +600,17 @@ void Game::aboutPage()
 				startGamePage();
 			if (playSoundButton->isPressed(e))
 			{
-				if (Mix_Paused(currentChannel)==0)
+				if (isSoundMuted)
 				{
-					Mix_Pause(currentChannel);
+					isSoundMuted = false;
+					Mix_HaltChannel(currentChannel);
+					currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 				}
 				else
 				{
-					Mix_Resume(currentChannel);
+					isSoundMuted = true;
+					Mix_HaltChannel(currentChannel);
+					
 				}
 
 			}
@@ -597,7 +622,11 @@ void Game::aboutPage()
 
 void Game::scoresPage()
 {
-	if (Mix_Paused(currentChannel) == 0)
+	if (isSoundMuted)
+	{
+		Mix_HaltChannel(currentChannel);
+	}
+	else
 	{
 		Mix_HaltChannel(currentChannel);
 		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
@@ -633,13 +662,17 @@ void Game::scoresPage()
 				startGamePage();
 			if (playSoundButton->isPressed(e))
 			{
-				if (Mix_Paused(currentChannel)==0)
+				if (isSoundMuted)
 				{
-					Mix_Pause(currentChannel);
+					isSoundMuted = false;
+					Mix_HaltChannel(currentChannel);
+					currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 				}
 				else
 				{
-					Mix_Resume(currentChannel);
+					isSoundMuted = true;
+					Mix_HaltChannel(currentChannel);
+					
 				}
 
 			}
@@ -651,7 +684,11 @@ void Game::scoresPage()
 
 void Game::endGamePage(int score, int difficulty)
 {
-	if (Mix_Paused(currentChannel) == 0)
+	if (isSoundMuted)
+	{
+		Mix_HaltChannel(currentChannel);
+	}
+	else
 	{
 		Mix_HaltChannel(currentChannel);
 		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
@@ -773,13 +810,17 @@ void Game::endGamePage(int score, int difficulty)
 			}
 			if (playSoundButton->isPressed(e))
 			{
-				if (Mix_Paused(currentChannel)==0)
+				if (isSoundMuted)
 				{
-					Mix_Pause(currentChannel);
+					isSoundMuted = false;
+					Mix_HaltChannel(currentChannel);
+					currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 				}
 				else
 				{
-					Mix_Resume(currentChannel);
+					isSoundMuted = true;
+					Mix_HaltChannel(currentChannel);
+					
 				}
 
 			}
@@ -890,6 +931,7 @@ void Game::executeGame(int difficulty)
 
 					Mix_HaltChannel(currentChannel);
 					currentChannel = Mix_PlayChannel(-1, gameOverSound, 0);
+					SDL_Delay(500);
 
 					endGamePage(game.getScore(), difficulty);
 				}
@@ -910,6 +952,7 @@ void Game::executeGame(int difficulty)
 
 					Mix_HaltChannel(currentChannel);
 					currentChannel = Mix_PlayChannel(-1, gameOverSound, 0);
+					SDL_Delay(500);
 
 					endGamePage(game.getScore(), difficulty);
 				}
@@ -921,6 +964,7 @@ void Game::executeGame(int difficulty)
 
 				Mix_HaltChannel(currentChannel);
 				currentChannel = Mix_PlayChannel(-1, gameOverSound, 0);
+				SDL_Delay(500);
 
 				endGamePage(game.getScore(), difficulty);
 			}

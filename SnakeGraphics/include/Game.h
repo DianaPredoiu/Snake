@@ -23,6 +23,7 @@ private:
 	Mix_Chunk *surpriseSound;
 	Mix_Chunk *gameOverSound;
 	int currentChannel;
+	bool isSoundMuted;
 
 	bool working;
 	int score;
