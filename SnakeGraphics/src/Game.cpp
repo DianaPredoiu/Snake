@@ -28,6 +28,7 @@ Game::Game()
 	mediumGameButton = new Button(medium, 270, 400, 200, 50);
 	hardGameButton = new Button(hard, 270, 500, 200, 50);
 	backToMenuButton = new Button(back, 50, 50, 50, 50);
+	playSoundButton = new Button(sound, 50, 750, 50, 50);
 
 	scoreTexture.setPath("/sarpe/BuxtonSketch.ttf");
 	inputTextTexture.setPath("/sarpe/BuxtonSketch.ttf");
@@ -195,6 +196,9 @@ void Game::loadButtonTextures()
 
 	viewScoresTexture.loadFromFile("scores.png", renderer);
 	buttons["scores"] = viewScoresTexture.GetTexture();
+
+	playSoundTexture.loadFromFile("sound.png", renderer);
+	buttons["sound"] =playSoundTexture.GetTexture();
 }
 
 void Game::loadBackgroundTextures()
@@ -459,10 +463,14 @@ void Game::startGamePage()
 		SDL_RenderCopyEx(renderer, buttons["newGame"], NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, buttons["about"], NULL, &aboutButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, buttons["scores"], NULL, &viewScoresButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
-		Mix_HaltChannel(currentChannel);
-		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+		if (Mix_Paused(currentChannel) == 0)
+		{
+			Mix_HaltChannel(currentChannel);
+			currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+		}
 
 		while (SDL_WaitEvent(&e) != 0)
 		{
@@ -480,6 +488,18 @@ void Game::startGamePage()
 			{
 				scoresPage();
 			}
+			if (playSoundButton->isPressed(e))
+			{
+				if (Mix_Paused(currentChannel)==0)
+				{
+					Mix_Pause(currentChannel);
+				}
+				else
+				{
+					Mix_Resume(currentChannel);
+				}
+
+			}
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
@@ -488,8 +508,11 @@ void Game::startGamePage()
 
 void Game::chooseLevelPage()
 {
-	Mix_HaltChannel(currentChannel);
-	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+	if (Mix_Paused(currentChannel) == 0)
+	{
+		Mix_HaltChannel(currentChannel);
+		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+	}
 
 	newGameButton->setCoordinates(295, 360);
 	aboutButton->setCoordinates(295, 430);
@@ -503,6 +526,7 @@ void Game::chooseLevelPage()
 		SDL_RenderCopyEx(renderer, buttons["easy"], NULL, &easyGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, buttons["medium"], NULL, &mediumGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, buttons["hard"], NULL, &hardGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderPresent(renderer);
 
 		while (SDL_WaitEvent(&e) != 0)
@@ -515,6 +539,18 @@ void Game::chooseLevelPage()
 				executeGame(50);
 			if (backToMenuButton->isPressed(e))
 				startGamePage();
+			if (playSoundButton->isPressed(e))
+			{
+				if (Mix_Paused(currentChannel)==0)
+				{
+					Mix_Pause(currentChannel);
+				}
+				else
+				{
+					Mix_Resume(currentChannel);
+				}
+
+			}
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
@@ -523,13 +559,17 @@ void Game::chooseLevelPage()
 
 void Game::aboutPage()
 {
-	Mix_HaltChannel(currentChannel);
-	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+	if (Mix_Paused(currentChannel) == 0)
+	{
+		Mix_HaltChannel(currentChannel);
+		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+	}
 
 	if (working)
 	{
 		loadWindowAboutBackground();
 		SDL_RenderCopyEx(renderer, buttons["back"], NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		SDL_RenderPresent(renderer);
 
@@ -537,6 +577,18 @@ void Game::aboutPage()
 		{
 			if (backToMenuButton->isPressed(e))
 				startGamePage();
+			if (playSoundButton->isPressed(e))
+			{
+				if (Mix_Paused(currentChannel)==0)
+				{
+					Mix_Pause(currentChannel);
+				}
+				else
+				{
+					Mix_Resume(currentChannel);
+				}
+
+			}
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
@@ -545,8 +597,11 @@ void Game::aboutPage()
 
 void Game::scoresPage()
 {
-	Mix_HaltChannel(currentChannel);
-	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+	if (Mix_Paused(currentChannel) == 0)
+	{
+		Mix_HaltChannel(currentChannel);
+		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+	}
 
 	easyLevelPlayers = " ";
 	mediumLevelPlayers = " ";
@@ -559,6 +614,7 @@ void Game::scoresPage()
 
 		loadWindowScoresBackground();
 		SDL_RenderCopyEx(renderer, buttons["back"], NULL, &backToMenuButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 
 		displayTop5Easy.loadFromRenderedTextWrapped(easyLevelPlayers, textColor, renderer);
 		printTextScores(displayTop5Easy, 20, 170, 0, 170, 150);
@@ -575,6 +631,18 @@ void Game::scoresPage()
 		{
 			if (backToMenuButton->isPressed(e))
 				startGamePage();
+			if (playSoundButton->isPressed(e))
+			{
+				if (Mix_Paused(currentChannel)==0)
+				{
+					Mix_Pause(currentChannel);
+				}
+				else
+				{
+					Mix_Resume(currentChannel);
+				}
+
+			}
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
@@ -583,8 +651,11 @@ void Game::scoresPage()
 
 void Game::endGamePage(int score, int difficulty)
 {
-	Mix_HaltChannel(currentChannel);
-	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+	if (Mix_Paused(currentChannel) == 0)
+	{
+		Mix_HaltChannel(currentChannel);
+		currentChannel = Mix_PlayChannel(-1, mainSound, -1);
+	}
 
 	SQLite sql;
 	scoreText = " ";
@@ -599,8 +670,10 @@ void Game::endGamePage(int score, int difficulty)
 	if (!working)
 	{
 		loadWindowEndGameBackground();
+		SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, buttons["newGame"], NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 		SDL_RenderCopyEx(renderer, buttons["addScore"], NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+		
 
 		displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
 		printText(scoreTexture, 290, 215);
@@ -696,7 +769,18 @@ void Game::endGamePage(int score, int difficulty)
 				sql.insert(Player(inputText, score, level));
 
 			}
+			if (playSoundButton->isPressed(e))
+			{
+				if (Mix_Paused(currentChannel)==0)
+				{
+					Mix_Pause(currentChannel);
+				}
+				else
+				{
+					Mix_Resume(currentChannel);
+				}
 
+			}
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}

@@ -11,7 +11,8 @@ enum ButtonActions
 	hard,
 	addScore,
 	back,
-	viewScores
+	viewScores,
+	sound
 };
 
 class Button

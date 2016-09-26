@@ -64,6 +64,7 @@ private:
 	Texture hardGameTexture;
 	Texture backToMenuTexture;
 	Texture viewScoresTexture;
+	Texture playSoundTexture;
 
 
 	std::map<char, SDL_Texture*> textures;
@@ -83,6 +84,7 @@ private:
 	Button* hardGameButton;
 	Button* backToMenuButton;
 	Button* viewScoresButton;
+	Button* playSoundButton;
 
 	std::string easyLevelPlayers;
 	std::string mediumLevelPlayers;
