@@ -456,7 +456,6 @@ void Game::printTextScores(Texture textureName, int x, int y, int angle, int w, 
 
 void Game::startGamePage()
 {
-	//SDL_Event e;
 	if (working)
 	{
 		//here i display all the buttons which must be in the start page
@@ -476,34 +475,24 @@ void Game::startGamePage()
 
 			if (newGameButton->isPressed(e))
 			{
-				//SDL_CloseAudio();
 				chooseLevelPage();
-
 			}
 			if (aboutButton->isPressed(e))
 			{
-				//SDL_CloseAudio();
 				aboutPage();
-
 			}
 			if (viewScoresButton->isPressed(e))
 			{
-				//SDL_CloseAudio();
 				scoresPage();
-
 			}
 			if (e.type == SDL_QUIT)
 				SDL_Quit();
 		}
-
 	}
-
 }
 
 void Game::chooseLevelPage()
 {
-	/*std::thread t(&openMainSound, mainSound);
-	t.detach();*/
 	Mix_HaltChannel(currentChannel);
 	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
@@ -539,11 +528,6 @@ void Game::chooseLevelPage()
 
 void Game::aboutPage()
 {
-	/*int open = SDL_OpenAudio(mainSound, NULL);
-	if (open == 0)
-	{
-		SDL_PauseAudio(0);
-	}*/
 	Mix_HaltChannel(currentChannel);
 	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
@@ -566,11 +550,6 @@ void Game::aboutPage()
 
 void Game::scoresPage()
 {
-	/*int open = SDL_OpenAudio(mainSound, NULL);
-	if (open == 0)
-	{
-		SDL_PauseAudio(0);
-	}*/
 	Mix_HaltChannel(currentChannel);
 	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
@@ -593,7 +572,7 @@ void Game::scoresPage()
 		printTextScores(displayTop5Medium, 20, 360, 0, 170, 150);
 
 		displayTop5Hard.loadFromRenderedTextWrapped(hardLevelPlayers, textColor, renderer);
-		printTextScores(displayTop5Hard, 20, 570, 0, 170, 150);
+		printTextScores(displayTop5Hard, 20, 550, 0, 170, 150);
 
 		SDL_RenderPresent(renderer);
 
@@ -609,8 +588,6 @@ void Game::scoresPage()
 
 void Game::endGamePage(int score, int difficulty)
 {
-	/*std::thread t(&openMainSound, mainSound);
-	t.detach();*/
 	Mix_HaltChannel(currentChannel);
 	currentChannel = Mix_PlayChannel(-1, mainSound, -1);
 
@@ -636,36 +613,7 @@ void Game::endGamePage(int score, int difficulty)
 		inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
 		printText(inputTextTexture, 100, 330);
 
-		switch (difficulty)
-		{
-		case EASYLEVEL:
-			level = "Level : EASY";
-			displayLevel.loadFromRenderedText(level, textColor, renderer);
-			printText(displayLevel, 75, 450);
-
-			populateEasyLevelPlayers();
-			displayTop5Easy.loadFromRenderedTextWrapped(easyLevelPlayers, textColor, renderer);
-			printTextScores(displayTop5Easy, 25, 485, 0, 200, 200);
-			break;
-		case MEDIUMLEVEL:
-			level = "Level : MEDIUM";
-			displayLevel.loadFromRenderedText(level, textColor, renderer);
-			printText(displayLevel, 75, 450);
-
-			populateMediumLevelPlayers();
-			displayTop5Medium.loadFromRenderedTextWrapped(mediumLevelPlayers, textColor, renderer);
-			printTextScores(displayTop5Medium, 25, 485, 0, 200, 200);
-			break;
-		case HARDLEVEL:
-			level = "Level : HARD";
-			displayLevel.loadFromRenderedText(level, textColor, renderer);
-			printText(displayLevel, 75, 450);
-
-			populateHardLevelPlayers();
-			displayTop5Hard.loadFromRenderedTextWrapped(hardLevelPlayers, textColor, renderer);
-			printTextScores(displayTop5Hard, 25, 485, 0, 200, 200);
-			break;
-		}
+		displayScoreTable(difficulty);
 
 		SDL_RenderPresent(renderer);
 
@@ -728,6 +676,7 @@ void Game::endGamePage(int score, int difficulty)
 				inputTextTexture.loadFromRenderedText(inputText, textColor, renderer);
 				printText(inputTextTexture, 100, 330);
 
+				displayScoreTable(difficulty);
 				SDL_RenderPresent(renderer);
 
 			}
@@ -750,6 +699,7 @@ void Game::endGamePage(int score, int difficulty)
 						level = "easy";
 
 				sql.insert(Player(inputText, score, level));
+
 			}
 
 			if (e.type == SDL_QUIT)
@@ -757,6 +707,40 @@ void Game::endGamePage(int score, int difficulty)
 		}
 
 		SDL_StopTextInput();
+	}
+}
+
+void Game::displayScoreTable(int difficulty)
+{
+	switch (difficulty)
+	{
+	case EASYLEVEL:
+		level = "Level : EASY";
+		displayLevel.loadFromRenderedText(level, textColor, renderer);
+		printText(displayLevel, 75, 450);
+
+		populateEasyLevelPlayers();
+		displayTop5Easy.loadFromRenderedTextWrapped(easyLevelPlayers, textColor, renderer);
+		printTextScores(displayTop5Easy, 25, 485, 0, 200, 200);
+		break;
+	case MEDIUMLEVEL:
+		level = "Level : MEDIUM";
+		displayLevel.loadFromRenderedText(level, textColor, renderer);
+		printText(displayLevel, 75, 450);
+
+		populateMediumLevelPlayers();
+		displayTop5Medium.loadFromRenderedTextWrapped(mediumLevelPlayers, textColor, renderer);
+		printTextScores(displayTop5Medium, 25, 485, 0, 200, 200);
+		break;
+	case HARDLEVEL:
+		level = "Level : HARD";
+		displayLevel.loadFromRenderedText(level, textColor, renderer);
+		printText(displayLevel, 75, 450);
+
+		populateHardLevelPlayers();
+		displayTop5Hard.loadFromRenderedTextWrapped(hardLevelPlayers, textColor, renderer);
+		printTextScores(displayTop5Hard, 25, 485, 0, 200, 200);
+		break;
 	}
 }
 

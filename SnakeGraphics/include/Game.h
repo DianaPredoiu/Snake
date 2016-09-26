@@ -112,6 +112,7 @@ public:
 	void scoresPage();
 	void executeGame(int difficulty);
 	void endGamePage(int score, int difficulty);
+	void displayScoreTable(int difficulty);
 
 	void displaySnake(GameMap &game, int difficulty);
 	void displayItem(int x, int y, char c);
