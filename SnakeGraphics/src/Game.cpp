@@ -94,7 +94,7 @@ void Game::loadSounds()
 	foodSound = Mix_LoadWAV(p.c_str());
 
 	p = FOO;
-	p.append("/sound/beat.wav");
+	p.append("/sound/start.wav");
 	mainSound = Mix_LoadWAV(p.c_str());
 
 	p = FOO;
