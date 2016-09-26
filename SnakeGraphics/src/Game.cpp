@@ -737,6 +737,8 @@ void Game::endGamePage(int score, int difficulty)
 				loadWindowEndGameBackground();
 				SDL_RenderCopyEx(renderer, buttons["newGame"], NULL, &newGameButton->getBox(), 0, NULL, SDL_FLIP_NONE);
 				SDL_RenderCopyEx(renderer, buttons["addScore"], NULL, &addScoreButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+				SDL_RenderCopyEx(renderer, buttons["sound"], NULL, &playSoundButton->getBox(), 0, NULL, SDL_FLIP_NONE);
+
 
 				displayScoreTexture.loadFromRenderedText(scoreText, textColor, renderer);
 				printText(scoreTexture, 290, 215);
