@@ -324,8 +324,6 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getBonus().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getBonus().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			/*std::thread t(&openBonusSound, bonusSound);
-			t.detach();*/
 			currentChannel = Mix_PlayChannel(-1, bonusSound, 0);
 		}
 	}
@@ -336,8 +334,6 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getSurprise().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getSurprise().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			/*std::thread t(&openSurpriseSound, surpriseSound);
-			t.detach();*/
 			currentChannel = Mix_PlayChannel(-1, surpriseSound, 0);
 		}
 	}
@@ -349,8 +345,6 @@ void Game::displaySnake(GameMap &game, int difficulty)
 		if (game.getFood().getCoordinates().getX()* step + 10 == game.getSnake().getCoordinates().at(0)->getX()* step + 10
 			&& game.getFood().getCoordinates().getY()* step + 10 == game.getSnake().getCoordinates().at(0)->getY() * step + 10)
 		{
-			/*std::thread t(&openFoodSound, foodSound);
-			t.detach();*/
 			currentChannel = Mix_PlayChannel(-1, foodSound, 0);
 		}
 	}
@@ -423,6 +417,7 @@ void Game::printImage(char textureName, int x, int y, int angle)
 	rectangle.h = 50;
 
 	SDL_RenderCopyEx(renderer, textures[textureName], NULL, &rectangle, angle, NULL, SDL_FLIP_NONE);
+	
 }
 
 void Game::printText(Texture textureName, int x, int y)
